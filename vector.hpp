@@ -1,39 +1,45 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
-template <typename T>
-class Vector
+#include <climits>
+#include <cstring>
+
+typedef size_t size_type;
+
+namespace ft
 {
-	private:
-		T *_array;
-		unsigned int _size;
+	template <typename T>
+		class vector
+		{
+			public:
+				vector();
+				~vector();
+				vector(unsigned int n);
+				//vector()
+				vector(const vector<T> &c);
+				vector<T> &operator=(const vector<T> &c);
 
-	public:
-		Vector();
-		~Vector();
-		Vector(unsigned int n);
-		Vector(const Vector<T> &c);
-		Vector<T> &operator=(const Vector<T> &c);
-		size
-		max size
-		empty
-		operator []
-		at 
-		front
-		bac/k
-		push back
-		pop backinsert
-		clear
+				//size = _size;
+				size_type max_size(void) const;
+				T & at(size_type n);
+				T & at(size_type n) const;
+				bool empty(void) const;
+				//empty
+				//operator []
+				//at 
+				//front
+				//bac/k
+				//push back
+				//pop backinsert
+				//clear
+				T &operator[](unsigned int i);
+				T const &operator[](unsigned int i) const;
+				unsigned int size() const;
+			private:
 
-		class OutOfBoundException: public std::exception
-	{
-		public:
-			virtual char const *what() const throw();
-	};
-
-		T &operator[](unsigned int i);
-		T const &operator[](unsigned int i) const;
-		unsigned int size() const;
-};
+				T *_storage;
+				unsigned int _size;
+		};	
+}
 
 #endif
