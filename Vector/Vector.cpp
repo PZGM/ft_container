@@ -1,61 +1,6 @@
 #include "Vector.hpp"
 #include <cmath>
-
-//iperator begin
-
-template <typename T>
-typename ft::vector<T>::iterator ft::vector<T>::begin(void) //why ?
-{
-	return (ft::vector<T>::iterator(&_storage[0]));
-}
-
-template <typename T>
-const typename ft::vector<T>::iterator ft::vector<T>::begin(void) const
-{
-	return (ft::vector<T>::iterator(&_storage[0]));
-}
-
-//iperator end
-
-template <typename T>
-typename ft::vector<T>::iterator ft::vector<T>::end(void)
-{
-	return (ft::vector<T>::iterator(&_storage[_size]));
-}
-
-template <typename T>
-const typename ft::vector<T>::iterator ft::vector<T>::end(void) const
-{
-	return (ft::vector<T>::iterator(&_storage[_size]));
-}
-
-//iperator rbegin
-
-template <typename T>
-typename ft::vector<T>::reverse_iterator ft::vector<T>::rbegin(void)
-{
-	return (ft::vector<T>::reverse_iterator(&_storage[_size - 1]));
-}
-
-template <typename T>
-const typename ft::vector<T>::reverse_iterator ft::vector<T>::rbegin(void) const
-{
-	return (ft::vector<T>::reverse_iterator(&_storage[_size - 1]));
-}
-
-//iterator rend
-
-template <typename T>
-typename ft::vector<T>::reverse_iterator ft::vector<T>::rend(void)
-{
-	return (ft::vector<T>::reverse_iterator(&_storage[-1]));
-}
-
-template <typename T>
-const typename ft::vector<T>::reverse_iterator ft::vector<T>::rend(void) const
-{
-	return (ft::vector<T>::reverse_iterator(&_storage[-1]));
-}
+#include <algorithm>
 
 //size 
 template <typename T>

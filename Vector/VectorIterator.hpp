@@ -5,32 +5,32 @@
 
 class iterator : public std::iterator<std::input_iterator_tag, T>
 {
-	public:
+		public:
 
-		iterator(T* x) : p(x) {}
-		iterator(const iterator & mit) : p(mit.p) {}
-		iterator & operator++() {
-			++p;
-			return *this;
-		}
-		iterator operator++(T) {
-			iterator tmp(*this);
-			operator++();
-			return tmp;
-		}
-		bool operator==(const iterator& rhs) const {
-			return p==rhs.p;
-		}
-		bool operator!=(const iterator& rhs) const {
-			return p!=rhs.p;
-		}
-		T & operator*() {
-			return *p;
-		}
+				iterator(T* x) : p(x) {}
+				iterator(const iterator & mit) : p(mit.p) {}
+				iterator & operator++() {
+						++p;
+						return *this;
+				}
+				iterator operator++(T) {
+						iterator tmp(*this);
+						operator++();
+						return tmp;
+				}
+				bool operator==(const iterator& rhs) const {
+						return p==rhs.p;
+				}
+				bool operator!=(const iterator& rhs) const {
+						return p!=rhs.p;
+				}
+				T & operator*() {
+						return *p;
+				}
 
-	private:
+		private:
 
-		T* p;
+				T* p;
 };
 
 #endif
