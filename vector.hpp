@@ -23,11 +23,23 @@ namespace ft
 					public:
 						iterator(T* x) : p(x) {}
 						iterator(const iterator& mit) : p(mit.p) {}
-						iterator& operator++() {++p;return *this;}
-						iterator operator++(int) {iterator tmp(*this); operator++(); return tmp;}
-						bool operator==(const iterator& rhs) const {return p==rhs.p;}
-						bool operator!=(const iterator& rhs) const {return p!=rhs.p;}
-						T & operator*() {return *p;}
+						iterator& operator++() {
+							++p;
+							return *this;
+						}
+						iterator operator++(int) {
+							iterator tmp(*this);
+							operator++(); return tmp;
+						}
+						bool operator==(const iterator& rhs) const {
+							return p==rhs.p;
+						}
+						bool operator!=(const iterator& rhs) const {
+							return p!=rhs.p;
+						}
+						T & operator*() {
+							return *p;
+						}
 				};
 
 				class reverse_iterator : public std::iterator<std::input_iterator_tag, T>
@@ -37,11 +49,23 @@ namespace ft
 					public:
 						reverse_iterator(T* x) : p(x) {}
 						reverse_iterator(const reverse_iterator& mit) : p(mit.p) {}
-						reverse_iterator& operator++() {--p;return *this;}
-						reverse_iterator operator++(int) {reverse_iterator tmp(*this); operator++(); return tmp;}
-						bool operator==(const reverse_iterator& rhs) const {return p==rhs.p;}
-						bool operator!=(const reverse_iterator& rhs) const {return p!=rhs.p;}
-						T & operator*() {return *p;}
+						reverse_iterator& operator++() {
+							--p;return *this;
+						}
+						reverse_iterator operator++(int) {
+							reverse_iterator tmp(*this);
+							operator++();
+							return tmp;
+						}
+						bool operator==(const reverse_iterator& rhs) const {
+							return p==rhs.p;
+						}
+						bool operator!=(const reverse_iterator& rhs) const {
+							return p!=rhs.p;
+						}
+						T & operator*() {
+							return *p;
+						}
 				};
 
 				vector();
@@ -77,9 +101,9 @@ namespace ft
 				const T & front(void) const;
 				T & back(void);
 				const T & back(void) const;
+				void assign (size_type n, const T & val);
 				template <class InputIterator>
 				void assign (InputIterator first, InputIterator last);
-				void assign (size_type n, const T & val);
 
 			private:
 

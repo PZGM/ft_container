@@ -175,6 +175,15 @@ const T & ft::vector<T>::back() const
 //assign
 
 template <typename T>
+void ft::vector<T>::assign(size_type n, const T & val)
+{
+	reserve(n);
+	for (size_type i = 0; i < n; i++)
+		_storage[i] = val;
+	_size = n;
+}
+
+template <typename T>
 template <class InputIterator>
 void ft::vector<T>::assign(InputIterator first, InputIterator last)
 {
@@ -189,15 +198,6 @@ void ft::vector<T>::assign(InputIterator first, InputIterator last)
 		_storage[i] = *first;
 		i++;
 	}
-}
-
-template <typename T>
-void ft::vector<T>::assign(size_type n, const T & val)
-{
-	reserve(n);
-	for (size_type i = 0; i < n; i++)
-		_storage[i] = val;
-	_size = n;
 }
 
 

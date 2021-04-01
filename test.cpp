@@ -14,7 +14,7 @@ int main()
 	vector<int> vic(5);
 	size_type a = 10;
 	int b = 42;
-	vic.assign(a, b);
+	vic.assign(10, 42);
 	//vic.assign(vic.begin(), vic.end());
 	vector<int>::iterator it = vic.begin();
 	for (; it != vic.end(); it++)
