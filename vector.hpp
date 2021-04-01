@@ -3,43 +3,90 @@
 
 #include <climits>
 #include <cstring>
+#include <stdexcept>
+#include <iterator>
+#include <iostream>
 
 typedef size_t size_type;
 
 namespace ft
 {
-	template <typename T>
+	template <typename T> //template <class T, class Alloc = std::allocator<T> >
 		class vector
 		{
 			public:
+
+				class iterator : public std::iterator<std::input_iterator_tag, T>
+				{
+					private:
+						T* p;
+					public:
+						iterator(T* x) : p(x) {}
+						iterator(const iterator& mit) : p(mit.p) {}
+						iterator& operator++() {++p;return *this;}
+						iterator operator++(int) {iterator tmp(*this); operator++(); return tmp;}
+						bool operator==(const iterator& rhs) const {return p==rhs.p;}
+						bool operator!=(const iterator& rhs) const {return p!=rhs.p;}
+						T & operator*() {return *p;}
+				};
+
+				class reverse_iterator : public std::iterator<std::input_iterator_tag, T>
+				{
+					private:
+						T* p;
+					public:
+						reverse_iterator(T* x) : p(x) {}
+						reverse_iterator(const reverse_iterator& mit) : p(mit.p) {}
+						reverse_iterator& operator++() {--p;return *this;}
+						reverse_iterator operator++(int) {reverse_iterator tmp(*this); operator++(); return tmp;}
+						bool operator==(const reverse_iterator& rhs) const {return p==rhs.p;}
+						bool operator!=(const reverse_iterator& rhs) const {return p!=rhs.p;}
+						T & operator*() {return *p;}
+				};
+
 				vector();
-				~vector();
-				vector(unsigned int n);
-				//vector()
+				vector(size_type n, const T & v = T());
 				vector(const vector<T> &c);
+				~vector();
 				vector<T> &operator=(const vector<T> &c);
 
-				//size = _size;
+				vector<T>::iterator begin(void);
+				const vector<T>::iterator begin(void) const;
+				vector<T>::iterator end(void);
+				const vector<T>::iterator end(void) const;
+
+				vector<T>::reverse_iterator rbegin(void);
+				const vector<T>::reverse_iterator rbegin(void) const;
+				vector<T>::reverse_iterator rend(void);
+				const vector<T>::reverse_iterator rend(void) const;
+
+
+
+				size_type size(void) const;
 				size_type max_size(void) const;
+				void resize(size_type n, T val = T());
+				size_type capacity(void) const;
+				bool empty(void) const;
+				void reserve(size_type n);
+
 				T & at(size_type n);
 				T & at(size_type n) const;
-				bool empty(void) const;
-				//empty
-				//operator []
-				//at 
-				//front
-				//bac/k
-				//push back
-				//pop backinsert
-				//clear
-				T &operator[](unsigned int i);
-				T const &operator[](unsigned int i) const;
-				unsigned int size() const;
+				T & operator[] (size_type n);
+				const T & operator[] (size_type n) const;
+				T & front(void);
+				const T & front(void) const;
+				T & back(void);
+				const T & back(void) const;
+				template <class InputIterator>
+				void assign (InputIterator first, InputIterator last);
+				void assign (size_type n, const T & val);
+
 			private:
 
 				T *_storage;
-				unsigned int _size;
-		};	
+				size_type _size;
+				size_type _capacity;
+		};
 }
 
 #endif

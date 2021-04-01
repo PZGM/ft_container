@@ -1,9 +1,24 @@
 #include <vector>
 #include <iostream>
+#include "vector.cpp"
+
+using namespace ft;
 
 int main()
 {
-	std::vector<char> vec(9223372036854775807);
+	vector<int> vec(5);
+	for (int i = 0; i < 5; i++)
+		vec[i] = i;
+	for (int i = 0; i < 5; i++)
+		std::cout << vec[i] << std::endl;
+	vector<int> vic(5);
+	size_type a = 10;
+	int b = 42;
+	vic.assign(a, b);
+	//vic.assign(vic.begin(), vic.end());
+	vector<int>::iterator it = vic.begin();
+	for (; it != vic.end(); it++)
+		std::cout << *it << std::endl;
 
 	return 0;
 }
