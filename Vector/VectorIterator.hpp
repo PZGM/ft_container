@@ -3,6 +3,8 @@
 
 #include <iterator>
 
+typedef size_t size_type;
+
 template <typename T>
 class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 {
@@ -18,6 +20,16 @@ class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 						VectorIterator tmp(*this);
 						operator++();
 						return tmp;
+				}
+				VectorIterator operator+(size_type n)
+				{
+					p += n;
+					return (*this);
+				}
+				VectorIterator operator-(size_type n)
+				{
+					p -= n;
+					return (*this);
 				}
 				bool operator==(const VectorIterator & rhs) const {
 						return p==rhs.p;
@@ -49,6 +61,17 @@ class VectorReverseIterator : public std::iterator<std::input_iterator_tag, T>
 						VectorReverseIterator tmp(*this);
 						operator++();
 						return tmp;
+				}
+				VectorReverseIterator operator+(size_type n)
+				{
+					p -= n;
+					return (*this);
+				}
+				
+				VectorReverseIterator operator-(size_type n)
+				{
+					p += n;
+					return (*this);
 				}
 				bool operator==(const VectorReverseIterator & rhs) const {
 						return p==rhs.p;

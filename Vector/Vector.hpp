@@ -1,68 +1,75 @@
 #ifndef VECTOR_HPP
 # define VECTOR_HPP
 
+#include <cstddef>
 #include <limits.h>
 #include <stdexcept>
-#include <iterator>
 #include "VectorIterator.hpp"
-
-typedef std::size_t				size_type;
+#include <memory>
 namespace ft
 {
-		template <typename T> //template <class T, class Alloc = std::allocator<T> >
-				class vector
-				{
-						public:
-								typedef T											value_type;
-								typedef value_type&									reference;
-								typedef const value_type&							const_reference;
-								typedef value_type*									pointer;
-								typedef const value_type *							const_pointer;
-								typedef VectorIterator<value_type>					iterator;
-								typedef VectorIterator<value_type>					const_iterator;
-								typedef VectorReverseIterator<iterator>				reverse_iterator;
-								typedef VectorReverseIterator<const_iterator>		const_reverse_iterator;
-								typedef std::ptrdiff_t								difference_type;
+	template <typename T, class Alloc = std::allocator<T> >
+		class vector
+		{
+			public:
+				typedef T											value_type;
+				typedef value_type&									reference;
+				typedef const value_type&							const_reference;
+				typedef value_type*									pointer;
+				typedef const value_type *							const_pointer;
+				typedef VectorIterator<value_type>					iterator;
+				typedef typename Alloc::size_type					size_type;
+				typedef VectorIterator<value_type>					const_iterator;
+				typedef VectorReverseIterator<iterator>				reverse_iterator;
+				typedef VectorReverseIterator<const_iterator>		const_reverse_iterator;
+				typedef std::ptrdiff_t								difference_type;
 
-								explicit	vector();
-								explicit	vector(size_type n, const value_type& val = value_type());
-								vector(const vector& x);
-								~vector();
+				explicit	vector();
+				explicit	vector(size_type n, const value_type& val = value_type());
+				vector(const vector& x);
+				~vector();
 
-								vector<value_type>		&operator=(const vector<T> &c);
+				vector<value_type, Alloc>		&operator=(const vector<T, Alloc> &c);
 
-								iterator					begin(void);
-								const_iterator				begin(void) const;
-								iterator					end(void);
-								const_iterator				end(void) const;
-								reverse_iterator			rbegin();
-								const_reverse_iterator		rbegin(void) const;
-								reverse_iterator			rend(void);
-								const_reverse_iterator		rend(void) const;
+				iterator					begin();
+				const_iterator				begin() const;
+				iterator					end();
+				const_iterator				end() const;
+				reverse_iterator			rbegin();
+				const_reverse_iterator		rbegin() const;
+				reverse_iterator			rend();
+				const_reverse_iterator		rend() const;
+				iterator					erase(iterator position);
+				iterator					erase(iterator first, iterator last);
+				iterator					insert (iterator position, const_reference val);
+				void						insert (iterator position, size_type n, const_reference val);
+				template <class InputIterator>
+					void insert (iterator position, InputIterator first, InputIterator last);
 
-								size_type			size(void) const;
-								size_type			max_size(void) const;
-								void				resize(size_type n, value_type val = value_type());
-								size_type			capacity(void) const;
-								bool				empty(void) const;
-								void				reserve(size_type n);
-								reference			at(size_type n);
-								const_reference		at(size_type n) const;
-								reference			operator[] (size_type n);
-								const_reference		operator[] (size_type n) const;
-								reference			front(void);
-								const_reference		front(void) const;
-								reference			back(void);
-								const_reference		back(void) const;
-								void				assign(size_type n, const T & val);
-								template <class InputIterator>
-										void			assign(InputIterator first, InputIterator last);
+				void				clear();
+				size_type			size() const;
+				size_type			max_size() const;
+				void				resize(size_type n, value_type val = value_type());
+				size_type			capacity() const;
+				bool				empty() const;
+				void				reserve(size_type n);
+				reference			at(size_type n);
+				const_reference		at(size_type n) const;
+				reference			operator[] (size_type n);
+				const_reference		operator[] (size_type n) const;
+				reference			front();
+				const_reference		front() const;
+				reference			back();
+				const_reference		back() const;
+				template <class InputIterator>
+					void				assign(InputIterator first, InputIterator last);
+				void				assign(size_type n, const_reference val);
 
-						private:
-								T *			_storage;
-								size_type	_size;
-								size_type	_capacity;
-				};
+			private:
+				value_type*	_storage;
+				size_type	_size;
+				size_type	_capacity;
+		};
 }
 
 #endif

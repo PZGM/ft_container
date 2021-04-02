@@ -277,7 +277,7 @@ void ft::vector<T, Alloc>::insert(ft::vector<T, Alloc>::iterator position, Input
 			{
 				while (first != last)
 				{
-					position = insert(position, *first)++;
+					position = insert(position, *position) + 1;
 					++first;
 				}
 			};
