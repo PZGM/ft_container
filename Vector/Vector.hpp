@@ -2,11 +2,9 @@
 # define VECTOR_HPP
 
 #include <limits.h>
-#include <cstring>
 #include <stdexcept>
 #include <iterator>
-#include <iostream>
-#include "../ReverseIterator.hpp"
+#include "VectorIterator.hpp"
 
 typedef std::size_t				size_type;
 namespace ft
@@ -15,16 +13,16 @@ namespace ft
 				class vector
 				{
 						public:
-								typedef T									value_type;
-								typedef value_type&							reference;
-								typedef const value_type&					const_reference;
-								typedef value_type*							pointer;
-								typedef const value_type *					const_pointer;
-								typedef VectorIterator<value_type>			iterator;
-								typedef VectorIterator<value_type>			const_iterator;
-								typedef ReverseIterator<iterator>			reverse_iterator;
-								typedef ReverseIterator<const_iterator>		const_reverse_iterator;
-								typedef std::ptrdiff_t						difference_type;
+								typedef T											value_type;
+								typedef value_type&									reference;
+								typedef const value_type&							const_reference;
+								typedef value_type*									pointer;
+								typedef const value_type *							const_pointer;
+								typedef VectorIterator<value_type>					iterator;
+								typedef VectorIterator<value_type>					const_iterator;
+								typedef VectorReverseIterator<iterator>				reverse_iterator;
+								typedef VectorReverseIterator<const_iterator>		const_reverse_iterator;
+								typedef std::ptrdiff_t								difference_type;
 
 								explicit	vector();
 								explicit	vector(size_type n, const value_type& val = value_type());
@@ -42,39 +40,6 @@ namespace ft
 								reverse_iterator			rend(void);
 								const_reverse_iterator		rend(void) const;
 
-								iterator begin() {
-										return (iterator(this->array));
-								}
-
-								const_iterator begin() const {
-										return (const_iterator(this->array));
-								}
-
-								iterator end() {
-										return (iterator(&this->array[this->array_size]));
-								}
-
-								const_iterator end() const {
-										return (const_iterator(&this->array[this->array_size]));
-								}
-
-								reverse_iterator rbegin() {
-										return (reverse_iterator(&this->array[this->array_size]));
-								}
-
-								const_reverse_iterator rbegin() const {
-										return (const_reverse_iterator(&this->array[this->array_size]));
-								}
-
-								reverse_iterator rend() {
-										return (reverse_iterator(this->array));
-								}
-
-								const_reverse_iterator rend() const {
-										return (const_reverse_iterator(this->array));
-								}
-
-
 								size_type			size(void) const;
 								size_type			max_size(void) const;
 								void				resize(size_type n, value_type val = value_type());
@@ -88,7 +53,7 @@ namespace ft
 								reference			front(void);
 								const_reference		front(void) const;
 								reference			back(void);
-								reference			back(void) const;
+								const_reference		back(void) const;
 								void				assign(size_type n, const T & val);
 								template <class InputIterator>
 										void			assign(InputIterator first, InputIterator last);

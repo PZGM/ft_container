@@ -6,18 +6,17 @@ class ReverseIterator : public T
 {
 	public:
 		ReverseIterator(void) : T() {}
-		ReverseIterator(T::src_pointer &src) : T(src) {}
+		ReverseIterator(typename T::node_pointer & node) : T(node) {}
 		ReverseIterator(ReverseIterator const & rhs) : T(rhs) {}
 		~ReverseIterator() {}
 
-	public:
 		ReverseIterator &operator=(const ReverseIterator & rhs) {
-			this->src = rhs.src;
+			this->node = rhs.node;
 			return (*this);
 		}
 
-		T::value_type operator*() {
-			return (src->getValue());
+		typename T::value_type operator*() {
+			return (node->getValue());
 		}
 
 		T &operator++() {
@@ -35,6 +34,9 @@ class ReverseIterator : public T
 		T &operator--(int) {
 			return (T::operator++());
 		}
+
+	private:
+		int *node = 0;
 };
 
 #endif

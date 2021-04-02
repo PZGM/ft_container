@@ -1,6 +1,94 @@
 #include "Vector.hpp"
+#include <limits.h>
 #include <cmath>
-#include <algorithm>
+
+//constructor
+
+template <typename T>
+ft::vector<T>::~vector() {
+	delete [] _storage;
+}
+
+template <typename T>
+ft::vector<T>::vector(const vector<T> & src) {
+	*this = src;
+}
+
+template <typename T>
+ft::vector<T>  & ft::vector<T>::operator=(const vector<T> & src) {
+	delete [] _storage;
+	_capacity = src._capacity;
+	_size = src._size;
+	_storage = new T[_capacity];
+	for (size_type i = 0; i < _size; i++)
+		_storage[i] = src._storage[i];;
+	return *this;
+}
+
+template <typename T>
+ft::vector<T>::vector(size_type n, const T & v) : _size(n), _capacity(n) {
+	if (n > ft::vector<T>::max_size())
+		throw std::runtime_error("ft::vector error : desole, tu t'es trompe, prend pas toute ma ram stp, chrome en a besoin");
+	_storage = new T[n];
+	for (size_type i = 0; i < n; i++)
+		_storage[i] = v;
+}
+
+//iperator begin
+//
+template <typename T>
+typename ft::vector<T>::iterator ft::vector<T>::begin(void)
+{
+	return (ft::vector<T>::iterator(&_storage[0]));
+}
+
+template <typename T>
+typename ft::vector<T>::const_iterator ft::vector<T>::begin(void) const
+{
+	return (ft::vector<T>::iterator(&_storage[0]));
+}
+
+//iperator end
+
+template <typename T>
+typename ft::vector<T>::iterator ft::vector<T>::end(void)
+{
+	return (ft::vector<T>::iterator(&_storage[_size]));
+}
+
+template <typename T>
+typename ft::vector<T>::const_iterator ft::vector<T>::end(void) const
+{
+	return (ft::vector<T>::iterator(&_storage[_size]));
+}
+
+//iperator rbegin
+
+template <typename T>
+typename ft::vector<T>::reverse_iterator ft::vector<T>::rbegin(void)
+{
+	return (ft::vector<T>::reverse_iterator(&_storage[_size - 1]));
+}
+
+template <typename T>
+typename ft::vector<T>::const_reverse_iterator ft::vector<T>::rbegin(void) const
+{
+	return (ft::vector<T>::reverse_iterator(&_storage[_size - 1]));
+}
+
+//iterator rend
+
+template <typename T>
+typename ft::vector<T>::reverse_iterator ft::vector<T>::rend(void)
+{
+	return (ft::vector<T>::reverse_iterator(&_storage[-1]));
+}
+
+template <typename T>
+typename ft::vector<T>::const_reverse_iterator ft::vector<T>::rend(void) const
+{
+	return (ft::vector<T>::reverse_iterator(&_storage[-1]));
+}
 
 //size 
 template <typename T>
@@ -67,24 +155,24 @@ void ft::vector<T>::reserve(size_type n)
 //operator []
 
 template <typename T>
-const T & ft::vector<T>::operator[] (size_type n) const {
+typename ft::vector<T>::const_reference ft::vector<T>::operator[] (size_type n) const {
 	return (_storage[n]);
 }
 
 template <typename T>
-T & ft::vector<T>::operator[] (size_type n) {
+typename ft::vector<T>::reference ft::vector<T>::operator[] (size_type n) {
 	return (_storage[n]);
 }
 
 //at
 
 template <typename T>
-T & ft::vector<T>::at(size_type n) {
+typename ft::vector<T>::reference & ft::vector<T>::at(size_type n) {
 	return (_storage[n]);
 }
 
 template <typename T>
-T & ft::vector<T>::at(size_type n) const
+typename ft::vector<T>::const_reference ft::vector<T>::at(size_type n) const
 {
 	return (_storage[n]);
 }
@@ -92,13 +180,13 @@ T & ft::vector<T>::at(size_type n) const
 //front
 
 template <typename T>
-T & ft::vector<T>::front()
+typename ft::vector<T>::reference ft::vector<T>::front()
 {
 	return (_storage[0]);
 }
 
 template <typename T>
-const T & ft::vector<T>::front() const
+typename ft::vector<T>::const_reference ft::vector<T>::front() const
 {
 	return (_storage[0]);
 }
@@ -106,27 +194,18 @@ const T & ft::vector<T>::front() const
 //back
 
 template <typename T>
-T & ft::vector<T>::back()
+typename ft::vector<T>::reference ft::vector<T>::back()
 {
 	return (_storage[_size -1]);
 }
 
 template <typename T>
-const T & ft::vector<T>::back() const
+typename ft::vector<T>::const_reference ft::vector<T>::back(void) const
 {
 	return (_storage[_size -1]);
 }
 
 //assign
-
-template <typename T>
-void ft::vector<T>::assign(size_type n, const T & val)
-{
-	reserve(n);
-	for (size_type i = 0; i < n; i++)
-		_storage[i] = val;
-	_size = n;
-}
 
 template <typename T>
 template <class InputIterator>
@@ -145,37 +224,12 @@ void ft::vector<T>::assign(InputIterator first, InputIterator last)
 	}
 }
 
-
 template <typename T>
-ft::vector<T>::~vector() {
-	delete [] _storage;
-}
-
-template <typename T>
-ft::vector<T>::vector(const vector<T> & src) {
-	*this = src;
-}
-
-template <typename T>
-ft::vector<T>  & ft::vector<T>::operator=(const vector<T> & src) {
-	delete [] _storage;
-	_capacity = src._capacity;
-	_size = src._size;
-	_storage = new T[_capacity];
-	for (size_type i = 0; i < _size; i++)
-		_storage[i] = src._storage[i];;
-	return *this;
-}
-
-template <typename T>
-ft::vector<T>::vector(size_type n, const T & v) : _size(n), _capacity(n) {
-	if (n > ft::vector<T>::max_size())
-		throw std::runtime_error("ft::vector error : desole mon petit, tu t'es trompe, prend pas toute ma ram stueplait, chrome en a besoin");
-	_storage = new T[n];
+void ft::vector<T>::assign(size_type n, const T & val)
+{
+	reserve(n);
 	for (size_type i = 0; i < n; i++)
-		_storage[i] = v;
+		_storage[i] = val;
+	_size = n;
 }
-
-
-
 
