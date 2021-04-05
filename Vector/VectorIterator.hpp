@@ -23,13 +23,15 @@ class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 				}
 				VectorIterator operator+(size_type n)
 				{
-					p += n;
-					return (*this);
+					VectorIterator ret(*this);
+					ret.p += n;
+					return (ret);
 				}
 				VectorIterator operator-(size_type n)
 				{
-					p -= n;
-					return (*this);
+					VectorIterator ret(*this);
+					ret.p -= n;
+					return (ret);
 				}
 				bool operator==(const VectorIterator & rhs) const {
 						return p==rhs.p;

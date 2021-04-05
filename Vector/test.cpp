@@ -6,16 +6,14 @@ using namespace std;
 
 int main()
 {
-	vector<int> vec(5);
-	for (int i = 0; i < 5; i++)
-		vec[i] = i;
-	for (int i = 0; i < 5; i++)
-		std::cout << vec[i] << std::endl;
-	vector<int> vic(5);
-	//size_type a = 10;
-	int b = 42;
-	vic.assign(10, 42);
-//	vic.assign(vic.begin(), vic.end());
+	vector<int> bite(3);
+	vector<int> vic(10);
+	for (int i = 0; i < 10; i++)
+		vic[i] = i;
+	vector<int>::iterator itbite = vic.begin();
+//	vic.assign(bite.begin(), bite.end());
+	vic.insert(itbite, (size_t)-7, 7);
+//	vic.insert(itbite, bite.begin(), bite.begin() + 2);
 	vector<int>::iterator it = vic.begin();
 	for (; it != vic.end(); it++)
 		std::cout << *it << std::endl;
