@@ -151,11 +151,12 @@ void ft::vector<T, Alloc>::reserve(size_type n)
 {
 	if (n > _capacity)
 	{
-		T *tmp = new T(n);
+		T *tmp = new T[n];
 		for (size_type i = 0; i < _size; i++)
 			tmp[i] = _storage[i];
 		delete [] _storage;
 		_storage = tmp;
+		_capacity = n;
 	}
 }
 
@@ -253,7 +254,9 @@ void ft::vector<T, Alloc>::assign(size_type n, ft::vector<T, Alloc>::const_refer
 	template <typename T, class Alloc>
 void ft::vector<T, Alloc>::push_back (const value_type& val)
 {
+	std::cout << _size << "|" << _capacity << std::endl;
 	reserve(_size + 1);
+	std::cout << _size << "#" << _capacity << std::endl;
 	_storage[_size] = T(val);
 	_size++;
 }
