@@ -31,7 +31,7 @@ namespace ft
 
 				vector<value_type, Alloc>		&operator=(const vector<T, Alloc> &c);
 
-		iterator					begin();
+				iterator					begin();
 				const_iterator				begin() const;
 				iterator					end();
 				const_iterator				end() const;
@@ -41,8 +41,8 @@ namespace ft
 				const_reverse_iterator		rend() const;
 				iterator					erase(iterator position);
 				iterator					erase(iterator first, iterator last);
-				iterator					insert(iterator position, const_reference val);
-				void						insert(iterator position, size_type n, const_reference val);
+				iterator					insert (iterator position, const_reference val);
+				void						insert (iterator position, size_type n, const_reference val);
 				template <class InputIterator>
 					void insert (iterator position, InputIterator first, InputIterator last);
 
@@ -65,21 +65,15 @@ namespace ft
 					void				assign(InputIterator first, InputIterator last);
 				void				assign(size_type n, const_reference val);
 
-
-				
-				template <class InputIterator>
-				void insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
-
-				void insert1(ft::vector<T, Alloc>::iterator position, unsigned int n, const_reference value);
 			private:
 				value_type*	_storage;
 				size_type	_size;
 				size_type	_capacity;
 					template <class InputIterator>
-				void _insert(iterator position, InputIterator first, InputIterator last);
+				void _insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
 					template <class InputIterator>
-				iterator _insertc(iterator position, InputIterator first, InputIterator last);
-
+				void insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
+				void insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
 		};
 }
 

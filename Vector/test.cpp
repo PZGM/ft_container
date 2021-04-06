@@ -11,9 +11,13 @@ int main()
 	for (int i = 0; i < 10; i++)
 		vic[i] = i;
 	vector<int>::iterator itbite = vic.begin();
-//	vic.assign(bite.begin(), bite.end());
-	vic.insert(itbite, (size_t)-7, 7);
+	itbite = itbite + 4;
+	vic.assign(bite.begin(), bite.end());
+//	vic.insert(itbite, 12, 42);
+//	itbite = itbite - 2;
+//	vic.insert(itbite, 456);
 //	vic.insert(itbite, bite.begin(), bite.begin() + 2);
+	std::cout << vic[3] << "|" << vic[4] << std::endl;
 	vector<int>::iterator it = vic.begin();
 	for (; it != vic.end(); it++)
 		std::cout << *it << std::endl;

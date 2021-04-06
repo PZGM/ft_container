@@ -272,19 +272,7 @@ void ft::vector<T, Alloc>::insert(ft::vector<T, Alloc>::iterator position, ft::v
 };
 
 
-template <typename T, class Alloc>
-	template <class InputIterator>
-void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
-{
-	_insert(position, first, last);
-}
 
-template <typename T, class Alloc>
-void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, unsigned int n, const_reference value)
-{
-	while (n--)
-		position = insert(position, value);
-}
 
 template <typename T, class Alloc>
 	template <class InputIterator>
@@ -310,6 +298,10 @@ void ft::vector<T, Alloc>::assign(size_type n, ft::vector<T, Alloc>::const_refer
 }
 
 
+
+
+//private insert
+
 template <typename T, class Alloc>
 	template <class InputIterator>
 void ft::vector<T, Alloc>::_insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
@@ -324,3 +316,16 @@ void ft::vector<T, Alloc>::_insert(ft::vector<T, Alloc>::iterator position, Inpu
 	}
 };
 
+template <typename T, class Alloc>
+	template <class InputIterator>
+void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
+{
+	_insert(position, first, last);
+}
+
+template <typename T, class Alloc>
+void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value)
+{
+	while (n--)
+		position = insert(position, value);
+}
