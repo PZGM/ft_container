@@ -109,9 +109,12 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size() const
 
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size() const {
+	int bit = 64;
 	if ((ULONG_MAX) == (UINT_MAX))
-		return (pow(2, 32) / sizeof(T) - 1);
-	return (pow(2, 64) / sizeof(T) - 1);
+		bit = 32;
+	size_type ret = (pow(2, bit) / sizeof(value_type));
+	ret--;
+	return (ret);
 }
 
 //resize
@@ -307,7 +310,6 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(ft::vector<T
 	while (first != last)
 	{
 		(*first).value_type::~value_type();
-		(*first) = static_cast<value_type>(NULL);
 		++first;
 		_size--;
 	}

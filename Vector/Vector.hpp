@@ -19,9 +19,9 @@ namespace ft
 				typedef const value_type *							const_pointer;
 				typedef VectorIterator<value_type>					iterator;
 				typedef typename Alloc::size_type					size_type;
-				typedef VectorIterator<value_type>					const_iterator;
-				typedef VectorReverseIterator<iterator>				reverse_iterator;
-				typedef VectorReverseIterator<const_iterator>		const_reverse_iterator;
+				typedef const VectorIterator<value_type>			const_iterator;
+				typedef VectorReverseIterator<value_type>			reverse_iterator;
+				typedef const VectorReverseIterator<value_type>		const_reverse_iterator;
 				typedef std::ptrdiff_t								difference_type;
 
 				explicit	vector();
