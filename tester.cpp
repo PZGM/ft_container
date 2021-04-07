@@ -30,12 +30,15 @@ int main()
 
 	std::cout << "----------------------" << std::endl;
 	vector<int>  vec2 = vec;
+	for (auto ite = vec.begin(); ite != vec.end(); ite++)
+		std::cout << "_" << *ite << std::endl;
+
 	vec.insert(vec.end(), vec2.begin(), vec2.end());
 	for (auto it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it<< std::endl;
 
 	std::cout << "----------------------" << std::endl;
-	vec.insert(vec.end(), vec.begin(), vec.end());
+	vec.insert(vec.begin() + 3, vec.begin(), vec.end());
 	for (auto it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it<< std::endl;
 

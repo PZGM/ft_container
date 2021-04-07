@@ -6,21 +6,22 @@
 //constructors
 
 template <typename T, class Alloc>
-ft::vector<T, Alloc>::vector() : _size(0), _capacity(0) {
-	_storage = new T[0];
+ft::vector<T, Alloc>::vector() : _size(0), _capacity(0), _storage(NULL) {
+//	_storage = new T[0];
 }
 
 template <typename T, class Alloc>
 ft::vector<T, Alloc>::vector(size_type n, const T & v) : _size(n), _capacity(n) {
 	if (n > ft::vector<T, Alloc>::max_size())
 		throw std::runtime_error("ft::vector error : desole, tu t'es trompe, prend pas toute ma ram stp, chrome en a besoin");
-	_storage = new T[n];
+	if (n > 0)
+		_storage = new T[n];
 	for (size_type i = 0; i < n; i++)
 		_storage[i] = v;
 }
 
 template <typename T, class Alloc>
-ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src) {
+ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src)  : _size(0), _capacity(0), _storage(NULL) {
 	*this = src;
 }
 
@@ -28,7 +29,8 @@ ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src) {
 
 template <typename T, class Alloc>
 ft::vector<T, Alloc>::~vector() {
-	delete [] _storage;
+	if (_capacity > 0)
+		delete [] _storage;
 }
 
 //iterator begin
@@ -123,6 +125,7 @@ void ft::vector<T, Alloc>::resize(size_type n, T val)
 		tmp[i] = _storage[i];
 	for (; i < n; i++)
 		tmp[i] = val;
+	if (_capacity > 0)
 	delete [] _storage;
 	_storage = tmp;
 	_capacity = n;
@@ -151,10 +154,11 @@ void ft::vector<T, Alloc>::reserve(size_type n)
 {
 	if (n > _capacity)
 	{
-		T *tmp = new T[n];
+		value_type *tmp = new T[n];
 		for (size_type i = 0; i < _size; i++)
 			tmp[i] = _storage[i];
-		delete [] _storage;
+		if (_capacity > 0)
+			delete [] _storage;
 		_storage = tmp;
 		_capacity = n;
 	}
@@ -177,9 +181,11 @@ typename ft::vector<T, Alloc>::reference ft::vector<T, Alloc>::operator[] (size_
 
 template <typename T, class Alloc>
 ft::vector<T, Alloc>  & ft::vector<T, Alloc>::operator=(const vector<T, Alloc> & src) {
-	delete [] _storage;
+	if (_capacity > 0)
+		delete [] _storage;
 	_capacity = src._capacity;
 	_size = src._size;
+	if (_capacity > 0)
 	_storage = new T[_capacity];
 	for (size_type i = 0; i < _size; i++)
 		_storage[i] = src._storage[i];;
@@ -323,7 +329,7 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::insert(ft::vector<
 {
 	ft::vector<T, Alloc>::size_type i = 0;
 	ft::vector<T, Alloc>::iterator it = begin();
-	while ((it + i) != position && i < _capacity)
+	for (; it != position && i < _size; it++)
 		i++;
 	if (_size == _capacity)
 		reserve(_capacity + 1);
@@ -349,7 +355,7 @@ template <typename T, class Alloc>
 	template <class InputIterator>
 void ft::vector<T, Alloc>::insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
 {
-	insert1(position, first, last);
+	_insert1(position, first, last);
 }
 
 
@@ -359,25 +365,41 @@ template <typename T, class Alloc>
 	template <class InputIterator>
 void ft::vector<T, Alloc>::_insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
 {
-	int i = 0;
+	int i;
+	InputIterator prems = first;
+
+	for (i = 0; prems != last; prems++) {
+			i++;
+	}
+	int y = 0;
+	for (; begin() + y != position; y++)
+		;
+	value_type val[i];
+	prems = first;
+	for (int j = 0; prems != last; prems++) {
+		val[j] = *prems;
+		j++;
+	}
+	reserve(_size + i);
+	i = 0;
 	while (first != last)
 	{	
+		position = insert(begin() + y, val[i]) + 1;
+		y++;
 		i++;
-		const_reference  value = *first;
-		position = insert(position, value) + 1;
 		first++;
 	}
 };
 
 template <typename T, class Alloc>
 	template <class InputIterator>
-void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
+void ft::vector<T, Alloc>::_insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last)
 {
 	_insert(position, first, last);
 }
 
 template <typename T, class Alloc>
-void ft::vector<T, Alloc>::insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value)
+void ft::vector<T, Alloc>::_insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value)
 {
 	while (n--)
 		position = insert(position, value);

@@ -81,8 +81,8 @@ namespace ft
 				template <class InputIterator>
 					void _insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
 				template <class InputIterator>
-					void insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
-				void insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
+					void _insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
+				void _insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
 		};
 
 	//	template <class T, class Alloc>
