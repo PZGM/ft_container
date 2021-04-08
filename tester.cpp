@@ -102,7 +102,7 @@ int main()
 	chat.push_back('1');
 	chat.push_back('1');
 	chat.push_back('1');
-	vector<vector<char>> *oof = new vector<vector<char>>();
+	vector<vector<char> > *oof = new vector<vector<char> >();
 
 	oof->push_back(chat);
 	oof->push_back(chat);

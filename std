@@ -90,9 +90,9 @@ _3
 empty vec2: 0
 size vec: 40
 empty vec: 1
-capacity vec: 40
+capacity vec: 64
 size vec: 0
-size_max vec: 2305843009213693951
+size_max vec: 4611686018427387903
 42
 6
 42

@@ -86,19 +86,19 @@ namespace ft
 				void _insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
 		};
 
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				void swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y);
 
 }
