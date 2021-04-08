@@ -72,7 +72,7 @@ namespace ft
 
 
 			private:
-				ft::vector<<vector <T> >	_storage;
+				ft::vector<<ft::vector <T, Alloc>, Alloc>	_storage;
 				size_type					_size_last = _storage[_storage.size]._size();
 				size_type					_size_first = _storage[0]._size();
 

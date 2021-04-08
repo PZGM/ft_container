@@ -1,4 +1,5 @@
 #include "Vector.hpp"
+#include "DeQue.hpp"
 #include <limits.h>
 #include <cmath>
 #include <iostream>
@@ -13,9 +14,17 @@ ft::vector<T, Alloc>::vector(size_type n, const T & v) : _size(n), _capacity(n) 
 	if (n > ft::vector<T, Alloc>::max_size())
 		throw std::runtime_error("ft::vector error : desole, tu t'es trompe, prend pas toute ma ram stp, chrome en a besoin");
 	if (n > 0)
-		_storage = new T[n];
-	for (size_type i = 0; i < n; i++)
-		_storage[i] = v;
+	{		
+			_storage = new ft::vector<ft::vector<T, Alloc> , Alloc>(n / 10, ft::vector<T, Alloc>(10, NULL));	
+		for (size_type i = 0; i < n; i++) {
+			_storage[i / 10][i % 10] = v;
+		if(n < 10)
+			_size_last = _size_first = n;
+		else {
+			_size_first = 10;
+			_size_last = n % 10;
+		}
+	}
 }
 
 template <typename T, class Alloc>
