@@ -16,7 +16,6 @@ namespace ft
 				typedef value_type&									reference;
 				typedef const value_type&							const_reference;
 				typedef value_type*									pointer;
-				typedef const value_type *							const_pointer;
 				typedef VectorIterator<value_type>					iterator;
 				typedef typename Alloc::size_type					size_type;
 				typedef const VectorIterator<value_type>			const_iterator;
@@ -85,9 +84,22 @@ namespace ft
 				void _insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
 		};
 
-	//	template <class T, class Alloc>
-	//bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+					template <typename T, class Alloc = std::allocator<T> >
+				void swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y);
 
 }
+
 
 #endif

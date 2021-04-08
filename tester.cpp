@@ -91,7 +91,7 @@ int main()
 
 
 	vec.assign(vec.begin(), vec.end());
-
+	
 	vector<char> chat;
 
 	chat.push_back('1');

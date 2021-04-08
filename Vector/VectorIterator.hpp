@@ -16,7 +16,8 @@ class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 						++p;
 						return *this;
 				}
-				VectorIterator operator++(T) {
+				template< class Y>
+				VectorIterator operator++(Y) {
 						VectorIterator tmp(*this);
 						operator++();
 						return tmp;

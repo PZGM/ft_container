@@ -110,7 +110,7 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size() const
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size() const {
 	int bit = 64;
-	if ((ULONG_MAX) == (UINT_MAX))
+	if (INTPTR_MAX == INT32_MAX)
 		bit = 32;
 	size_type ret = (pow(2, bit) / sizeof(value_type));
 	ret--;
