@@ -1,36 +1,34 @@
-#ifndef VECTOR_HPP
-# define VECTOR_HPP
+#ifndef DEQUE_HPP
+# define DEQUE_HPP
 
 #include <cstddef>
 #include <limits.h>
 #include <stdexcept>
-#include "VectorIterator.hpp"
+#include "DequeIterator.hpp"
 #include <memory>
 namespace ft
 {
 	template <typename T, class Alloc = std::allocator<T> >
-		class vector
+		class deque
 		{
 			public:
 				typedef T											value_type;
 				typedef value_type&									reference;
 				typedef const value_type&							const_reference;
 				typedef value_type*									pointer;
-				typedef VectorIterator<value_type>					iterator;
+				typedef DequeIterator<value_type>					iterator;
 				typedef typename Alloc::size_type					size_type;
-				typedef const VectorIterator<value_type>			const_iterator;
-				typedef VectorReverseIterator<value_type>			reverse_iterator;
-				typedef const VectorReverseIterator<value_type>		const_reverse_iterator;
+				typedef const DequeIterator<value_type>				const_iterator;
+				typedef DequeReverseIterator<value_type>			reverse_iterator;
+				typedef const DequeReverseIterator<value_type>		const_reverse_iterator;
 				typedef std::ptrdiff_t								difference_type;
+			
+				explicit	deque();
+				explicit	deque(size_type n, const value_type& val = value_type());
+				deque(const deque& x);
+				~deque();
 
-				explicit	vector();
-				explicit	vector(size_type n, const value_type& val = value_type());
-				template <class InputIterator>
-         			vector (InputIterator first, InputIterator last);
-				vector(const vector& x);
-				~vector();
-
-				vector<value_type, Alloc>		&operator=(const vector<T, Alloc> &c);
+				deque<value_type, Alloc>		&operator=(const deque<T, Alloc> &c);
 
 				iterator					begin();
 				const_iterator				begin() const;
@@ -63,7 +61,7 @@ namespace ft
 				void				assign(size_type n, const_reference val);
 				void				push_back(const value_type& val);
 				void				pop_back();
-				void				swap (vector& x);
+				void				swap (deque& x);
 
 				iterator					erase(iterator position);
 				iterator					erase(iterator first, iterator last);
@@ -74,32 +72,32 @@ namespace ft
 
 
 			private:
-				value_type*	_storage;
-				size_type	_size;
-				size_type	_capacity;
+				ft::vector<<vector <T> >	_storage;
+				size_type					_size_last = _storage[_storage.size]._size();
+				size_type					_size_first = _storage[0]._size();
 
 
 				template <class InputIterator>
-					void _insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
+					void _insert(ft::deque<T, Alloc>::iterator position, InputIterator first, InputIterator last);
 				template <class InputIterator>
-					void _insert1(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last);
-				void _insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
+					void _insert1(ft::deque<T, Alloc>::iterator position, InputIterator first, InputIterator last);
+				void _insert1(ft::deque<T, Alloc>::iterator position, int n, const_reference value);
 		};
 
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator== (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator!= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator>  (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator<  (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator>= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+				bool operator<= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc = std::allocator<T> >
-				void swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y);
+				void swap(ft::deque<T, Alloc> & x, ft::deque<T, Alloc> & y);
 
 }
 
