@@ -7,10 +7,11 @@
 template <typename T>
 class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 {
+		typedef ft::vector<ft::vector<T> > dvec;
 		public:
 
-				DequeIterator(size_type p) : p(p) {}
-				DequeIterator(const DequeIterator & mit) : p(mit.p){}
+				DequeIterator(size_type p, dvec s) : p(p), s(s) {}
+				DequeIterator(const DequeIterator & mit) : p(mit.p), s(mit.s) {}
 				
 				DequeIterator & operator++() {
 						p++;
@@ -41,12 +42,18 @@ class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 						return p!=rhs.p;
 				}
 				T & operator*() {
-						return T();
+					size_type chunk;
+					size_type pos;
+
+				    chunk = (s.size() > 1) ? ((p < s[0].size()) ? 0 : (p - s[0].size() + 1) / 10 + 1) : 0 ;
+					pos = (s.size() > 1) ? (p - s[0].size() + 1) % 10 : p % 10;
+					return(s[chunk][pos]);	
 				}
 
 		private:
 
 				size_type	p;
+				dvec		s;
 };
 
 template <typename T>

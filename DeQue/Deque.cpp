@@ -33,8 +33,8 @@ ft::deque<T, Alloc>::deque(const deque<T, Alloc> & src)  : _storage(NULL), _size
 
 template <typename T, class Alloc>
 ft::deque<T, Alloc>::~deque() {
-	if (_size > 0)
-		_storage.~vector();
+	//if (_size > 0)
+	//	_storage.~vector();
 }
 
 //iterator begin
