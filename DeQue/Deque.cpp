@@ -167,6 +167,9 @@ typename ft::deque<T, Alloc>::const_reference ft::deque<T, Alloc>::operator[] (s
 
 	chunk = (_storage.size() > 1) ? ((p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1) : 0 ;
 	pos = (_storage.size() > 1) ? (p - _storage[0].size() + 1) % 10 : p % 10;
+	
+	std::cout << "chunk = " << chunk << "pos = " << pos << std::endl;
+
 	return(_storage[chunk][pos]);
 }
 
@@ -177,6 +180,9 @@ typename ft::deque<T, Alloc>::reference ft::deque<T, Alloc>::operator[] (size_ty
 
 	chunk = (_storage.size() > 1) ? ((p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1) : 0 ;
 	pos = (_storage.size() > 1) ? (p - _storage[0].size() + 1) % 10 : p % 10;
+
+	std::cout << "chunk = " << chunk << "pos = " << pos << std::endl;
+
 	return(_storage[chunk][pos]);
 }
 
