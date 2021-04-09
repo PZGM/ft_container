@@ -1,85 +1,85 @@
-#ifndef VECTOR_ITERATOR_HPP
-# define VECTOR_ITERATOR_HPP
+#ifndef DEQUE_ITERATOR_HPP
+# define DEQUE_ITERATOR_HPP
 
 #include <iterator>
-
-typedef size_t size_type;
+#include "../Vector/Vector.cpp"
 
 template <typename T>
-class VectorIterator : public std::iterator<std::input_iterator_tag, T>
+class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 {
 		public:
 
-				VectorIterator(T* x) : p(x) {}
-				VectorIterator(const VectorIterator & mit) : p(mit.p) {}
-				VectorIterator & operator++() {
-						++p;
-						return *this;
+				DequeIterator(size_type p) : p(p) {}
+				DequeIterator(const DequeIterator & mit) : p(mit.p){}
+				
+				DequeIterator & operator++() {
+						p++;
+					return(*this);
 				}
 				template< class Y>
-				VectorIterator operator++(Y) {
-						VectorIterator tmp(*this);
+				DequeIterator operator++(Y) {
+						DequeIterator tmp(*this);
 						operator++();
 						return tmp;
 				}
-				VectorIterator operator+(size_type n)
+				DequeIterator operator+(size_type n)
 				{
-					VectorIterator ret(*this);
+					DequeIterator ret(*this);
 					ret.p += n;
 					return (ret);
 				}
-				VectorIterator operator-(size_type n)
+				DequeIterator operator-(size_type n)
 				{
-					VectorIterator ret(*this);
+					DequeIterator ret(*this);
 					ret.p -= n;
 					return (ret);
 				}
-				bool operator==(const VectorIterator & rhs) const {
+				bool operator==(const DequeIterator & rhs) const {
 						return p==rhs.p;
 				}
-				bool operator!=(const VectorIterator & rhs) const {
+				bool operator!=(const DequeIterator & rhs) const {
 						return p!=rhs.p;
 				}
 				T & operator*() {
-						return *p;
+						return T();
 				}
 
 		private:
 
-				T* p;
+				size_type	p;
 };
 
 template <typename T>
-class VectorReverseIterator : public std::iterator<std::input_iterator_tag, T>
+class DequeReverseIterator : public std::iterator<std::input_iterator_tag, T>
 {
 		public:
 
-				VectorReverseIterator(T* x) : p(x) {}
-				VectorReverseIterator(const VectorReverseIterator & mit) : p(mit.p) {}
-				VectorReverseIterator & operator++() {
+				DequeReverseIterator(T* x) : p(x) {}
+				DequeReverseIterator(const DequeReverseIterator & mit) : p(mit.p) {}
+				DequeReverseIterator & operator++() {
 						--p;
 						return *this;
 				}
-				VectorReverseIterator operator++(T) {
-						VectorReverseIterator tmp(*this);
+				DequeReverseIterator operator++(T) {
+						DequeReverseIterator tmp(*this);
 						operator++();
 						return tmp;
 				}
-				VectorReverseIterator operator+(size_type n)
+				DequeReverseIterator operator+(size_type n)
 				{
 					p -= n;
 					return (*this);
 				}
 				
-				VectorReverseIterator operator-(size_type n)
+				DequeReverseIterator operator-(size_type n)
 				{
 					p += n;
 					return (*this);
 				}
-				bool operator==(const VectorReverseIterator & rhs) const {
+				bool operator==(const DequeReverseIterator & rhs) const {
 						return p==rhs.p;
 				}
-				bool operator!=(const VectorReverseIterator & rhs) const {
+				bool operator!=(const DequeReverseIterator & rhs) const {
 						return p!=rhs.p;
 				}
 				T & operator*() {

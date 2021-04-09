@@ -4,8 +4,9 @@
 #include <cstddef>
 #include <limits.h>
 #include <stdexcept>
-#include "DequeIterator.hpp"
 #include <memory>
+#include "DequeIterator.hpp"
+
 namespace ft
 {
 	template <typename T, class Alloc = std::allocator<T> >
@@ -72,9 +73,8 @@ namespace ft
 
 
 			private:
-				ft::vector<<ft::vector <T, Alloc>, Alloc>	_storage;
-				size_type					_size_last = _storage[_storage.size]._size();
-				size_type					_size_first = _storage[0]._size();
+				vector<vector<T, Alloc>, Alloc>	_storage;
+				size_type					_size;
 
 
 				template <class InputIterator>
@@ -84,22 +84,21 @@ namespace ft
 				void _insert1(ft::deque<T, Alloc>::iterator position, int n, const_reference value);
 		};
 
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator== (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator!= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator>  (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator<  (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator>= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				bool operator<= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
-					template <typename T, class Alloc = std::allocator<T> >
+					template <typename T, class Alloc>
 				void swap(ft::deque<T, Alloc> & x, ft::deque<T, Alloc> & y);
 
 }
-
 
 #endif

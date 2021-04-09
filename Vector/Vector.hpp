@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include "VectorIterator.hpp"
 #include <memory>
+
 namespace ft
 {
 	template <typename T, class Alloc = std::allocator<T> >
