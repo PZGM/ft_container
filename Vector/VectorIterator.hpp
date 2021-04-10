@@ -16,17 +16,29 @@ class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 						++p;
 						return *this;
 				}
-				template< class Y>
+				template <class Y>
 				VectorIterator operator++(Y) {
-						VectorIterator tmp(*this);
+						VectorIterator ret(*this);
 						operator++();
-						return tmp;
+						return ret;
 				}
 				VectorIterator operator+(size_type n)
 				{
 					VectorIterator ret(*this);
 					ret.p += n;
 					return (ret);
+				}
+
+
+				VectorIterator & operator--() {
+						--p;
+						return *this;
+				}
+				template <class Y>
+				VectorIterator operator--(Y) {
+						VectorIterator ret(*this);
+						operator--();
+						return ret;
 				}
 				VectorIterator operator-(size_type n)
 				{
@@ -60,19 +72,34 @@ class VectorReverseIterator : public std::iterator<std::input_iterator_tag, T>
 						--p;
 						return *this;
 				}
-				VectorReverseIterator operator++(T) {
-						VectorReverseIterator tmp(*this);
+				template <class Y>
+				VectorReverseIterator operator++(Y) {
+						VectorReverseIterator ret(*this);
 						operator++();
-						return tmp;
+						return ret;
 				}
 				VectorReverseIterator operator+(size_type n)
 				{
+					VectorReverseIterator ret(*this);
 					p -= n;
 					return (*this);
 				}
 				
+
+				VectorReverseIterator & operator--() {
+						++p;
+						return *this;
+				}
+				template <class Y>
+				VectorReverseIterator operator--(Y) {
+						VectorReverseIterator ret(*this);
+						operator--();
+						return ret;
+				}
+
 				VectorReverseIterator operator-(size_type n)
 				{
+					VectorReverseIterator ret(*this);
 					p += n;
 					return (*this);
 				}

@@ -61,6 +61,7 @@ namespace ft
 					void				assign(InputIterator first, InputIterator last);
 				void				assign(size_type n, const_reference val);
 				void				push_back(const value_type& val);
+				void				push_front(const value_type& val);
 				void				pop_back();
 				void				swap (deque& x);
 

@@ -1,4 +1,4 @@
-#include <deque>
+#include <vector>
 #include <iostream>
 #include "DeQue/Deque.cpp"
 
@@ -10,10 +10,12 @@ using namespace ft;
 
 int main()
 {
-	deque<int> dek(123, 42);
+	vector<int> dek(121, 42);
 	
-	for (int i = 0; i < 123; i++)
+	for (int i = 0; i < 121; i++)
 		dek[i] = i;
-	for (int i = 0; i < 123; i++)
-		std::cout << i << std::endl;
+	dek.pop_back();
+	auto it = dek.rbegin();
+	for (; it != dek.rend(); it++)
+		std::cout << "_" << *it << std::endl;
 }
