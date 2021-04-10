@@ -6,7 +6,7 @@
 //constructors
 
 template <typename T, class Alloc>
-ft::vector<T, Alloc>::vector() : _size(0), _storage(NULL), _capacity(0) {}
+ft::vector<T, Alloc>::vector() : _storage(NULL), _size(0), _capacity(0) {}
 
 template <typename T, class Alloc>
 ft::vector<T, Alloc>::vector(size_type n, const T & v) : _size(n), _capacity(n) {

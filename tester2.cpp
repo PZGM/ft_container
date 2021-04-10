@@ -11,6 +11,9 @@ using namespace ft;
 int main()
 {
 	deque<int> dek(123, 42);
-
-	std::cout << dek[4] << std::endl;
+	
+	for (int i = 0; i < 123; i++)
+		dek[i] = i;
+	for (int i = 0; i < 123; i++)
+		std::cout << i << std::endl;
 }

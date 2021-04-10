@@ -18,7 +18,8 @@ ft::deque<T, Alloc>::deque(size_type n, ft::deque<T, Alloc>::const_reference v) 
 		for(size_type j = 0; j /10  <= n / 10; j+= 10)
 		{
 			_storage[j / 10 ].reserve(10);
-			//_storage.insert(_storage[j / 10 ].begin(), n % 10 , v);
+			typename ft::vector<value_type>::iterator it = _storage[j / 10].begin();
+			_storage[j / 10].insert(it, n % 10 , v);
 		}
 		_size = n;
 	}
@@ -165,10 +166,10 @@ typename ft::deque<T, Alloc>::const_reference ft::deque<T, Alloc>::operator[] (s
 	size_type chunk;
 	size_type pos;
 
-	chunk = (_storage.size() > 1) ? ((p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1) : 0 ;
-	pos = (_storage.size() > 1) ? (p - _storage[0].size() + 1) % 10 : p % 10;
+	chunk = ((p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1);
+	pos = (_storage[0].size() <= p) ? (p - _storage[0].size() + 1) % 10 : p % 10;
 	
-	std::cout << "chunk = " << chunk << "pos = " << pos << std::endl;
+	std::cout << "index = " << p << " chunk = " << chunk << " pos = " << pos << " s[0] = " << _storage[0].size() <<  std::endl;
 
 	return(_storage[chunk][pos]);
 }
@@ -178,10 +179,10 @@ typename ft::deque<T, Alloc>::reference ft::deque<T, Alloc>::operator[] (size_ty
 	size_type chunk;
 	size_type pos;
 
-	chunk = (_storage.size() > 1) ? ((p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1) : 0 ;
-	pos = (_storage.size() > 1) ? (p - _storage[0].size() + 1) % 10 : p % 10;
+	chunk = (p < _storage[0].size()) ? 0 : (p - _storage[0].size() + 1) / 10 + 1;
+	pos = (_storage[0].size() <= p) ? (p - _storage[0].size() + 1) % 10 : p % 10;
 
-	std::cout << "chunk = " << chunk << "pos = " << pos << std::endl;
+	std::cout << "index = " << p << " chunk = " << chunk << " pos = " << pos << " s[0] = " << _storage[0].size() <<  std::endl;
 
 	return(_storage[chunk][pos]);
 }
