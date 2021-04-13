@@ -1,4 +1,5 @@
 #include <vector>
+#include <deque>
 #include <iostream>
 #include "DeQue/Deque.cpp"
 
@@ -10,12 +11,14 @@ using namespace ft;
 
 int main()
 {
-	vector<int> dek(121, 42);
-	
-	for (int i = 0; i < 121; i++)
+	deque<int> dek(30, 42);
+	std::cout << dek.size() << std::endl;	
+	for (int i = 0; i < 12; i++)
 		dek[i] = i;
-	dek.pop_back();
-	auto it = dek.rbegin();
-	for (; it != dek.rend(); it++)
+	auto it = dek.begin();
+	for (; it != dek.end(); it++)
+	{
+		std::cout << "+" << &*it << std::endl;
 		std::cout << "_" << *it << std::endl;
+	}
 }
