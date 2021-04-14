@@ -40,7 +40,7 @@ ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last) : _size(0)
 		_storage[i] = last;
 	}
 	else 
-	ft::vector<T, Alloc>::assign(first, last);
+		ft::vector<T, Alloc>::assign(first, last);
 }
 
 //destructor
@@ -140,7 +140,6 @@ void ft::vector<T, Alloc>::resize(size_type n, T val) {
 	_storage = tmp;
 	_capacity = n;
 	_size = n;
-	std::cout << " resize  size = " << n << std::endl;
 }
 
 //capacity
@@ -261,6 +260,8 @@ void ft::vector<T, Alloc>::assign(size_type n, ft::vector<T, Alloc>::const_refer
 
 	template <typename T, class Alloc>
 void ft::vector<T, Alloc>::push_back (const value_type& val) {
+
+	std::cout << "juste au cas ou val = " << val << "|" << _size << std::endl;
 	reserve(_size + 1);
 	_storage[_size] = T(val);
 	_size++;
@@ -303,14 +304,11 @@ typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::erase(ft::vector<T
 	ft::vector<T, Alloc>::iterator  t = first;
 	while (first != last)
 	{
-		(*first).value_type::~value_type();
 		++first;
 		_size--;
 	}
 	while (t != end())
 	{
-
-		(*t).value_type::~value_type();
 		*t = *last;
 		++t;
 		++last;

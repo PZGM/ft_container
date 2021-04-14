@@ -114,5 +114,9 @@ int main()
 
 	vec.clear();
 	vec.insert(vec.begin(), chat.begin(), chat.end());
+
+	vector<vector<int> > vic = vector<vector<int> >(5, vec);
+	std::cout << "adieu monde cruel, je vais crasher" << std::endl;
+	vic.erase(vic.begin());
 	delete oof;
 }

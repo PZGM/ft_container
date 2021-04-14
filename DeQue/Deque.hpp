@@ -26,6 +26,9 @@ namespace ft
 			
 				explicit	deque();
 				explicit	deque(size_type n, const value_type& val = value_type());
+
+				template <class InputIterator>
+					deque (InputIterator first, InputIterator last);
 				deque(const deque& x);
 				~deque();
 
@@ -63,6 +66,7 @@ namespace ft
 				void				push_back(const value_type& val);
 				void				push_front(const value_type& val);
 				void				pop_back();
+			void				pop_front();
 				void				swap (deque& x);
 
 				iterator					erase(iterator position);
