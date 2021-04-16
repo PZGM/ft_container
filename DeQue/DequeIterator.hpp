@@ -59,13 +59,10 @@ class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 				}
 
 				T & operator*() {
-					size_type chunk;
-					size_type pos;
-					
-				    chunk = (p < s[0].size()) ? 0 : (p - s[0].size()) / 10 + 1;
-					pos = (s[0].size() <= p) ? (p - s[0].size()) % 10 : p % 10;
-
-
+					size_type chunk = 0;
+					size_type pos = p;
+					for( ; chunk <  s.size() && pos >= s[chunk].size() ; chunk++)
+						pos -= s[chunk].size();
 					return(s[chunk][pos]);	
 				}
 
@@ -131,12 +128,12 @@ class DequeReverseIterator : public std::iterator<std::input_iterator_tag, T>
 				}
 
 				T & operator*() {
-					size_type chunk;
-					size_type pos;
+					size_type chunk = 0;
+					size_type pos = p;
 					
 
-				    chunk = (p < s[0].size()) ? 0 : (p - s[0].size() + 1) / 10 + 1;
-					pos = (s[0].size() <= p) ? (p - s[0].size()) % 10 : p % 10;
+					for( ; chunk < s.size() && pos >= s[chunk].size() ; chunk++)
+						pos -= s[chunk].size();
 					return(s[chunk][pos]);	
 				}
 

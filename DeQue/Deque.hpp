@@ -81,13 +81,18 @@ namespace ft
 				vector<vector<T, Alloc>, Alloc>	_storage;
 				size_type					_size;
 
-
+				void _empty();
 				template <class InputIterator>
 					void _insert(ft::deque<T, Alloc>::iterator position, InputIterator first, InputIterator last);
 				template <class InputIterator>
 					void _insert1(ft::deque<T, Alloc>::iterator position, InputIterator first, InputIterator last);
 				void _insert1(ft::deque<T, Alloc>::iterator position, int n, const_reference value);
-		};
+			
+					template <class InputIterator>
+				void constructor(InputIterator first, InputIterator last);
+					template <class Y>
+				void constructor(int n, const Y & v);		
+};
 
 					template <typename T, class Alloc>
 				bool operator== (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
@@ -103,7 +108,7 @@ namespace ft
 				bool operator<= (const deque<T,Alloc>& lhs, const deque<T,Alloc>& rhs);
 					template <typename T, class Alloc>
 				void swap(ft::deque<T, Alloc> & x, ft::deque<T, Alloc> & y);
-
+				
 }
 
 #endif

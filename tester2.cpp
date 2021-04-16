@@ -2,6 +2,7 @@
 #include <deque>
 #include <iostream>
 #include "DeQue/Deque.cpp"
+#include <stack>
 
 #ifdef STD
 using namespace std;
@@ -11,18 +12,29 @@ using namespace ft;
 
 int main()
 {
-	deque<int> dek(32, 33);
-	for (int i = 0; i < 32; i++)
+//	vector<int> vic(0,'a');
+//	vic.push_back(42);
+//	std::cout << *vic.begin() << std::endl;
+//	vector<char> vec(vic.begin(), vic.end());
+	
+
+
+	deque<char> dek(0, 45);
+//	dek.push_back(45);
+//	deque<int> dik(dek.begin(), dek.end());
+
+/*	for (int i = 0; i < 31; i++)
 		dek[i] = i;
-	dek.push_front(424242);
-	dek.push_front(424242);
-	//dek.pop_front();
-	dek.push_back(3232);
-	dek.push_back(3232);
-	//dek.pop_back();
-	auto it = dek.begin();
-	for (; it != dek.end(); it++)
-	{
-		std::cout << "_" << *it << std::endl;
-	}
+	dek.push_front(50);
+	dek.push_front(50);
+	dek.pop_front();
+	dek.push_back(32);
+	dek.push_back(32);
+	dek.pop_back();
+	dek.insert(dek.begin() + 6, dek.begin(), dek.end());*/
+//	auto it = dik.begin();
+//	for (; it != dik.end(); it++)
+//	{
+//		std::cout << "_" << *it << std::endl;
+//	}
 }
