@@ -89,9 +89,8 @@ namespace ft
 				void _insert1(ft::deque<T, Alloc>::iterator position, int n, const_reference value);
 			
 					template <class InputIterator>
-				void constructor(InputIterator first, InputIterator last);
-					template <class Y>
-				void constructor(int n, const Y & v);		
+				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type);
+				void _constructor(int n, const T & v, struct ft::__true_type);		
 };
 
 					template <typename T, class Alloc>

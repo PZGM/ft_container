@@ -12,13 +12,16 @@ ft::deque<T, Alloc>::deque() : _size(0) {
 
 template <typename T, class Alloc>
 ft::deque<T, Alloc>::deque(size_type n, ft::deque<T, Alloc>::const_reference v) {
-	constructor(n, v);
+	struct __true_type x;
+	_constructor(n, v, x);
 }
 
 template <typename T, class Alloc>
 	template <class InputIterator>
-ft::deque<T, Alloc>::deque(InputIterator first, InputIterator last) : _size(0), _storage(0) {
-	constructor(first, last);	
+ft::deque<T, Alloc>::deque(InputIterator first, InputIterator last) : _size(0), _storage(0) {	
+	typedef typename ft::__is_integer<InputIterator>::__type isInt;
+	isInt vraiNom;
+	_constructor(first, last, vraiNom);	
 }
 
 
@@ -30,7 +33,7 @@ ft::deque<T, Alloc>::deque(const deque<T, Alloc> & src)  : _storage(NULL), _size
 //private constructor 
 
 template <typename T, class Alloc>
-void ft::deque<T, Alloc>::constructor(int n, const Y & v) {
+void ft::deque<T, Alloc>::_constructor(int n, const T & v, struct ft::__true_type) {
 	{
 		_storage = ft::vector<ft::vector<T, Alloc>, Alloc>(n / 10 + 1);
 		for(size_type j = 0; j < n; j+= 10)
@@ -44,8 +47,8 @@ void ft::deque<T, Alloc>::constructor(int n, const Y & v) {
 }
 
 template <typename T, class Alloc>
-	template <class InputIterator>
-void ft::deque<T, Alloc>::constructor(InputIterator first, InputIterator last)
+	template <typename InputIterator>
+void ft::deque<T, Alloc>::_constructor(InputIterator first, InputIterator last, struct ft::__false_type)
 {
 	size_type n = 0;
 	InputIterator cp = first;

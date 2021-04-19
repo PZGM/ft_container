@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <limits.h>
 #include <stdexcept>
+#include "../IsType.hpp"
 #include "VectorIterator.hpp"
 #include <memory>
 
@@ -87,8 +88,8 @@ namespace ft
 				void _insert1(ft::vector<T, Alloc>::iterator position, int n, const_reference value);
 				
 				template <class InputIterator>
-				void constructor(InputIterator first, InputIterator last);
-				void constructor(int n, const T & v);
+				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type);
+				void _constructor(int n, const T & v, struct ft::__true_type);
 		};
 
 					template <typename T, class Alloc>

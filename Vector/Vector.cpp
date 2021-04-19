@@ -11,7 +11,8 @@ ft::vector<T, Alloc>::vector() : _storage(NULL), _size(0), _capacity(0) {
 
 template <typename T, class Alloc>
 ft::vector<T, Alloc>::vector(size_type n, const T & v) : _size(n), _capacity(n) {
-	constructor(n, v);
+	struct __true_type x;
+	_constructor(n, v, x);
 }
 
 template <typename T, class Alloc>
@@ -23,14 +24,16 @@ template <typename T, class Alloc>
 	template <class InputIterator>
 ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last) : _size(0), _capacity(0), _storage(NULL)
 {
-	constructor(first, last);
+	typedef typename ft::__is_integer<InputIterator>::__type isInt;
+	isInt vraiNom;
+	_constructor(first, last, vraiNom);
 }
 
 //private constructors
 
 
 template <typename T, class Alloc>
-void ft::vector<T, Alloc>::constructor(int n, const T & v) {
+void ft::vector<T, Alloc>::_constructor(int n, const T & v, struct ft::__true_type) {
 	if (n > ft::vector<T, Alloc>::max_size())
 		throw std::runtime_error("ft::vector error : desole, tu t'es trompe, prend pas toute ma ram stp, chrome en a besoin");
 	if (n > 0)
@@ -42,7 +45,7 @@ void ft::vector<T, Alloc>::constructor(int n, const T & v) {
 
 template <typename T, class Alloc>	
 	template <class InputIterator>
-void ft::vector<T, Alloc>::constructor(InputIterator first, InputIterator last) {
+void ft::vector<T, Alloc>::_constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
 	assign(first, last);
 }
 
