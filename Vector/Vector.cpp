@@ -44,7 +44,7 @@ void ft::vector<T, Alloc>::_constructor(int n, const T & v, struct ft::__true_ty
 
 
 template <typename T, class Alloc>	
-	template <class InputIterator>
+template <class InputIterator>
 void ft::vector<T, Alloc>::_constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
 	assign(first, last);
 }
@@ -276,7 +276,7 @@ void ft::vector<T, Alloc>::push_back (const value_type& val) {
 
 template <typename T, class Alloc>
 void ft::vector<T, Alloc>::pop_back() {
-	_storage[_size - 1].value_type::~value_type();
+	//	_storage[_size - 1].value_type::~value_type();
 	_size--;
 }
 
@@ -399,10 +399,8 @@ void ft::vector<T, Alloc>::_insert1(ft::vector<T, Alloc>::iterator position, int
 		position = insert(position, value);
 }
 
-//relationnal iterator
-
-template <class T, class Alloc>
-bool operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+template <typename T, class Alloc>
+bool ft::operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	if (lhs.size() != rhs.size())
 		return (false);
 	for (size_type i = 0; i < lhs.size(); i++)
@@ -414,7 +412,7 @@ bool operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator!= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+bool ft::operator!= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	if (lhs.size() == rhs.size())
 		return (false);
 	for (size_type i = 0; i < lhs.size(); i++)
@@ -426,7 +424,7 @@ bool operator!= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator> (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+bool ft::operator> (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
 		if (lhs.at(i) > rhs.at(i))
@@ -440,7 +438,7 @@ bool operator> (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) 
 }
 
 template <class T, class Alloc>
-bool operator< (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+bool ft::operator< (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
 		if (lhs.at(i) < rhs.at(i))
@@ -454,7 +452,7 @@ bool operator< (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) 
 }
 
 template <class T, class Alloc>
-bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+bool ft::operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
 		if (lhs.at(i) > rhs.at(i))
@@ -468,7 +466,7 @@ bool operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 }
 
 template <class T, class Alloc>
-bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
+bool ft::operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
 		if (lhs.at(i) < rhs.at(i))
@@ -484,7 +482,7 @@ bool operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs)
 //non member swap
 
 template <class T, class Alloc>
-void swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
+void ft::swap (ft::vector<T,Alloc>& x, ft::vector<T,Alloc>& y) {
 	x.swap(y);
 }
 

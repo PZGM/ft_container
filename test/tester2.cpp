@@ -1,7 +1,7 @@
 #include <vector>
 #include <deque>
 #include <iostream>
-#include "DeQue/Deque.cpp"
+#include "../DeQue/Deque.cpp"
 #include <stack>
 
 #ifdef STD
@@ -14,52 +14,18 @@ using namespace ft;
 int main()
 {
 
-#ifdef VEC
-#define CTN vector
-#endif
-
-#ifdef DEK
-#define CTN deque
-#endif
-
-#ifdef CHAR
-#define TP char
-#endif
-
-
-#ifdef INT
-#define TP int
-#endif
-
-
-#if defined VEC || defined DEK
-	CTN<TP> inst(20);
-	for (int i = 5; i < 15;i++)
-#if defined CHAR || defined INT
-		inst[i] = i + 50;
-#else
-		inst[i] = vec(10,10);
-#endif
-	for (auto it = inst.begin(); it != inst.end(); it++)
-		std::cout << *it << std::endl;
-
-	
-#endif
-	
-	
-
-/*	vector<int> vic(0,'a');
+	vector<int> vic(0,'a');
 	vic.push_back(42);
   	std::cout << *vic.begin() << std::endl;
   	vector<char> vec(vic.begin(), vic.end());
 	
 
 
-	deque<char> dek(0, 45);
+	deque<char> dek(30, 45);
   	dek.push_back(45);
   	deque<int> dik(dek.begin(), dek.end());
 
-  	for (int i = 0; i < 31; i++)
+ 	for (int i = 0; i < 31; i++)
 		dek[i] = i;
 	dek.push_front(50);
 	dek.push_front(50);
@@ -72,5 +38,5 @@ int main()
   	for (; it != dik.end(); it++)
   	{
   		std::cout << "_" << *it << std::endl;
-  	}*/
+  	}
 }

@@ -1,4 +1,4 @@
-#include "Vector/Vector.cpp"
+#include "../Vector/Vector.cpp"
 #include <iostream>
 #include <vector>
 
@@ -11,7 +11,6 @@ using namespace ft;
 int main()
 {
 	vector<int> vec;
-
 
 	vec.push_back(0);
 	vec.push_back(0);
@@ -117,7 +116,6 @@ int main()
 	vec.insert(vec.begin(), chat.begin(), chat.end());
 
 	vector<vector<int> > vic = vector<vector<int> >(5, vec);
-	std::cout << "adieu monde cruel, je vais crasher" << std::endl;
 	vic.erase(vic.begin());
 	delete oof;
 }

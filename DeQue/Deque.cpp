@@ -7,7 +7,7 @@
 
 template <typename T, class Alloc>
 ft::deque<T, Alloc>::deque() : _size(0) {
-	ft::deque<T, Alloc>::_empty();
+	_empty();
 }
 
 template <typename T, class Alloc>
@@ -324,6 +324,8 @@ void ft::deque<T, Alloc>::push_front (const value_type& val)
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::pop_back()
 {
+	if (_size == 0)
+		return;
 	if (_storage[_storage.size() - 1].size() == 0)
 		_storage.pop_back();
 	else
@@ -467,13 +469,13 @@ void ft::deque<T, Alloc>::_empty() {
 	if (_size == 0) {
 		ft::vector<T>  vec(0);
 		vec.reserve(10);
-		push_back(vec);
+		_storage.push_back(vec);
 	}
 }
 //relationnal iterator
 
 	template <class T, class Alloc>
-bool operator== (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator== (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	if (lhs.size() != rhs.size())
 		return (false);
@@ -486,7 +488,7 @@ bool operator== (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 }
 
 	template <class T, class Alloc>
-bool operator!= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator!= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	if (lhs.size() == rhs.size())
 		return (false);
@@ -499,7 +501,7 @@ bool operator!= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 }
 
 	template <class T, class Alloc>
-bool operator> (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator> (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
@@ -514,7 +516,7 @@ bool operator> (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 }
 
 	template <class T, class Alloc>
-bool operator< (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator< (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
@@ -529,7 +531,7 @@ bool operator< (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 }
 
 	template <class T, class Alloc>
-bool operator>= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator>= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
@@ -544,7 +546,7 @@ bool operator>= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 }
 
 	template <class T, class Alloc>
-bool operator<= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
+bool ft::operator<= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
 	for (int i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
@@ -561,7 +563,7 @@ bool operator<= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 //non member swap
 
 	template <class T, class Alloc>
-void swap (ft::deque<T,Alloc>& x, ft::deque<T,Alloc>& y)
+void ft::swap (ft::deque<T,Alloc>& x, ft::deque<T,Alloc>& y)
 {
 	x.swap(y);
 }

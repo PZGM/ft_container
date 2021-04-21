@@ -106,7 +106,6 @@ namespace ft
 				bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
 					template <typename T, class Alloc>
 				void swap(ft::vector<T, Alloc> & x, ft::vector<T, Alloc> & y);
-
 }
 
 
