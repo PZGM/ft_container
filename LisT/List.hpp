@@ -13,6 +13,7 @@ namespace ft
 	template<typename T>
 	struct elem
 	{
+		elem(T val) : content(val) {};
 		elem	*prev;
 		elem	*next;
 		T		content;
