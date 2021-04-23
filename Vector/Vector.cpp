@@ -61,6 +61,8 @@ ft::vector<T, Alloc>::~vector() {
 
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin() {
+	//std::cout << "i'm in ";
+	//std::cout << _size << _capacity << std::endl;
 	return (ft::vector<T, Alloc>::iterator(&_storage[0]));
 }
 

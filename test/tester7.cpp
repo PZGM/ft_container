@@ -1,11 +1,11 @@
 #include <vector>
 #include <list>
 #include <iostream>
+#include "../LisT/List.cpp"
 
 #ifdef STD
 using namespace std;
 #elif FT
-#include "List.cpp"
 using namespace ft;
 #endif
 

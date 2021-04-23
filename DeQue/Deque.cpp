@@ -26,7 +26,7 @@ ft::deque<T, Alloc>::deque(InputIterator first, InputIterator last) : _size(0), 
 
 
 template <typename T, class Alloc>
-ft::deque<T, Alloc>::deque(const deque<T, Alloc> & src)  : _storage(NULL), _size(0) {
+ft::deque<T, Alloc>::deque(const deque<T, Alloc> & src)  : _storage(0), _size(0) {
 	*this = src;
 }
 
@@ -369,14 +369,14 @@ typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::erase(ft::deque<T, A
 	ft::deque<T, Alloc>::iterator  t = first;
 	while (first != last)
 	{
-		(*first).value_type::~value_type();
+		//(*first).value_type::~value_type(); call to destructor
 		++first;
 		_size--;
 	}
 	while (t != end())
 	{
 
-		(*t).value_type::~value_type();
+		//(*t).value_type::~value_type(); //call to destructor
 		*t = *last;
 		++t;
 		++last;
@@ -434,6 +434,12 @@ void ft::deque<T, Alloc>::_insert(ft::deque<T, Alloc>::iterator position, InputI
 	size_type pos = i;
 	for (; chunk < _storage.size() && pos >= _storage[chunk].size() ; chunk++)
 		pos -= _storage[chunk].size();
+	if (chunk >= _storage.size()) //new alloc
+	{
+		ft::vector<T>  vec(0);
+		vec.reserve(10);
+		_storage.push_back(vec);
+	}		
 	typename ft::vector<T, Alloc>::iterator ite = _storage[chunk].begin();
 	for (; pos; pos--)
 	{

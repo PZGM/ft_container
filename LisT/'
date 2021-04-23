@@ -181,87 +181,10 @@ typename ft::list<T, Alloc>::size_type ft::list<T, Alloc>::size() const
 	template <typename T, class Alloc>
 typename ft::list<T, Alloc>::size_type ft::list<T, Alloc>::max_size() const
 {
-	size_type max = 0;
+	typename ft::list<T, Alloc>::size_type max = 0;
 	max--;
 	return (max);
 }
-
-//front
-
-	template <typename T, class Alloc>
-typename ft::list<T, Alloc>::reference ft::list<T, Alloc>::front()
-{
-	return (_xnode->next);
-}
-
-	template <typename T, class Alloc>
-typename ft::list<T, Alloc>::const_reference ft::list<T, Alloc>::front() const
-{
-	return (_xnode->next);
-}
-
-//back
-
-	template <typename T, class Alloc>
-typename ft::list<T, Alloc>::reference ft::list<T, Alloc>::back()
-{
-	return (_xnode->prev);
-}
-
-	template <typename T, class Alloc>
-typename ft::list<T, Alloc>::const_reference ft::list<T, Alloc>::back() const
-{
-	return (_xnode->prev);
-}
-
-//clear
-
-	template <typename T, class Alloc>
-void ft::list<T, Alloc>::clear()
-{
-	elem<T> *cur = _xnode->next;
-	elem<T> *tmp;
-	while (cur != _xnode)
-	{
-		tmp = cur;
-		cur = cur->next;
-		delete (tmp);
-	}
-}
-
-//resize
-
-	template <typename T, class Alloc>
-void ft::list<T, Alloc>::resize(size_type n, value_type val)
-{
-	//SoonTM
-}
-
-//insert
-
-
-	template <typename T, class Alloc>
-typename ft::list<T, Alloc>::iterator ft::list<T, Alloc>::insert(iterator pos, const value_type & val)
-{
-	ft::list<T, Alloc>::iterator it = begin();
-	elem<T> * cur = _xnode;
-	while (it != pos)
-	{
-		it++;
-		cur = cur->next;
-	}
-	elem<T> * newel = new elem<T>(val);
-	newel->next = cur->next;
-	newel->prev = cur;
-	cur->next->prev = newel;
-	cur->next = newel;
-	_size++;
-	return(iterator(newel));
-}
-
-
-
-
 
 
 
