@@ -246,6 +246,38 @@ void ft::list<T, Alloc>::clear()
 	_size = 0;
 }
 
+//push_front
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::push_front (const value_type& val)
+{
+	insert(begin(), val);	
+}
+
+//push_back
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::push_back(const value_type& val)
+{
+	insert(end(), val);	
+}
+
+//pop_front
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::pop_front ()
+{
+	erase(begin());	
+}
+
+//pop_back
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::pop_back()
+{
+	erase(end());	
+}
+
 //insert
 
 	template <typename T, class Alloc>
@@ -266,7 +298,6 @@ typename ft::list<T, Alloc>::iterator ft::list<T, Alloc>::insert(iterator pos, c
 	_size++;
 	return(iterator(newel));
 }
-
 
 	template <typename T, class Alloc>
 void ft::list<T, Alloc>::insert(iterator pos, size_type n, const value_type & val)
@@ -501,16 +532,104 @@ void ft::list<T, Alloc>::remove_if (Predicate pred)
 	}
 }
 
+//unique
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::unique()
+{
+	ft::list<T, Alloc>::iterator it = begin();
+	while (it != end())
+	{
+		if (*it == *(it + 1))
+			erase(it + 1);
+		it++;
+	}
+}
+
+	template <typename T, class Alloc>
+		template <class BinaryPredicate>
+void ft::list<T, Alloc>::unique(BinaryPredicate binary_pred)
+{
+	ft::list<T, Alloc>::iterator it = begin();
+	while (it != end())
+	{
+		if (binary_pred(*it,*(it + 1)))
+			erase(it + 1);
+		it++;
+	}
+}
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::merge (list & x)
+{
+	elem<T> * dst = _xnode->next;
+	elem<T> * src = x._xnode->next;
+	elem<T> * tmp;
+	if (src == x._xnode)
+		return;
+	if (dst == _xnode)
+	{
+		_xnode->next = x._xnode->next;
+		_xnode->prev = x._xnode->prev;
+		x._xnode->next = x._xnode;
+		x._xnode->prev = x._xnode;
+		return;
+	}
+	while (dst != _xnode)
+	{
+		std::cout << "ya" << std::endl;
+		src = x._xnode->next;
+		while (src != x._xnode && src->content < dst->content)
+		{
+			std::cout << "YO" << std::endl;
+			tmp = src->next;
+		//	src->prev = dst->prev;
+			dst->prev->next = src;
+			dst->prev = src;
+		//	src->next = dst;
+			std::cout << "src=" << src->content << std::endl;
+			src = tmp;
+		}
+		dst = dst->next;
+	}
+	x._xnode->next = x._xnode;
+	x._xnode->prev = x._xnode;
+}
 
 
+/*
+	elem<T> * dst = _xnode->next;
+	elem<T> * src = x._xnode->next;
+	elem<T> * tmp;
+	if (src == x._xnode)
+		return;
+	if (dst == _xnode)
+	{
+		_xnode->next = x._xnode->next;
+		_xnode->prev = x._xnode->prev;
+		x._xnode->next = x._xnode;
+		x._xnode->prev = x._xnode;
+		return;
+	}
+	while (dst != _xnode)
+	{
+	//	std::cout << "yo" << std::endl;
+		while (src != x._xnode && src->content < dst->content)
+		{
+			tmp = src->next;;
+			std::cout << "YO" << std::endl;
+			src->prev = dst->prev;
+			src->next = dst;
+			dst->prev->next = src;
+			dst->prev = src;
+			src = tmp;
+		}
+		dst = dst->next;
+	}
+	x._xnode->next = x._xnode;
+	x._xnode->prev = x._xnode;
 
-
-
-
-
-
-
-
+*/
 
 
 

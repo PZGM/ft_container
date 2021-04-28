@@ -8,17 +8,16 @@ using namespace std;
 using namespace ft;
 #endif
 
-
 int main()
 {
-	set<int> sat;
-	sat.insert(42);
-	sat.insert(42);
+	set<int, greater<int> > sat;
+	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
+	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
 	std::cout << sat.size() << std::endl;
 	for (int i = 0; i < 100 ; i += 2)
 		sat.insert(i);
 	std::cout << sat.empty() << std::endl;
-	set<int> stonks;
+	set<int, greater<int> > stonks;
 	std::cout << (sat > stonks) << std::endl;
 	auto it = sat.begin();
 	for( ; it != sat.end(); it++) {

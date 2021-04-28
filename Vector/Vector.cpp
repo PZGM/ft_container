@@ -22,7 +22,7 @@ ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src)  : _size(0), _capacit
 
 template <typename T, class Alloc>
 	template <class InputIterator>
-ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last) : _size(0), _capacity(0), _storage(NULL)
+ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last) : _size(0), _storage(NULL)
 {
 	typedef typename ft::__is_integer<InputIterator>::__type isInt;
 	isInt vraiNom;
@@ -40,6 +40,8 @@ void ft::vector<T, Alloc>::_constructor(int n, const T & v, struct ft::__true_ty
 		_storage = new T[n];
 	for (size_type i = 0; i < n; i++)
 		_storage[i] = v;
+	_capacity = n;
+	_size = n;
 }
 
 

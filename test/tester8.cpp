@@ -12,9 +12,9 @@ using namespace ft;
 
 int main()
 {
-	std::cout << "+++List constructor and basics with int+++" << std::endl;
+	std::cout << "+++List constructor and basics with char+++" << std::endl;
 	std::cout << "===Default constructor===" << std::endl;
-	list<int> lst1;
+	list<char> lst1;
 	std::cout << lst1.size() << std::endl;
 	for (auto it = lst1.begin(); it != lst1.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -22,7 +22,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Fill constructor===" << std::endl;
-	list<int> lst2(10,10);
+	list<char> lst2(10,'a');
 	std::cout << lst2.size() << std::endl;
 	for (auto it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -30,7 +30,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Fill constructor to empty===" << std::endl;
-	list<int> lst3(0,10);
+	list<char> lst3(0,'b');
 	std::cout << lst3.size() << std::endl;
 	for (auto it = lst3.begin(); it != lst3.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -38,7 +38,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Fill constructor with default values===" << std::endl;
-	list<int> lst4(15);
+	list<char> lst4(15);
 	std::cout << lst4.size() << std::endl;
 	for (auto it = lst4.begin(); it != lst4.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -46,7 +46,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Fill constructor with implicit cast===" << std::endl;
-	list<int> lst5(8,'b');
+	list<char> lst5(8,77);
 	std::cout << lst5.size() << std::endl;
 	for (auto it = lst5.begin(); it != lst5.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -54,7 +54,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Range constructor with empty list===" << std::endl;
-	list<int> lst6(lst3.begin(), lst3.end());
+	list<char> lst6(lst3.begin(), lst3.end());
 	std::cout << lst6.size() << std::endl;
 	for (auto it = lst6.begin(); it != lst6.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -63,12 +63,12 @@ int main()
 
 	//change values of lst5 for incremental values
 	
-	int i = 0;
+	char i = 48;
 	for (auto it = lst5.begin(); it!= lst5.end(); it++)
 		*it = i++;
 
 	std::cout << "===Range constructor===" << std::endl;
-	list<int> lst7(lst5.begin(), lst5.end());
+	list<char> lst7(lst5.begin(), lst5.end());
 	std::cout << lst7.size() << std::endl;
 	for (auto it = lst7.begin(); it != lst7.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -76,7 +76,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Range constructor with reverse iterator===" << std::endl;
-	list<int> lst8(lst5.rbegin(), lst5.rend());
+	list<char> lst8(lst5.rbegin(), lst5.rend());
 	std::cout << lst8.size() << std::endl;
 	for (auto it = lst8.begin(); it != lst8.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -84,13 +84,13 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	//initialize a vector
-	vector<int> vec(6, 8);
+	vector<char> vec(6, 'z');
 	i = 0;
 	for (auto it = vec.begin(); it != vec.end(); it++)
 		*it = i++;
 
 	std::cout << "===Range constructor with vector iterators===" << std::endl;
-	list<int> lst9(vec.begin(), vec.end());
+	list<char> lst9(vec.begin(), vec.end());
 	std::cout << lst9.size() << std::endl;
 	for (auto it = lst9.begin(); it != lst9.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -99,7 +99,7 @@ int main()
 
 
 	std::cout << "===Range constructor with partial vector iterators===" << std::endl;
-	list<int> lst10(vec.begin() + 2, vec.end() - 1);
+	list<char> lst10(vec.begin() + 2, vec.end() - 1);
 	std::cout << lst10.size() << std::endl;
 	
 	lst10.insert(lst10.begin(), vec.begin(), vec.end());
@@ -110,7 +110,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Copy constructor===" << std::endl;
-	list<int> lst11(lst5);
+	list<char> lst11(lst5);
 	std::cout << lst11.size() << std::endl;
 	for (auto it = lst11.begin(); it != lst11.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -118,7 +118,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Copy constructor with empty list===" << std::endl;
-	list<int> lst12(lst3);
+	list<char> lst12(lst3);
 	std::cout << lst12.size() << std::endl;
 	for (auto it = lst12.begin(); it != lst12.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -154,7 +154,6 @@ int main()
 	std::cout << lst10.empty() << std::endl;
 	std::cout << lst11.empty() << std::endl;
 	std::cout << lst12.empty() << std::endl;
-
 
 	std::cout<< "===size===" << std::endl;
 	std::cout << lst1.size() << std::endl;

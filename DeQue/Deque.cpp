@@ -354,6 +354,14 @@ void ft::deque<T, Alloc>::pop_front ()
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::swap (deque& x)
 {
+	vector<vector<T, Alloc>, Alloc> tmp = _storage;
+	size_type t = _size;
+
+	_storage = x._storage;
+	_size = x._size;
+
+	x._storage = tmp;
+	x._size = t;
 }
 
 //erase

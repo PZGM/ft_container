@@ -62,10 +62,12 @@ namespace ft
 				reference			back();
 				const_reference			back() const;
 
-				template <class InputIterator>
-					void				assign(InputIterator first, InputIterator last);
+					template <class InputIterator>
+				void				assign(InputIterator first, InputIterator last);
 				void				assign(size_type n, const_reference val);
+				void				push_front (const value_type& val);
 				void				push_back(const value_type& val);
+				void				pop_front();
 				void				pop_back();
 				void				swap (list& x);
 
@@ -73,13 +75,16 @@ namespace ft
 				iterator					erase(iterator first, iterator last);
 				iterator					insert (iterator position, const_reference val);
 				void						insert (iterator position, size_type n, const_reference val);
-				template <class InputIterator>
-					void insert (iterator position, InputIterator first, InputIterator last);
+					template <class InputIterator>
+				void insert (iterator position, InputIterator first, InputIterator last);
 
 				void splice (iterator position, list& x);
 				void splice (iterator position, list& x, iterator i);
 				void splice (iterator position, list& x, iterator first, iterator last);
-			
+				void unique();
+					template <class BinaryPredicate>
+				  void unique (BinaryPredicate binary_pred);
+				void merge (list& x);
 				void remove(const value_type & val);
 					template <class Predicate>
 				void remove_if (Predicate pred);

@@ -161,3 +161,69 @@ then
 
 fi
 
+
+#test 8 set
+
+if [ $# = 0 ] || [ $1 = "8" ] || [[ $# = 1  &&  $1 = "san" ]]
+
+then
+
+	rm -f a.out ft.bin std.bin
+	clang++ tester8.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	clang++ tester8.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+
+	if [[ $2 = "ft" || $2 = "all" ]];then
+		cat ft
+	fi
+	if [[ $2 = "std" || $2 = "all" ]];then
+		cat std
+	fi
+
+	echo "vvvvvvvv DIFFF 8 List test 1 vvvvvvvv"
+	diff ft std
+
+fi
+
+#test 9 set
+
+if [ $# = 0 ] || [ $1 = "9" ] || [[ $# = 1  &&  $1 = "san" ]]
+
+then
+
+	rm -f a.out ft.bin std.bin
+	clang++ tester9.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	clang++ tester9.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+
+	if [[ $2 = "ft" || $2 = "all" ]];then
+		cat ft
+	fi
+	if [[ $2 = "std" || $2 = "all" ]];then
+		cat std
+	fi
+
+	echo "vvvvvvvv DIFFF 9 List test 1 vvvvvvvv"
+	diff ft std
+
+fi
+
+#test 10 set
+
+if [ $# = 0 ] || [ $1 = "10" ] || [[ $# = 1  &&  $1 = "san" ]]
+
+then
+
+	rm -f a.out ft.bin std.bin
+	clang++ tester10.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	clang++ tester10.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+
+	if [[ $2 = "ft" || $2 = "all" ]];then
+		cat ft
+	fi
+	if [[ $2 = "std" || $2 = "all" ]];then
+		cat std
+	fi
+
+	echo "vvvvvvvv DIFFF 10 List test 1 vvvvvvvv"
+	diff ft std
+
+fi
