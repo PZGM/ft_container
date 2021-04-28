@@ -10,7 +10,7 @@
 
 namespace ft
 {
-template <typename T, class Alloc = std::allocator<T> >
+	template <typename T, class Alloc = std::allocator<T> >
 		class list
 		{
 			public:
@@ -47,20 +47,20 @@ template <typename T, class Alloc = std::allocator<T> >
 				bool				empty() const;
 				size_type			size() const;
 				size_type			max_size() const;
-				
+
 				void				resize(size_type n, value_type val = value_type());
 				size_type			capacity() const;
 				void				clear();
 				void				reserve(size_type n);
 
 				reference			operator[] (size_type n);
-				const_reference		operator[] (size_type n) const;
+				const_reference			operator[] (size_type n) const;
 				reference			at(size_type n);
-				const_reference		at(size_type n) const;
+				const_reference			at(size_type n) const;
 				reference			front();
-				const_reference		front() const;
+				const_reference			front() const;
 				reference			back();
-				const_reference		back() const;
+				const_reference			back() const;
 
 				template <class InputIterator>
 					void				assign(InputIterator first, InputIterator last);
@@ -69,24 +69,29 @@ template <typename T, class Alloc = std::allocator<T> >
 				void				pop_back();
 				void				swap (list& x);
 
-				//iterator					erase(iterator position);
-				//iterator					erase(iterator first, iterator last);
+				iterator					erase(iterator position);
+				iterator					erase(iterator first, iterator last);
 				iterator					insert (iterator position, const_reference val);
-				//void						insert (iterator position, size_type n, const_reference val);
-				//template <class InputIterator>
-				//void insert (iterator position, InputIterator first, InputIterator last);
-								
+				void						insert (iterator position, size_type n, const_reference val);
+				template <class InputIterator>
+					void insert (iterator position, InputIterator first, InputIterator last);
+
+				void splice (iterator position, list& x);
+				void splice (iterator position, list& x, iterator i);
+				void splice (iterator position, list& x, iterator first, iterator last);
+			
+				void remove(const value_type & val);
+					template <class Predicate>
+				void remove_if (Predicate pred);
 
 			private:
 				elem<T>		*_xnode;
 				size_type	_size;
-				/*				template <class InputIterator>
-								void _insert(ft::list<T, Alloc>::iterator position, InputIterator first, InputIterator last);
-								template <class InputIterator>
-								void _insert1(ft::list<T, Alloc>::iterator position, InputIterator first, InputIterator last);
-								void _insert1(ft::list<T, Alloc>::iterator position, int n, const_reference value);
-								*/				template <class InputIterator>
-				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type);
+				template <class InputIterator>
+					void _insert(ft::list<T, Alloc>::iterator position, InputIterator first, InputIterator last, struct ft::__false_type);
+				void _insert(ft::list<T, Alloc>::iterator position, size_type n, const_reference value, struct ft::__true_type);
+				template <class InputIterator>
+					void _constructor(InputIterator first, InputIterator last, struct ft::__false_type);
 				void _constructor(size_type n, const T & v, struct ft::__true_type);
 		};
 
