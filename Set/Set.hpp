@@ -55,6 +55,8 @@ namespace ft
 				const_reverse_iterator		rend() const;
 
 				std::pair<iterator,bool> insert(const value_type& val);
+				iterator insert(iterator position, const value_type& val);
+
 				template <class InputIterator>
 				void insert(InputIterator first, InputIterator last);
 

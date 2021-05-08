@@ -12,6 +12,7 @@ template <typename T,class Compare, class Alloc>
 ft::set<T, Compare, Alloc>::set(const ft::set<T,Compare,Alloc>& x) : _size(0) {
 	insert(x.first(), x.last());
 }
+
 template <typename T,class Compare, class Alloc>
 template <class InputIterator>
 ft::set<T, Compare, Alloc>::set(InputIterator first, InputIterator last, const key_compare& comp,const  allocator_type& alloc) : _size(0){
@@ -40,15 +41,30 @@ void ft::set<T, Compare, Alloc>::_destroy_set(ft::elem<T> *leaf) {
 
 template <typename T,class Compare, class Alloc>
 std::pair<typename ft::set<T, Compare, Alloc>::iterator, bool> ft::set<T, Compare, Alloc>::insert(const value_type& val) {
-	if (ft::set<T, Compare, Alloc>::find(val) != this->end())
-		return (ft::set<T, Compare, Alloc>::find(val), false);
-	return(_insert(val, _root), true);
+	std::pair<iterator, bool> pa; 
+	if (ft::set<T, Compare, Alloc>::find(val) != this->end()) {
+		pa.first = ft::set<T, Compare, Alloc>::find(val);
+		pa.second = false;
+	}
+	else {
+		pa.first = _insert(val, _root);
+		pa.second = true;
+	}
+	return pa;
 }
+
+template <typename T,class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::insert(iterator pos, const value_type& val) {
+	if (ft::set<T, Compare, Alloc>::find(val) != this->end())
+		return ft::set<T, Compare, Alloc>::_find(val, pos);
+	return _insert(val, pos);
+}
+
 
 template <typename T,class Compare, class Alloc>
 template <class InputIterator>
 void ft::set<T, Compare, Alloc>::insert(InputIterator first, InputIterator last) {
-	for ( ; first != last + 1; first++) {
+	for ( ; first != last; first++) {
 		if (ft::set<T, Compare, Alloc>::find(*first) == this->end())
 			_insert(*first, _root);
 	}

@@ -275,7 +275,7 @@ void ft::list<T, Alloc>::pop_front ()
 	template <typename T, class Alloc>
 void ft::list<T, Alloc>::pop_back()
 {
-	erase(end());	
+	erase(end() - 1);	
 }
 
 //insert
@@ -369,7 +369,7 @@ void ft::list<T, Alloc>::_insert(iterator pos, InputIterator first, InputIterato
 	template <typename T, class Alloc>
 typename ft::list<T, Alloc>::iterator ft::list<T, Alloc>::erase(ft::list<T, Alloc>::iterator pos)
 {
-	
+		
 	ft::list<T, Alloc>::iterator it = begin();
 	elem<T> * cur = _xnode->next;
 	while (it != pos)
@@ -452,23 +452,92 @@ void ft::list<T, Alloc>::swap(list & x)
 	x._xnode = tmp;
 }
 
-//slice
+//splice
 
 	template <typename T, class Alloc>
 void ft::list<T, Alloc>::splice(iterator pos, list & x)
 {
-	
+	if (x.empty())
+		return;
 	elem<T> * c = _xnode->next;
 	iterator it = begin();
-	int i = 0;
 	while (it != pos)
 	{
-		i++;
 		it++;
 		c = c->next;
 	}
 	c->prev->next = x._xnode->next;
 	c->prev = x._xnode->prev;
+	x._xnode->next->prev = c;
+	x._xnode->prev->next = c;
+	x._xnode->prev = x._xnode;
+	x._xnode->next = x._xnode;
+	x._update_size();
+	_update_size();
+}
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::splice(iterator pos, list& x, iterator i)
+{
+	if (x.empty())
+		return;
+	elem<T> * c = _xnode->next;
+	iterator it = begin();
+	while (it != pos)
+	{
+		it++;
+		c = c->next;
+	}
+	elem<T> * c2 = x._xnode->next;
+	iterator it2 = x.begin();
+	while (it2 != i)
+	{
+		it2++;
+		c2 = c2->next;
+	}
+	c2->prev->next = c2->next;
+	c2->next->prev = c2->prev;
+	c2->prev = c->prev;
+	c2->next = c;
+	c->prev->next = c2;
+	c->prev = c2;
+	x._update_size();
+	_update_size();
+}
+
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::splice(iterator pos, list& x, iterator first, iterator last)
+{
+	elem<T> * epos = _xnode->next;
+	iterator itpos= begin();
+	while (itpos!= pos)
+	{
+		itpos++;
+		epos = epos->next;
+	}
+	elem<T> * efirst = x._xnode->next;
+	iterator itfirst = x.begin();
+	while (itfirst != first)
+	{
+		itfirst++;
+		efirst = efirst->next;
+	}
+	elem<T> * elast = x._xnode->next;
+	iterator itlast = x.begin();
+	while (itlast != last)
+	{
+		itlast++;
+		elast = elast->next;
+	}
+	efirst->prev->next = elast;
+	elast->next->prev = efirst->prev;
+	efirst->prev = epos->prev;
+	elast->prev->next = epos;
+	epos->prev->next = efirst;
+	epos->prev = elast;
+	x._update_size();
+	_update_size();
 }
 
 //assign 
@@ -494,7 +563,7 @@ void ft::list<T, Alloc>::assign(size_type n, const value_type & val)
 	template <typename T, class Alloc>
 void ft::list<T, Alloc>::remove(const value_type & val)
 {
-	elem<T> * c = _xnode;
+	elem<T> * c = _xnode->next;
 	elem<T> * t = NULL;
 	while (c != _xnode)
 	{
@@ -502,11 +571,13 @@ void ft::list<T, Alloc>::remove(const value_type & val)
 		{
 			c->prev->next = c->next;
 			c->next->prev = c->prev;
-			t = c;
-		}
-		c = c->next;
-		if (t && t->content == val)
+			t = c;	
+			c = c->next;
+			_size--;
 			delete (t);
+		}
+		else
+		c = c->next;
 	}
 }
 
@@ -525,6 +596,7 @@ void ft::list<T, Alloc>::remove_if (Predicate pred)
 			c->prev->next = c->next;
 			c->next->prev = c->prev;
 			t = c;
+			_size--;
 		}
 		c = c->next;
 		if (t && pred(t->content))
@@ -559,6 +631,8 @@ void ft::list<T, Alloc>::unique(BinaryPredicate binary_pred)
 	}
 }
 
+//merge
+
 	template <typename T, class Alloc>
 void ft::list<T, Alloc>::merge (list & x)
 {
@@ -567,73 +641,152 @@ void ft::list<T, Alloc>::merge (list & x)
 	elem<T> * tmp;
 	if (src == x._xnode)
 		return;
-	if (dst == _xnode)
-	{
-		_xnode->next = x._xnode->next;
-		_xnode->prev = x._xnode->prev;
-		x._xnode->next = x._xnode;
-		x._xnode->prev = x._xnode;
-		return;
-	}
 	while (dst != _xnode)
 	{
-		std::cout << "ya" << std::endl;
-		src = x._xnode->next;
 		while (src != x._xnode && src->content < dst->content)
 		{
-			std::cout << "YO" << std::endl;
 			tmp = src->next;
-		//	src->prev = dst->prev;
+			src->prev = dst->prev;
 			dst->prev->next = src;
 			dst->prev = src;
-		//	src->next = dst;
-			std::cout << "src=" << src->content << std::endl;
+			src->next = dst;
 			src = tmp;
 		}
 		dst = dst->next;
+	}
+	while(src != x._xnode)
+	{
+		tmp = src->next;
+		src->prev = dst->prev;
+		dst->prev->next = src;
+		dst->prev = src;
+		src->next = dst;
+		src = tmp;
 	}
 	x._xnode->next = x._xnode;
 	x._xnode->prev = x._xnode;
 }
 
+//compare
 
-/*
+	template <typename T, class Alloc>
+		template <class Compare>
+void ft::list<T, Alloc>::merge(list & x, Compare comp)
+{
 	elem<T> * dst = _xnode->next;
 	elem<T> * src = x._xnode->next;
 	elem<T> * tmp;
 	if (src == x._xnode)
 		return;
-	if (dst == _xnode)
-	{
-		_xnode->next = x._xnode->next;
-		_xnode->prev = x._xnode->prev;
-		x._xnode->next = x._xnode;
-		x._xnode->prev = x._xnode;
-		return;
-	}
 	while (dst != _xnode)
 	{
-	//	std::cout << "yo" << std::endl;
-		while (src != x._xnode && src->content < dst->content)
+		while (src != x._xnode && comp(src->content,dst->content))
 		{
-			tmp = src->next;;
-			std::cout << "YO" << std::endl;
+			tmp = src->next;
 			src->prev = dst->prev;
-			src->next = dst;
 			dst->prev->next = src;
 			dst->prev = src;
+			src->next = dst;
 			src = tmp;
 		}
 		dst = dst->next;
 	}
+	while(src != x._xnode)
+	{
+		tmp = src->next;
+		src->prev = dst->prev;
+		dst->prev->next = src;
+		dst->prev = src;
+		src->next = dst;
+		src = tmp;
+	}
 	x._xnode->next = x._xnode;
 	x._xnode->prev = x._xnode;
+}
 
-*/
+//sort
+
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::sort()
+{
+	elem<T> * c = _xnode->next;
+	elem<T> * d = _xnode->next->next;
+	elem<T> * next;
+	elem<T> * prev;
+	elem<T> * tmp;
+	while (d != _xnode)
+	{
+		std::cout << "yo" << std::endl;
+		c = _xnode->next;
+		while (c != d)
+		{
+			std::cout << "c = " << c->content << " d = " << d->content << std::endl;
+			if (c->next == c || d->next == d)
+				std::cout << "clamerd" << std::endl;
+			if (d->content < c->content)
+			{
+				if (c->next == d)
+				{
+					prev = c->prev;
+					next = d->next;
+
+					prev->next = d;
+					next->prev = c;
+
+					d->next = c;
+					c->prev = d;
+
+					d->prev = prev;
+					c->next = next;
+
+					c = _xnode;
+					d = _xnode->next;
+
+				}
+				else
+				{
+					prev = c->prev;
+					next = d->next;
+
+					prev->next = d;
+					next->prev = c;
+
+					c->next->prev = d;
+					d->prev->next = c;
+
+					d->next = c->next;
+					c->prev = d->prev;
+
+					d->prev = prev;
+					c->next = next;
+
+					c = _xnode;
+					d = _xnode->next;
+				}
+			}
+			else	
+				std::cout << "paswap" << std::endl;
+			c = c->next;
+		}
+		d = d->next;
+	}
+}
 
 
+//private tool
 
-
+	template <typename T, class Alloc>
+void ft::list<T, Alloc>::_update_size()
+{
+	size_type i = 0;
+	elem<T> * c = _xnode;
+	while (c->next != _xnode)
+	{
+		i++;
+		c = c->next;
+	}
+	_size = i;
+}
 
 
 

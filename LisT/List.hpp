@@ -85,9 +85,12 @@ namespace ft
 					template <class BinaryPredicate>
 				  void unique (BinaryPredicate binary_pred);
 				void merge (list& x);
+					template <class Compare>
+				void merge (list& x, Compare comp);
 				void remove(const value_type & val);
 					template <class Predicate>
 				void remove_if (Predicate pred);
+				void sort();
 
 			private:
 				elem<T>		*_xnode;
@@ -98,6 +101,7 @@ namespace ft
 				template <class InputIterator>
 					void _constructor(InputIterator first, InputIterator last, struct ft::__false_type);
 				void _constructor(size_type n, const T & v, struct ft::__true_type);
+				void _update_size();
 		};
 
 	template <typename T, class Alloc>
