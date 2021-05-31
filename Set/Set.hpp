@@ -1,6 +1,7 @@
 #ifndef SET_HPP
 # define SET_HPP
 
+#include <iostream>
 #include <cstddef>
 #include <limits.h>
 #include <stdexcept>
@@ -72,12 +73,19 @@ namespace ft
 
 				iterator		_to_end(Node<T> *);
 				const_iterator	_to_end(Node<T> *) const;
-				//rbt
-				void			_leftRotation(Node<T> *);
-				void			_rightRotation(Node<T> *);
-				void			_swapColors(Node<T> *a, Node<T> *b);
-				void			_swapValues(Node<T> *a, Node<T> *b);
-				void			_fixRedRed(Node<T> *);
+				//rbt COMPARE A IMPLEMENTER
+				void			_insertBalance(Node<T>);
+				void			_deleteBalance(Node<T> x);
+				void			_rbTransplant(Node<T> u, Node<T> v);
+				void			_deleteNodeRec(Node<T> leaf, T val);
+				Node<T>			_maximum(Node<T>);
+				Node<T>			_minimum(Node<T>);
+				Node<T>			_successor(Node <T>);
+				Node<T>			_predecessor(Node<T>);
+				void			_leftRotate(Node<T>);
+				void			_rightRotate(Node<T>);
+				void			_insert(T val);
+				void			_deleteNode(T val);
 				iterator		_insert(const value_type& val, Node<T> *);
 		};
 

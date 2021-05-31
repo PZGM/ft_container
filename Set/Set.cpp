@@ -172,4 +172,296 @@ typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::
 
 //private rbt
 
+// For balancing the tree after deletion
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_deleteBalance(Node<T> x) {
+	Node<T> tmp;
+	while (x != _root && x->color == BLACK) {
+		if (x == x->parent->left) {
+			tmp = x->parent->right;
+			if (tmp->color == RED) {
+				tmp->color = BLACK;
+				x->parent->color = RED;
+				_leftRotate(x->parent);
+				tmp = x->parent->right;
+			}
+
+			if (tmp->left->color == BLACK && tmp->right->color == BLACK) {
+				tmp->color = RED;
+				x = x->parent;
+			}
+			else {
+				if (tmp->right->color == BLACK) {
+					tmp->left->color = BLACK;
+					tmp->color = RED;
+					_rightRotate(tmp);
+					tmp = x->parent->right;
+				}
+
+				tmp->color = x->parent->color;
+				x->parent->color = BLACK;
+				tmp->right->color = BLACK;
+				_leftRotate(x->parent);
+				x = _root;
+			}
+		}
+		else {
+			tmp = x->parent->left;
+			if (tmp->color == RED) {
+				tmp->color = BLACK;
+				x->parent->color = RED;
+				_rightRotate(x->parent);
+				tmp = x->parent->left;
+			}
+
+			if (tmp->right->color == BLACK && tmp->right->color == BLACK) {
+				tmp->color = RED;
+				x = x->parent;
+			}
+			else {
+				if (tmp->left->color == BLACK) {
+					tmp->right->color = BLACK;
+					tmp->color = RED;
+					_leftRotate(tmp);
+					tmp = x->parent->left;
+				}
+
+				tmp->color = x->parent->color;
+				x->parent->color = BLACK;
+				tmp->left->color = BLACK;
+				_rightRotate(x->parent);
+				x = _root;
+			}
+		}
+	}
+	x->color = BLACK;
+}
+
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_rbTransplant(Node<T> u, Node<T> v) {
+	if (u->parent == NULL) {
+		_root = v;
+	}
+	else if (u == u->parent->left)
+		u->parent->left = v;
+	else
+		u->parent->right = v;
+	v->parent = u->parent;
+}
+
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_deleteNodeRec(Node<T> leaf, T val) {
+	Node<T> z = NULL;
+	Node<T> x;
+	Node<T> y;
+	while (leaf != NULL) {
+		if (leaf->data == val) {
+			z = leaf;
+		}
+
+		if (leaf->data <= val) {
+			leaf = leaf->right;
+		} else {
+			leaf = leaf->left;
+		}
+	}
+
+	if (z == NULL) {
+		std::cout << "Value not found in the tree" << std::endl;
+		return;
+	}
+
+	y = z;
+	int y_original_color = y->color;
+	if (z->left == NULL) {
+		x = z->right;
+		rbTransplant(z, z->right);
+	} else if (z->right == NULL) {
+		x = z->left;
+		rbTransplant(z, z->left);
+	} else {
+		y = minimum(z->right);
+		y_original_color = y->color;
+		x = y->right;
+		if (y->parent == z) {
+			x->parent = y;
+		} else {
+			rbTransplant(y, y->right);
+			y->right = z->right;
+			y->right->parent = y;
+		}
+
+		rbTransplant(z, y);
+		y->left = z->left;
+		y->left->parent = y;
+		y->color = z->color;
+	}
+	delete z;
+	if (y_original_color == 0) {
+		deleteFix(x);
+	}
+}
+
+// For balancing the tree after insertion
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_insertBalance(Node<T> x) {
+	Node<T> tmp;
+	while (x->parent->color == RED) {
+		if (x->parent == x->parent->parent->right) {
+			tmp = x->parent->parent->left;
+			if (tmp->color == RED) {
+				tmp->color = BLACK;
+				x->parent->color = BLACK;
+				x->parent->parent->color = RED;
+				x = x->parent->parent;
+			}
+			else {
+				if (x == x->parent->left) {
+					x = x->parent;
+					_rightRotate(x);
+				}
+				x->parent->color = BLACK;
+				x->parent->parent->color = RED;
+				_leftRotate(x->parent->parent);
+			}
+		}
+		else {
+			tmp = x->parent->parent->right;
+
+			if (tmp->color == RED) {
+				tmp->color = BLACK;
+				x->parent->color = BLACK;
+				x->parent->parent->color = RED;
+				x = x->parent->parent;
+			}
+			else {
+				if (x == x->parent->right) {
+					x = x->parent;
+					_leftRotate(x);
+				}
+				x->parent->color = BLACK;
+				x->parent->parent->color = RED;
+				_rightRotate(x->parent->parent);
+			}
+		}
+		if (x == _root) {
+			break;
+		}
+	}
+	_root->color = BLACK;
+}
+
+template <typename T,class Compare, class Alloc>
+ft::Node<T> ft::set<T,Compare, Alloc>::_minimum(Node<T> leaf) {
+	while (leaf->left != NULL)
+		leaf = leaf->left;
+	return leaf;
+}
+
+template <typename T,class Compare, class Alloc>
+ft::Node<T> ft::set<T,Compare, Alloc>::_maximum(Node<T> leaf) {
+	while (leaf->right != NULL)
+		leaf = leaf->right;
+	return leaf;
+}
+
+template <typename T,class Compare, class Alloc>
+ft::Node<T> ft::set<T,Compare, Alloc>::_successor(Node<T> x) {
+	Node<T> y;
+	if (x->right != NULL)
+		return _minimum(x->right);
+	y = x->parent;
+	while (y != NULL && x == y->right) {
+		x = y;
+		y = y->parent;
+	}
+	return y;
+}
+
+template <typename T,class Compare, class Alloc>
+ft::Node<T> ft::set<T,Compare, Alloc>::_predecessor(Node<T> x) {
+	Node<T> y;
+	if (x->left != NULL)
+		return _maximum(x->left);
+	y = x->parent;
+	while (y != NULL && x == y->left) {
+		x = y;
+		y = y->parent;
+	}
+	return y;
+}
+
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_leftRotate(Node<T> x) {
+	Node<T> y = x->right;
+	x->right = y->left;
+	if (y->left != NULL)
+		y->left->parent = x;
+	y->parent = x->parent;
+	if (x->parent == NULL)
+		_root = y;
+	else if (x == x->parent->left)
+		x->parent->left = y;
+	else
+		x->parent->right = y;
+	y->left = x;
+	x->parent = y;
+}
+
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_rightRotate(Node<T> x) {
+	Node<T> y = x->left;
+	x->left = y->right;
+	if (y->right != NULL)
+		y->right->parent = x;
+	y->parent = x->parent;
+	if (x->parent == NULL)
+		_root = y;
+	else if (x == x->parent->right)
+		x->parent->right = y;
+	else
+		x->parent->left = y;
+	y->right = x;
+	x->parent = y;
+}
+
+// Inserting a leaf
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_insert(T val) {
+	Node<T> leaf = new Node<T>;
+	leaf->parent = NULL;
+	leaf->val = val;
+	leaf->left = NULL;
+	leaf->right = NULL;
+	leaf->color = RED;
+
+	Node<T> y = NULL;
+	Node<T> x = _root;
+	while (x != NULL) {
+		y = x;
+		if (leaf->val < x->val) //COMPARE
+			x = x->left;
+		else
+			x = x->right;
+	}
+	leaf->parent = y;
+	if (y == NULL)
+		_root = leaf;
+	else if (leaf->data < y->data)
+		y->left = leaf;
+	else
+		y->right = leaf;
+	if (leaf->parent == NULL) {
+		leaf->color = BLACK;
+		return;
+	}
+	if (leaf->parent->parent == NULL)
+		return;
+	_insertBalance(leaf);
+}
+
+template <typename T,class Compare, class Alloc>
+void ft::set<T,Compare, Alloc>::_deleteNode(T val) {
+	deleteNodeRec(_root, val);
+}
 
