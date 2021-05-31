@@ -82,13 +82,13 @@ ft::deque<T, Alloc>::~deque() { }
 	template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::begin()
 {
-	return (ft::deque<T, Alloc>::iterator(0, _storage));
+	return (ft::deque<T, Alloc>::iterator(0, & _storage));
 }
 
 template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::const_iterator ft::deque<T, Alloc>::begin() const
 {
-	return (ft::deque<T, Alloc>::iterator(0, _storage));
+	return (ft::deque<T, Alloc>::iterator(0, & _storage));
 }
 
 //iterator end
@@ -96,13 +96,13 @@ typename ft::deque<T, Alloc>::const_iterator ft::deque<T, Alloc>::begin() const
 	template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::end()
 {
-	return (ft::deque<T, Alloc>::iterator(_size, _storage));
+	return (ft::deque<T, Alloc>::iterator(_size, & _storage));
 }
 
 template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::const_iterator ft::deque<T, Alloc>::end() const
 {
-	return (ft::deque<T, Alloc>::iterator(_size , _storage));
+	return (ft::deque<T, Alloc>::iterator(_size , & _storage));
 }
 
 //iterator rbegin
@@ -110,13 +110,13 @@ typename ft::deque<T, Alloc>::const_iterator ft::deque<T, Alloc>::end() const
 	template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::reverse_iterator ft::deque<T, Alloc>::rbegin()
 {
-	return (ft::deque<T, Alloc>::reverse_iterator(_size - 1, _storage));
+	return (ft::deque<T, Alloc>::reverse_iterator(_size - 1, & _storage));
 }
 
 template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::const_reverse_iterator ft::deque<T, Alloc>::rbegin() const
 {
-	return (ft::deque<T, Alloc>::reverse_iterator(_size - 1, _storage));
+	return (ft::deque<T, Alloc>::reverse_iterator(_size - 1, & _storage));
 }
 
 //iterator rend
@@ -124,20 +124,23 @@ typename ft::deque<T, Alloc>::const_reverse_iterator ft::deque<T, Alloc>::rbegin
 	template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::reverse_iterator ft::deque<T, Alloc>::rend()
 {
-	return (ft::deque<T, Alloc>::reverse_iterator(- 1, _storage));
+	return (ft::deque<T, Alloc>::reverse_iterator(- 1, & _storage));
 }
 
 template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::const_reverse_iterator ft::deque<T, Alloc>::rend() const
 {
-	return (ft::deque<T, Alloc>::reverse_iterator(-1, _storage));
+	return (ft::deque<T, Alloc>::reverse_iterator(-1, & _storage));
 }
 
 //clear
 
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::clear() {
-	erase(begin(), end());
+	_size = 0;
+	_storage.clear();
+	_empty();
+//erase(begin(), end());
 }
 
 //size 
@@ -152,6 +155,7 @@ typename ft::deque<T, Alloc>::size_type ft::deque<T, Alloc>::size() const
 
 template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::size_type ft::deque<T, Alloc>::max_size() const {
+	return (Alloc().max_size());
 	int bit = 64;
 	if (INTPTR_MAX == INT32_MAX)
 		bit = 32;
@@ -196,12 +200,9 @@ typename ft::deque<T, Alloc>::const_reference ft::deque<T, Alloc>::operator[] (s
 
 	size_type chunk = 0;
 
-	//	std::cout << "index = " << pos;
-
 	for( ; chunk < _storage.size() && pos >= _storage[chunk].size() ; chunk++)
 		pos -= _storage[chunk].size();
-
-	//	std::cout<< " chunk = " << chunk << " pos = " << pos << " size = "<< _storage[0].size() << std::endl;
+	
 	return(_storage[chunk][pos]);
 }
 
@@ -209,12 +210,8 @@ template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::reference ft::deque<T, Alloc>::operator[] (size_type pos) {
 	size_type chunk = 0;
 
-	//	std::cout << "index = " << pos;
-
 	for( ; chunk < _storage.size() && pos >= _storage[chunk].size(); chunk++)
 		pos -= _storage[chunk].size();
-
-	//	std::cout<< " chunk = " << chunk << " pos = " << pos << " size = "<< _storage.size() << std::endl;
 
 	return(_storage[chunk][pos]);
 }
@@ -224,6 +221,10 @@ typename ft::deque<T, Alloc>::reference ft::deque<T, Alloc>::operator[] (size_ty
 
 template <typename T, class Alloc>
 ft::deque<T, Alloc>  & ft::deque<T, Alloc>::operator=(const deque<T, Alloc> & src) {
+	_storage = src._storage;
+	for (int i = 0; i < _storage.size(); i++)
+		_storage[i] = src._storage[i];
+	_size = src._size;
 	return *this;
 }
 
@@ -271,21 +272,56 @@ typename ft::deque<T, Alloc>::const_reference ft::deque<T, Alloc>::back() const
 //assign
 
 template <typename T, class Alloc>
-	template <class InputIterator>
-void ft::deque<T, Alloc>::assign(InputIterator first, InputIterator last)
+	template <class Unknow>
+void ft::deque<T, Alloc>::assign(Unknow first, Unknow second)
 {
-	int i;
-	for (i = 0; first + i != last && begin() + i != end(); i++)
-		;
-	erase(begin(), begin() + i);
-	insert(begin(), first, last);
-	_size = i;
+	typedef typename ft::__is_integer<Unknow>::__type isInt;
+	isInt inst;
+	_assign(first, second, inst);
+}
+
+template <typename T, class Alloc>
+	template <class InputIterator>
+void ft::deque<T, Alloc>::_assign(InputIterator firste, InputIterator laste, struct ft::__false_type)
+{
+	//int i;
+	//for (i = 0; first + i != last && begin() + i != end(); i++)
+	//	;
+	ft::vector<T> vec(firste, laste);
+	//erase(begin(), begin() + i);
+	clear();
+	typename ft::vector<T>::iterator first = vec.begin();
+	typename ft::vector<T>::iterator last = vec.end();
+//	insert(begin(), first, last);
+//	_size = i;
+
+	size_type n = 0;
+	typename ft::vector<T>::iterator cp = first;
+	while (first !=	last)
+	{
+		first++;
+		n++;
+	}
+	_storage = ft::vector<ft::vector<T, Alloc>, Alloc>(n / 10 + 1);
+	for(size_type j = 0; j < n; j+= 10)
+	{
+		_storage[j / 10 ].reserve(10);
+		typename ft::vector<value_type>::iterator it = _storage[j / 10].begin();
+		_storage[j / 10].insert(it, (j + 10 > n) ?  n % 10 : 10, T());
+		for (int i = 0; i < ((j + 10 > n) ?  n % 10 : 10); i++)
+		{
+			_storage[j/10][i] = static_cast<T>(*cp);
+			cp++;
+		}
+	}
+	_size = n;
 }
 
 	template <typename T, class Alloc>
-void ft::deque<T, Alloc>::assign(size_type n, ft::deque<T, Alloc>::const_reference val)
+void ft::deque<T, Alloc>::_assign(size_type n, ft::deque<T, Alloc>::const_reference val, struct ft::__true_type)
 {
-	erase(begin(), begin() + n);
+	clear();
+//	erase(begin(), begin() + n);
 	insert(begin(), n, val);
 	_size = n;
 }
@@ -295,7 +331,7 @@ void ft::deque<T, Alloc>::assign(size_type n, ft::deque<T, Alloc>::const_referen
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::push_back (const value_type& val)
 {
-	if (_storage[_storage.size() - 1].size() == _storage[_storage.size() - 1].capacity()) {
+	if (_size != 0 && _storage[_storage.size() - 1].size() == _storage[_storage.size() - 1].capacity()) {
 		ft::vector<T> vec;
 		vec.reserve(10);
 		_storage.insert(_storage.end(), vec);
@@ -310,11 +346,11 @@ void ft::deque<T, Alloc>::push_back (const value_type& val)
 void ft::deque<T, Alloc>::push_front (const value_type& val)
 {
 
-	if (_storage[0].size() == _storage[0].capacity())
+	/*if (_size != 0 && _storage[0].size() == _storage[0].capacity())
 	{
 		ft::vector<value_type> vec;
 		_storage.insert(_storage.begin(), 1, vec);
-	} 
+	} */
 	_storage[0].insert(_storage[0].begin(), 1, val);	
 	_size++;
 }
@@ -339,11 +375,11 @@ void ft::deque<T, Alloc>::pop_back()
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::pop_front ()
 {
-
+	if (_size == 0)
+		return;
 	_storage[0].erase(_storage[0].begin());	
-	if (_storage[0].size() == 0)
+	if (_storage[0].size() == 0 && _storage.size() != 1)
 	{
-
 		_storage.erase(_storage.begin());
 	}
 	_size--;	
@@ -354,14 +390,17 @@ void ft::deque<T, Alloc>::pop_front ()
 	template <typename T, class Alloc>
 void ft::deque<T, Alloc>::swap (deque& x)
 {
-	vector<vector<T, Alloc>, Alloc> tmp = _storage;
+//	std::cout << "A" << _storage[0][1] << "|" << x._storage[0][1]  << std::endl;
+	_storage.swap(x._storage);
+//	vector<vector<T, Alloc>, Alloc> tmp = _storage;
 	size_type t = _size;
 
-	_storage = x._storage;
+//	_storage = x._storage;
 	_size = x._size;
 
-	x._storage = tmp;
+//	x._storage = tmp;
 	x._size = t;
+//	std::cout << "B" << _storage[0][1] << "|" << x._storage[0][1]  << std::endl;
 }
 
 //erase
@@ -374,21 +413,34 @@ typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::erase(ft::deque<T, A
 	template <typename T, class Alloc>
 typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::erase(ft::deque<T, Alloc>::iterator first, ft::deque<T, Alloc>::iterator last)
 {
-	ft::deque<T, Alloc>::iterator  t = first;
+	ft::deque<T, Alloc>::iterator  t = begin();
+	int i = 0;
+	while (t != first)
+	{
+		t++;
+		i++;
+	}
+	int l = 0;
 	while (first != last)
 	{
-		//(*first).value_type::~value_type(); call to destructor
-		++first;
+		first++;
+		l++;
+	}
+	while (l)
+	{
+		size_type chunk = 0;
+		size_type pos = i;
+		for( ; chunk < _storage.size() && pos >= _storage[chunk].size() ; chunk++)
+			pos -= _storage[chunk].size();
+		if (chunk)
+			chunk--;
+		typename ft::vector<T, Alloc>::iterator it = _storage[chunk].begin();
+		while (pos)
+			it++;
+		_storage[chunk].erase(it);
+		l--;
 		_size--;
 	}
-	while (t != end())
-	{
-
-		//(*t).value_type::~value_type(); //call to destructor
-		*t = *last;
-		++t;
-		++last;
-	}	
 	return (first);
 }
 
@@ -403,14 +455,20 @@ typename ft::deque<T, Alloc>::iterator ft::deque<T, Alloc>::insert(ft::deque<T, 
 		i++;
 	size_type chunk = 0;
 	size_type pos = i;
-	for (; chunk < _storage.size() && pos >= _storage[chunk].size() ; chunk++)
+	for (; chunk < _storage.size() && pos > _storage[chunk].size() ; chunk++)
 		pos -= _storage[chunk].size();
+	if (chunk == _storage.size())
+	{
+		ft::vector<T>  vec(0);
+		vec.reserve(10);
+		_storage.push_back(vec);
+	}
 	typename ft::vector<T, Alloc>::iterator ite = _storage[chunk].begin();
 	for (; pos; pos--)
 		ite++;
 	_storage[chunk].insert(ite, value);
 	_size++;
-	return (ft::deque<T, Alloc>::iterator(i, _storage));
+	return (ft::deque<T, Alloc>::iterator(i, & _storage));
 };
 
 	template <typename T, class Alloc>
@@ -442,17 +500,17 @@ void ft::deque<T, Alloc>::_insert(ft::deque<T, Alloc>::iterator position, InputI
 	size_type pos = i;
 	for (; chunk < _storage.size() && pos >= _storage[chunk].size() ; chunk++)
 		pos -= _storage[chunk].size();
+	if (chunk)
+		chunk--;
 	if (chunk >= _storage.size()) //new alloc
 	{
 		ft::vector<T>  vec(0);
 		vec.reserve(10);
 		_storage.push_back(vec);
-	}		
+	}
 	typename ft::vector<T, Alloc>::iterator ite = _storage[chunk].begin();
 	for (; pos; pos--)
-	{
 		ite++;
-	}
 	_storage[chunk].insert(ite, first, last);
 	while (first != last)
 	{
@@ -480,7 +538,8 @@ void ft::deque<T, Alloc>::_insert1(ft::deque<T, Alloc>::iterator position, int n
 
 template< typename T, class Alloc>
 void ft::deque<T, Alloc>::_empty() {
-	if (_size == 0) {
+	if (_size == 0 && _storage.size() == 0)
+	{
 		ft::vector<T>  vec(0);
 		vec.reserve(10);
 		_storage.push_back(vec);
@@ -504,8 +563,8 @@ bool ft::operator== (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rh
 	template <class T, class Alloc>
 bool ft::operator!= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs)
 {
-	if (lhs.size() == rhs.size())
-		return (false);
+	if (lhs.size() != rhs.size())
+		return (true);
 	for (size_type i = 0; i < lhs.size(); i++)
 	{
 		if (lhs.at(i) == rhs.at(i))
@@ -521,7 +580,7 @@ bool ft::operator> (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs
 	{
 		if (lhs.at(i) > rhs.at(i))
 			return (true);
-		if (rhs.at(i) < rhs.at(i))
+		if (lhs.at(i) < rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() > rhs.size())
@@ -536,7 +595,7 @@ bool ft::operator< (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rhs
 	{
 		if (lhs.at(i) < rhs.at(i))
 			return (true);
-		if (rhs.at(i) > rhs.at(i))
+		if (lhs.at(i) > rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() < rhs.size())
@@ -551,7 +610,7 @@ bool ft::operator>= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rh
 	{
 		if (lhs.at(i) > rhs.at(i))
 			return (true);
-		if (rhs.at(i) < rhs.at(i))
+		if (lhs.at(i) < rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() >= rhs.size())
@@ -566,7 +625,7 @@ bool ft::operator<= (const ft::deque<T,Alloc>& lhs, const ft::deque<T,Alloc>& rh
 	{
 		if (lhs.at(i) < rhs.at(i))
 			return (true);
-		if (rhs.at(i) > rhs.at(i))
+		if (lhs.at(i) > rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() <= rhs.size())

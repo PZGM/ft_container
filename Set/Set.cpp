@@ -29,7 +29,7 @@ ft::set<T,Compare, Alloc>::~set() {
 // destroy tree
 
 template <typename T,class Compare, class Alloc>
-void ft::set<T, Compare, Alloc>::_destroy_set(ft::elem<T> *leaf) {
+void ft::set<T, Compare, Alloc>::_destroy_set(ft::Node<T> *leaf) {
 	if (leaf != NULL) {
 		_destroy_set(leaf->left);
 		_destroy_set(leaf->right);
@@ -74,10 +74,10 @@ void ft::set<T, Compare, Alloc>::insert(InputIterator first, InputIterator last)
 //private insert
 
 template <typename T,class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_insert(const value_type& val, ft::elem<T> *leaf) {
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_insert(const value_type& val, ft::Node<T> *leaf) {
 
 	if( leaf == NULL) {
-		leaf = new ft::elem<T>;
+		leaf = new ft::Node<T>;
 		leaf->content = val;
 		leaf->left = NULL;
 		leaf->right = NULL;
@@ -100,7 +100,7 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::find(c
 }
 
 template <typename T,class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_find(const value_type& val, ft::elem<T> *leaf) const {
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_find(const value_type& val, ft::Node<T> *leaf) const {
 	if (leaf) {
 		if (val == leaf->content)
 			return leaf;
@@ -123,7 +123,7 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::begin(
 }
 
 template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_begin(ft::elem<T> *leaf) {
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) {
 	if(!leaf || leaf->left)
 		return leaf;
 	return(_to_begin(leaf->left));
@@ -136,7 +136,7 @@ typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::
 }
 
 template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_begin(ft::elem<T> *leaf) const {
+typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) const {
 	if(!leaf || !leaf->left)
 		return leaf;
 	return(_const_to_begin(leaf->left));
@@ -151,7 +151,7 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::end()
 }
 
 template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_end(ft::elem<T> *leaf) {
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_end(ft::Node<T> *leaf) {
 	if(!leaf || !leaf->right)
 		return leaf;
 	return(_to_end(leaf->right));
@@ -164,10 +164,12 @@ typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::
 }
 
 template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_end(ft::elem<T> *leaf) const {
+typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_end(ft::Node<T> *leaf) const {
 	if(!leaf || !leaf->right)
 		return leaf;
 	return(_const_to_end(leaf->right));
 }
+
+//private rbt
 
 

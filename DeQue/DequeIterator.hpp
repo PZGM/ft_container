@@ -10,12 +10,17 @@ class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 		typedef ft::vector<ft::vector<T, Alloc>, Alloc > dvec;
 		public:
 
-				DequeIterator(size_type p, dvec s) : p(p), s(s) {}
+				DequeIterator(size_type p, dvec * s) : p(p), s(s) {}
 				DequeIterator(const DequeIterator & mit) : p(mit.p), s(mit.s) {}
 				
 				DequeIterator & operator++() {
 						p++;
 					return(*this);
+				}
+
+				DequeIterator<T, Alloc>				operator=(const DequeIterator<T, Alloc> &src) {
+					p = src.p;
+					return *this;
 				}
 
 				template <class Y>
@@ -61,15 +66,17 @@ class DequeIterator : public std::iterator<std::input_iterator_tag, T>
 				T & operator*() {
 					size_type chunk = 0;
 					size_type pos = p;
-					for( ; chunk <  s.size() && pos >= s[chunk].size() ; chunk++)
-						pos -= s[chunk].size();
-					return(s[chunk][pos]);	
+					for( ; chunk <  s->size() && pos >= (*s)[chunk].size() ; chunk++)
+						pos -= (*s)[chunk].size();
+				//	if (chunk)
+				//		chunk--;
+					return((*s)[chunk][pos]);	
 				}
 
 		private:
 
 				size_type	p;
-				dvec		s;
+				dvec		* s;
 };
 
 template <typename T, class Alloc = std::allocator<T> >
@@ -78,7 +85,7 @@ class DequeReverseIterator : public std::iterator<std::input_iterator_tag, T>
 		typedef ft::vector<ft::vector<T, Alloc>, Alloc > dvec;
 		public:
 
-				DequeReverseIterator(size_type p, dvec s) : p(p), s(s) {}
+				DequeReverseIterator(size_type p, dvec * s) : p(p), s(s) {}
 				DequeReverseIterator(const DequeReverseIterator & mit) : p(mit.p), s(mit.s) {}
 			
 				DequeReverseIterator & operator++() {
@@ -130,11 +137,11 @@ class DequeReverseIterator : public std::iterator<std::input_iterator_tag, T>
 				T & operator*() {
 					size_type chunk = 0;
 					size_type pos = p;
-					
-
-					for( ; chunk < s.size() && pos >= s[chunk].size() ; chunk++)
-						pos -= s[chunk].size();
-					return(s[chunk][pos]);	
+					for( ; chunk < s->size() && pos >= (*s)[chunk].size() ; chunk++)
+						pos -= (*s)[chunk].size();
+					if (chunk)
+						chunk--;
+					return((*s)[chunk][pos]);	
 				}
 
 
@@ -142,6 +149,6 @@ class DequeReverseIterator : public std::iterator<std::input_iterator_tag, T>
 		private:
 
 				size_type	p;
-				dvec		s;
+				dvec		* s;
 };
 #endif

@@ -27,7 +27,16 @@ class ListIterator : public std::iterator<std::input_iterator_tag, T>
 		ListIterator operator+(size_type n)
 		{
 			ListIterator ret(*this);
-			ret.p += n;
+			while (n > 0)
+			{
+				ret++;
+				n--;
+			}
+			while (n < 0)
+			{
+				ret--;
+				n++;
+			}
 			return (ret);
 		}
 
@@ -46,7 +55,16 @@ class ListIterator : public std::iterator<std::input_iterator_tag, T>
 		ListIterator operator-(size_type n)
 		{
 			ListIterator ret(*this);
-			ret.p -= n;
+			while (n > 0)
+			{
+				ret--;
+				n--;
+			}
+			while (n < 0)
+			{
+				ret++;
+				n++;
+			}
 			return (ret);
 		}
 		bool operator==(const ListIterator & rhs) const {
@@ -85,8 +103,17 @@ class ListReverseIterator : public std::iterator<std::input_iterator_tag, T>
 
 		ListReverseIterator operator+(size_type n)
 		{
-			ListReverseIterator ret(*this);
-			p -= n;
+			ListReverseIterator ret(*this);	
+			while (n > 0)
+			{
+				ret++;
+				n--;
+			}
+			while (n < 0)
+			{
+				ret--;
+				n++;
+			}
 			return (*this);
 		}
 
@@ -105,8 +132,17 @@ class ListReverseIterator : public std::iterator<std::input_iterator_tag, T>
 
 		ListReverseIterator operator-(size_type n)
 		{
-			ListReverseIterator ret(*this);
-			p += n;
+			ListReverseIterator ret(*this);	
+			while (n > 0)
+			{
+				ret--;
+				n--;
+			}
+			while (n < 0)
+			{
+				ret++;
+				n++;
+			}
 			return (*this);
 		}
 		bool operator==(const ListReverseIterator & rhs) const {

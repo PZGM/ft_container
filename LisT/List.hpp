@@ -91,6 +91,9 @@ namespace ft
 					template <class Predicate>
 				void remove_if (Predicate pred);
 				void sort();
+					template <class Compare>
+				void sort(Compare compare);
+				void reverse();
 
 			private:
 				elem<T>		*_xnode;

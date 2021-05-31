@@ -61,18 +61,24 @@ namespace ft
 				void insert(InputIterator first, InputIterator last);
 
 			private:
-				elem<T>		*_root;
+				Node<T>		*_root;
 				size_type	_size;
+				
 
-				void		_destroy_set(elem<T> *leaf);
-				iterator	_find(const value_type& val, elem<T> *leaf)const;
-				iterator		_to_begin(elem<T> *);
-				const_iterator	_to_begin(elem<T> *) const;
+				void		_destroy_set(Node<T> *leaf);
+				iterator	_find(const value_type& val, Node<T> *leaf)const;
+				iterator		_to_begin(Node<T> *);
+				const_iterator	_to_begin(Node<T> *) const;
 
-				iterator		_to_end(elem<T> *);
-				const_iterator	_to_end(elem<T> *) const;
-
-				iterator		_insert(const value_type& val, elem<T> *);
+				iterator		_to_end(Node<T> *);
+				const_iterator	_to_end(Node<T> *) const;
+				//rbt
+				void			_leftRotation(Node<T> *);
+				void			_rightRotation(Node<T> *);
+				void			_swapColors(Node<T> *a, Node<T> *b);
+				void			_swapValues(Node<T> *a, Node<T> *b);
+				void			_fixRedRed(Node<T> *);
+				iterator		_insert(const value_type& val, Node<T> *);
 		};
 
 	template <typename T, class Alloc>

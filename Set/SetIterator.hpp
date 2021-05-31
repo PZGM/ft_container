@@ -2,7 +2,7 @@
 # define SET_ITERATOR_HPP
 
 #include <iterator>
-#include "ElemStruct.hpp"
+#include "Node.hpp"
 
 typedef size_t size_type;
 

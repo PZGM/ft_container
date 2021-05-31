@@ -95,10 +95,17 @@ int main()
 	for (auto it = lst.begin(); it != lst.end(); it++)
 		std::cout << "_" << *it << std::endl;
 
-
 	std::cout << "===push back/front==" << std::endl;
-	lst.push_back(13);
-	lst.push_front(14);
+	lst.push_back(0);
+	lst.push_back(1);
+	lst.push_front(2);
+	lst.push_front(3);
+	for (auto it = lst.begin(); it != lst.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	
+	std::cout << "===pop back/front==" << std::endl;
+	lst.pop_back();
+	lst.pop_front();
 	for (auto it = lst.begin(); it != lst.end(); it++)
 		std::cout << "_" << *it << std::endl;
 }

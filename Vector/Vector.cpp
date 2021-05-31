@@ -22,8 +22,11 @@ ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src)  : _size(0), _capacit
 
 template <typename T, class Alloc>
 	template <class InputIterator>
-ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last) : _size(0), _storage(NULL)
+ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last)
 {
+	_size = 0;
+	_capacity = 0;
+	_storage = NULL;
 	typedef typename ft::__is_integer<InputIterator>::__type isInt;
 	isInt vraiNom;
 	_constructor(first, last, vraiNom);
@@ -63,8 +66,6 @@ ft::vector<T, Alloc>::~vector() {
 
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::iterator ft::vector<T, Alloc>::begin() {
-	//std::cout << "i'm in ";
-	//std::cout << _size << _capacity << std::endl;
 	return (ft::vector<T, Alloc>::iterator(&_storage[0]));
 }
 
@@ -127,12 +128,7 @@ typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::size() const {
 
 template <typename T, class Alloc>
 typename ft::vector<T, Alloc>::size_type ft::vector<T, Alloc>::max_size() const {
-	int bit = 64;
-	if (INTPTR_MAX == INT32_MAX)
-		bit = 32;
-	size_type ret = (pow(2, bit) / sizeof(value_type));
-	ret--;
-	return (ret);
+	return (Alloc().max_size());
 }
 
 //resize
@@ -206,7 +202,7 @@ ft::vector<T, Alloc>  & ft::vector<T, Alloc>::operator=(const vector<T, Alloc> &
 	if (_capacity > 0)
 		_storage = new T[_capacity];
 	for (size_type i = 0; i < _size; i++)
-		_storage[i] = src._storage[i];;
+		_storage[i] = src._storage[i];
 	return *this;
 }
 
@@ -251,17 +247,13 @@ typename ft::vector<T, Alloc>::const_reference ft::vector<T, Alloc>::back() cons
 template <typename T, class Alloc>
 template <class InputIterator>
 void ft::vector<T, Alloc>::assign(InputIterator first, InputIterator last) {
-	int i;
-	for (i = 0; first + i != last && begin() + i != end(); i++)
-		;
-	erase(begin(), begin() + i);
+	clear();
 	insert(begin(), first, last);
-	_size = i;
 }
 
 template <typename T, class Alloc>
 void ft::vector<T, Alloc>::assign(size_type n, ft::vector<T, Alloc>::const_reference val) {
-	erase(begin(), begin() + n);
+	clear();
 	insert(begin(), n, val);
 	_size = n;
 }
@@ -366,7 +358,7 @@ template <class InputIterator>
 void ft::vector<T, Alloc>::_insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last) {
 	int i;
 	InputIterator prems = first;
-
+	
 	for (i = 0; prems != last; prems++) {
 		i++;
 	}
@@ -382,8 +374,8 @@ void ft::vector<T, Alloc>::_insert(ft::vector<T, Alloc>::iterator position, Inpu
 	reserve(_size + i);
 	i = 0;
 	while (first != last)
-	{	
-		position = insert(begin() + y, val[i]) + 1;
+	{
+		insert(begin() + y, val[i]) + 1;
 		y++;
 		i++;
 		first++;
@@ -403,6 +395,8 @@ void ft::vector<T, Alloc>::_insert1(ft::vector<T, Alloc>::iterator position, int
 		position = insert(position, value);
 }
 
+//relational operator
+
 template <typename T, class Alloc>
 bool ft::operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
 	if (lhs.size() != rhs.size())
@@ -417,14 +411,14 @@ bool ft::operator== (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& 
 
 template <class T, class Alloc>
 bool ft::operator!= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& rhs) {
-	if (lhs.size() == rhs.size())
-		return (false);
-	for (size_type i = 0; i < lhs.size(); i++)
+	if (lhs.size() != rhs.size())
+		return (true);
+	for (size_type i = 0; i < lhs.size() && i < rhs.size(); i++)
 	{
-		if (lhs.at(i) == rhs.at(i))
-			return (false);
+		if (lhs.at(i) != rhs.at(i))
+			return (true);
 	}
-	return (true);
+	return (false);
 }
 
 template <class T, class Alloc>
@@ -461,7 +455,7 @@ bool ft::operator>= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& 
 	{
 		if (lhs.at(i) > rhs.at(i))
 			return (true);
-		if (rhs.at(i) < rhs.at(i))
+		if (lhs.at(i) < rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() >= rhs.size())
@@ -475,7 +469,7 @@ bool ft::operator<= (const ft::vector<T,Alloc>& lhs, const ft::vector<T,Alloc>& 
 	{
 		if (lhs.at(i) < rhs.at(i))
 			return (true);
-		if (rhs.at(i) > rhs.at(i))
+		if (lhs.at(i) > rhs.at(i))
 			return (false);
 	}
 	if (lhs.size() <= rhs.size())

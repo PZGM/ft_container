@@ -6,6 +6,7 @@
 #include <stdexcept>
 #include <memory>
 #include "DequeIterator.hpp"
+#include "../IsType.hpp"
 
 namespace ft
 {
@@ -60,9 +61,11 @@ namespace ft
 				reference			back();
 				const_reference		back() const;
 
-				template <class InputIterator>
-					void				assign(InputIterator first, InputIterator last);
-				void				assign(size_type n, const_reference val);
+					template <class Unknow>
+				void				assign(Unknow first, Unknow second);
+					template <class InputIterator>
+				void				_assign(InputIterator first, InputIterator last, struct ft::__false_type);
+				void				_assign(size_type n, const_reference val, struct ft::__true_type);
 				void				push_back(const value_type& val);
 				void				push_front(const value_type& val);
 				void				pop_back();

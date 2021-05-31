@@ -1,3 +1,35 @@
-yo
-1
+===swap two deque of same size===
+100
+200
+300
+400
+____________________4|4
 0
+1
+2
+3
+===swap two deque of different size===
+-100
+-200
+-300
+-400
+____________________4|1
+-1
+===swap two deque with one empty===
+100
+200
+300
+400
+____________________4|0
+===swap with non member function===
+100
+200
+300
+400
+____________________4|4
+0
+1
+2
+3
+===swap two empty deques with non member function===
+____________________0|0
