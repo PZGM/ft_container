@@ -17,7 +17,7 @@ namespace ft
 				return x<y;
 			}
 		};	
-	template <typename T, class Compare = less<T>, class Alloc = std::allocator<T> >
+	template <typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
 		class set
 		{
 			public:
@@ -60,6 +60,7 @@ namespace ft
 
 				template <class InputIterator>
 				void insert(InputIterator first, InputIterator last);
+					
 
 			private:
 				Node<T>		*_root;

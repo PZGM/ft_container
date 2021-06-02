@@ -11,14 +11,14 @@ using namespace ft;
 
 int main()
 {
-	set<int, std::greater<int> > sat;
+	set<int> sat;
 	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
 	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
 //	std::cout << sat.size() << std::endl;
 	for (int i = 0; i < 100 ; i += 2)
 		sat.insert(i);
 //	std::cout << sat.empty() << std::endl;
-	set<int, std::greater<int> > stonks;
+	set<int> stonks;
 	std::cout << (sat > stonks) << std::endl;
 	auto it = sat.begin();
 	for( ; it != sat.end(); it++) {

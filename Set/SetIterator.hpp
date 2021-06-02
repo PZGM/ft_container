@@ -11,7 +11,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 {
 	public:
 
-		SetIterator(ft::elem<T> * e) : p(e) {}
+		SetIterator(ft::Node<T> * e) : p(e) {}
 		SetIterator(const SetIterator & mit) : p(mit.p) {}
 		SetIterator & operator++() {
 			if (p) {
@@ -79,7 +79,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 
 	private:
 
-		ft::elem<T> * p;
+		ft::Node<T> * p;
 };
 //	To Do
 template <typename T>
@@ -87,7 +87,7 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 {
 	public:
 
-		SetReverseIterator(ft::elem<T> * e) : p(e) {}
+		SetReverseIterator(ft::Node<T> * e) : p(e) {}
 		SetReverseIterator(const SetReverseIterator & mit) : p(mit.p) {}
 		SetReverseIterator & operator++() {
 			if (p)
@@ -139,6 +139,6 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 
 	private:
 
-		ft::elem<T> * p;
+		ft::Node<T> * p;
 };
 #endif

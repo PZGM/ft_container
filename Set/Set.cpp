@@ -78,10 +78,12 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_inser
 
 	if( leaf == NULL) {
 		leaf = new ft::Node<T>;
-		leaf->content = val;
+		leaf->val = val;
 		leaf->left = NULL;
 		leaf->right = NULL;
+		leaf->color = RED;
 		_size++;
+		_insertBalance(leaf);
 	}
 	else {
 		if (Compare(val, leaf))
@@ -102,9 +104,9 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::find(c
 template <typename T,class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_find(const value_type& val, ft::Node<T> *leaf) const {
 	if (leaf) {
-		if (val == leaf->content)
+		if (val == leaf->val)
 			return leaf;
-		if (Compare(val, leaf->content))
+		if (Compare(val, leaf->val))
 			return _find(val, leaf->left);
 		else
 			return _find(val, leaf->right);
@@ -239,9 +241,8 @@ void ft::set<T,Compare, Alloc>::_deleteBalance(Node<T> x) {
 
 template <typename T,class Compare, class Alloc>
 void ft::set<T,Compare, Alloc>::_rbTransplant(Node<T> u, Node<T> v) {
-	if (u->parent == NULL) {
+	if (u->parent == NULL)
 		_root = v;
-	}
 	else if (u == u->parent->left)
 		u->parent->left = v;
 	else
@@ -272,33 +273,35 @@ void ft::set<T,Compare, Alloc>::_deleteNodeRec(Node<T> leaf, T val) {
 	}
 
 	y = z;
-	int y_original_color = y->color;
+	COLOR y_color = y->color;
 	if (z->left == NULL) {
 		x = z->right;
-		rbTransplant(z, z->right);
-	} else if (z->right == NULL) {
+		_rbTransplant(z, z->right);
+	}
+	else if (z->right == NULL) {
 		x = z->left;
-		rbTransplant(z, z->left);
-	} else {
-		y = minimum(z->right);
-		y_original_color = y->color;
+		_rbTransplant(z, z->left);
+	}
+	else {
+		y = _minimum(z->right);
+		y_color = y->color;
 		x = y->right;
-		if (y->parent == z) {
+		if (y->parent == z)
 			x->parent = y;
-		} else {
-			rbTransplant(y, y->right);
+		 else {
+			_rbTransplant(y, y->right);
 			y->right = z->right;
 			y->right->parent = y;
 		}
 
-		rbTransplant(z, y);
+		_rbTransplant(z, y);
 		y->left = z->left;
 		y->left->parent = y;
 		y->color = z->color;
 	}
 	delete z;
-	if (y_original_color == 0) {
-		deleteFix(x);
+	if (y_color == BLACK) {
+		_deleteBalance(x);
 	}
 }
 
@@ -426,6 +429,7 @@ void ft::set<T,Compare, Alloc>::_rightRotate(Node<T> x) {
 }
 
 // Inserting a leaf
+/*
 template <typename T,class Compare, class Alloc>
 void ft::set<T,Compare, Alloc>::_insert(T val) {
 	Node<T> leaf = new Node<T>;
@@ -459,7 +463,7 @@ void ft::set<T,Compare, Alloc>::_insert(T val) {
 		return;
 	_insertBalance(leaf);
 }
-
+*/
 template <typename T,class Compare, class Alloc>
 void ft::set<T,Compare, Alloc>::_deleteNode(T val) {
 	deleteNodeRec(_root, val);
