@@ -27,9 +27,12 @@ namespace ft
 
 				explicit	vector();
 				explicit	vector(size_type n, const value_type& val = value_type());
+
 				template <class InputIterator>
          			vector (InputIterator first, InputIterator last);
-				vector(const vector& x);
+
+				vector(const vector& src);
+
 				~vector();
 
 				vector<value_type, Alloc>		&operator=(const vector<T, Alloc> &c);

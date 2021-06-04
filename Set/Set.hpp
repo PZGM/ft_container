@@ -8,6 +8,7 @@
 #include <memory>
 #include "SetIterator.hpp"
 #include "../IsType.hpp"
+#include "../rbt/rbt.cpp"
 
 namespace ft
 {
@@ -54,39 +55,24 @@ namespace ft
 				const_reverse_iterator		rbegin() const;
 				reverse_iterator		rend();
 				const_reverse_iterator		rend() const;
-
+				
+				// insert
 				std::pair<iterator,bool> insert(const value_type& val);
 				iterator insert(iterator position, const value_type& val);
-
 				template <class InputIterator>
 				void insert(InputIterator first, InputIterator last);
 					
 
-			private:
-				Node<T>		*_root;
+			private: //compare a implementer
 				size_type	_size;
-				
+				rbt			_tree;
 
 				void		_destroy_set(Node<T> *leaf);
-				iterator	_find(const value_type& val, Node<T> *leaf)const;
 				iterator		_to_begin(Node<T> *);
 				const_iterator	_to_begin(Node<T> *) const;
 
 				iterator		_to_end(Node<T> *);
 				const_iterator	_to_end(Node<T> *) const;
-				//rbt COMPARE A IMPLEMENTER
-				void			_insertBalance(Node<T>);
-				void			_deleteBalance(Node<T> x);
-				void			_rbTransplant(Node<T> u, Node<T> v);
-				void			_deleteNodeRec(Node<T> leaf, T val);
-				Node<T>			_maximum(Node<T>);
-				Node<T>			_minimum(Node<T>);
-				Node<T>			_successor(Node <T>);
-				Node<T>			_predecessor(Node<T>);
-				void			_leftRotate(Node<T>);
-				void			_rightRotate(Node<T>);
-				void			_insert(T val);
-				void			_deleteNode(T val);
 				iterator		_insert(const value_type& val, Node<T> *);
 		};
 

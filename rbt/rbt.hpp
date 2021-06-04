@@ -10,9 +10,7 @@ namespace ft
 		class rbt
 		{
 			public:
-				rbt(){
-					_root = NULL;
-				}
+				rbt() : _root(NULL){ }
 
 				~rbt() {
 					if(_root)
@@ -25,7 +23,7 @@ namespace ft
 				void	DeleteValue(const T &val);
 				void	Destroy(Node<T> *p);
 
-			private:
+			private:	
 				Node<T>	*_root;
 				void	_DeleteBalance(Node<T> *node);
 				void	_InsertBalance(Node<T> *node);

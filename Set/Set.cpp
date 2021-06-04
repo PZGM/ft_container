@@ -4,7 +4,6 @@
 
 template <typename T,class Compare, class Alloc>
 ft::set<T, Compare, Alloc>::set(const key_compare& comp, const allocator_type& alloc) : _size(0) {
-	_root = NULL;
 }
 
 
@@ -41,13 +40,13 @@ void ft::set<T, Compare, Alloc>::_destroy_set(ft::Node<T> *leaf) {
 
 template <typename T,class Compare, class Alloc>
 std::pair<typename ft::set<T, Compare, Alloc>::iterator, bool> ft::set<T, Compare, Alloc>::insert(const value_type& val) {
-	std::pair<iterator, bool> pa; 
+	std::pair<set<T, Compare, Alloc>::iterator, bool> pa; 
 	if (ft::set<T, Compare, Alloc>::find(val) != this->end()) {
 		pa.first = ft::set<T, Compare, Alloc>::find(val);
 		pa.second = false;
 	}
 	else {
-		pa.first = _insert(val, _root);
+		pa.first = _tree.insert(val);
 		pa.second = true;
 	}
 	return pa;
@@ -57,7 +56,7 @@ template <typename T,class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::insert(iterator pos, const value_type& val) {
 	if (ft::set<T, Compare, Alloc>::find(val) != this->end())
 		return ft::set<T, Compare, Alloc>::_find(val, pos);
-	return _insert(val, pos);
+	return _tree.insert(val);
 }
 
 
@@ -66,7 +65,7 @@ template <class InputIterator>
 void ft::set<T, Compare, Alloc>::insert(InputIterator first, InputIterator last) {
 	for ( ; first != last; first++) {
 		if (ft::set<T, Compare, Alloc>::find(*first) == this->end())
-			_insert(*first, _root);
+			_tree.insert(*first);
 	}
 }
 

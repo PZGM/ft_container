@@ -18,9 +18,9 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 				if (p->right)
 					p = p->right;
 				else {
-					while ( p->content > p->father->content)
-						p = p->father;
-					p = p->father;
+					while ( p->content > p->parent->content)
+						p = p->parent;
+					p = p->parent;
 					while (p->left)
 						p->left;
 				}
@@ -46,9 +46,9 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 				if (p->left)
 					p = p->left;
 				else {
-					while (p->content < p->father->content)
-						p = p->father;
-					p = p->father;
+					while (p->content < p->parent->content)
+						p = p->parent;
+					p = p->parent;
 					while (p->right)
 						p->right;
 				}

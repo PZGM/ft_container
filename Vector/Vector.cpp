@@ -10,20 +10,20 @@ ft::vector<T, Alloc>::vector() : _storage(NULL), _size(0), _capacity(0) {
 }
 
 template <typename T, class Alloc>
-ft::vector<T, Alloc>::vector(size_type n, const T & v) : _size(n), _capacity(n) {
+ft::vector<T, Alloc>::vector(size_type n, const T & v)	: _size(n), _capacity(n) {
 	struct __true_type x;
 	_constructor(n, v, x);
 }
 
 template <typename T, class Alloc>
-ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src)  : _size(0), _capacity(0), _storage(NULL) {
+ft::vector<T, Alloc>::vector(const vector<T, Alloc> & src) : _size(0), _capacity(0), _storage(NULL) {
 	*this = src;
 }
 
 template <typename T, class Alloc>
 	template <class InputIterator>
 ft::vector<T, Alloc>::vector(InputIterator first, InputIterator last)
-{
+	{
 	_size = 0;
 	_capacity = 0;
 	_storage = NULL;
