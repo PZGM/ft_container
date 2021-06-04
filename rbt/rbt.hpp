@@ -2,7 +2,7 @@
 # define RBT_HPP
 
 #include <iostream>
-#include "Node.hpp"
+#include "../Set/SetIterator.hpp"
 
 namespace ft
 {
@@ -11,17 +11,18 @@ namespace ft
 		{
 			public:
 				rbt() : _root(NULL){ }
-
 				~rbt() {
 					if(_root)
 						Destroy(_root);
 				}
 
-				void	print();
-				void	Search(const T &val, Node<T> *&node);
-				bool	insert(const T &val);
-				void	DeleteValue(const T &val);
-				void	Destroy(Node<T> *p);
+				void		print();
+				bool		Search(const T &val, Node<T> **node);
+				bool		insert(const T &val);
+				void		DeleteValue(const T &val);
+				void		Destroy(Node<T> *p);
+				void		DestroyI() {Destroy(_root);}
+				Node<T>*	getRoot() { return _root;}
 
 			private:	
 				Node<T>	*_root;

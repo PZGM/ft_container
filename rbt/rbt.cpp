@@ -26,28 +26,21 @@ void ft::rbt<T>::print()
 }
 
 	template<typename T>
-void ft::rbt<T>::Search(const T & val, Node<T> *&node)
+bool ft::rbt<T>::Search(const T & val, Node<T> **node)
 {
 	Node<T> *leaf = _root;
-	node = NULL;
-	while(leaf)
+	*node = NULL;
+	while (leaf)
 	{
-		if(leaf->val == val)
-		{
-			node = leaf;
-			break;
-		}
-		else if(leaf->val < val) //compare
-		{
-			node = leaf;
-			leaf = leaf->right;
-		}
-		else
-		{
-			node = leaf;
+		*node = leaf;
+		if (leaf->val == val)
+			return true;
+		if (leaf->val > val)
 			leaf = leaf->left;
-		}
+		else
+			leaf = leaf->right;
 	}
+		return false;
 }
 
 	template<typename T>
@@ -55,7 +48,7 @@ bool ft::rbt<T>::insert(const T & val)
 {
 	Node<T> *parent = NULL;
 	Node<T> *newNode = new Node<T>(val);
-	Search(val, parent);
+	Search(val, &parent);
 	if(parent == NULL) {
 		_root = newNode;
 		_root->color = BLACK;

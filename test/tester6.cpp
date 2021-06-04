@@ -15,19 +15,23 @@ int main()
 	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
 	std::cout << "iterator pair " <<sat.insert(42).second << std::endl;
 //	std::cout << sat.size() << std::endl;
-	for (int i = 0; i < 100 ; i += 2)
+	for (int i = 0; i < 80 ; i += 2)
 		sat.insert(i);
 //	std::cout << sat.empty() << std::endl;
-/*	set<int> stonks;
-	std::cout << (sat > stonks) << std::endl;
+//	set<int> stonks;
+//	std::cout << (sat > stonks) << std::endl;
+
+//	sat.print();
 	auto it = sat.begin();
 	for( ; it != sat.end(); it++) {
-		std::cout <<"size =  " << "sat.size()" <<  " it = " << *it << std::endl;
-	}*/
+		std::cout << "it = "  << *it << std::endl;
+	}
+	/*
+	std::cout << "lol" << std::endl;
+	std::cout <<"begin = " << *it << std::endl;
 	it++;
-	std::cout <<"end = " << *it << std::endl;
+	std::cout << "begin + 1 = " << *it << std::endl;
 	it++;
-	std::cout << "end + 1 = " << *it << std::endl;
-	it++;
-	std::cout << "end + 2 = " << *it << std::endl;
-}
+	std::cout << "begin + 2 = " << *it << std::endl;
+*/
+	}

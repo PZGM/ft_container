@@ -575,7 +575,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 26 DeQue test 4 vvvvvvvv"
+	echo "vvvvvvvv DIFFF 26 DeQue test 5 vvvvvvvv"
 	diff ft std
 
 fi

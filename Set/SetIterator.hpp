@@ -2,7 +2,7 @@
 # define SET_ITERATOR_HPP
 
 #include <iterator>
-#include "Node.hpp"
+#include "../rbt/Node.hpp"
 
 typedef size_t size_type;
 
@@ -10,19 +10,21 @@ template <typename T>
 class SetIterator : public std::iterator<std::input_iterator_tag, T>
 {
 	public:
-
+		SetIterator(){};
+		~SetIterator(){};
 		SetIterator(ft::Node<T> * e) : p(e) {}
 		SetIterator(const SetIterator & mit) : p(mit.p) {}
 		SetIterator & operator++() {
 			if (p) {
-				if (p->right)
+				if (p->right) {
 					p = p->right;
-				else {
-					while ( p->content > p->parent->content)
+					while (p->left)
+						p = p->left;
+				}
+				else { 
+					while (p->parent && p == p->parent->right)
 						p = p->parent;
 					p = p->parent;
-					while (p->left)
-						p->left;
 				}
 			}
 			return *this;
@@ -46,7 +48,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 				if (p->left)
 					p = p->left;
 				else {
-					while (p->content < p->parent->content)
+					while (p->val < p->parent->val)
 						p = p->parent;
 					p = p->parent;
 					while (p->right)
@@ -74,7 +76,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 			return p!=rhs.p;
 		}
 		T & operator*() {
-			return p->content;
+			return p->val;
 		}
 
 	private:
@@ -134,7 +136,7 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 			return p!=rhs.p;
 		}
 		T & operator*() {
-			return p->content;
+			return p->val;
 		}
 
 	private:

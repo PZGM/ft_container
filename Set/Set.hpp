@@ -6,7 +6,6 @@
 #include <limits.h>
 #include <stdexcept>
 #include <memory>
-#include "SetIterator.hpp"
 #include "../IsType.hpp"
 #include "../rbt/rbt.cpp"
 
@@ -18,7 +17,7 @@ namespace ft
 				return x<y;
 			}
 		};	
-	template <typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
+	template <typename T, class Compare = less<T>, class Alloc = std::allocator<T> >
 		class set
 		{
 			public:
@@ -61,11 +60,11 @@ namespace ft
 				iterator insert(iterator position, const value_type& val);
 				template <class InputIterator>
 				void insert(InputIterator first, InputIterator last);
-					
+				void print() { _tree.print(); }
 
 			private: //compare a implementer
 				size_type	_size;
-				rbt			_tree;
+				rbt<T>			_tree;
 
 				void		_destroy_set(Node<T> *leaf);
 				iterator		_to_begin(Node<T> *);
@@ -73,7 +72,6 @@ namespace ft
 
 				iterator		_to_end(Node<T> *);
 				const_iterator	_to_end(Node<T> *) const;
-				iterator		_insert(const value_type& val, Node<T> *);
 		};
 
 	template <typename T, class Alloc>
@@ -88,8 +86,6 @@ namespace ft
 		bool operator>= (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
 	template <typename T, class Alloc>
 		bool operator<= (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		void swap(ft::set<T, Alloc> & x, ft::set<T, Alloc> & y);
 }
 
 
