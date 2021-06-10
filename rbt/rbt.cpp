@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rbt.cpp                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
+/*   Updated: 2021/06/10 15:41:17 by pzgm             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rbt.hpp"
 #include "../Queue/Queue.hpp"
 
@@ -40,7 +52,7 @@ bool ft::rbt<T>::Search(const T & val, Node<T> **node)
 		else
 			leaf = leaf->right;
 	}
-		return false;
+	return false;
 }
 
 	template<typename T>
@@ -52,18 +64,25 @@ bool ft::rbt<T>::insert(const T & val)
 	if(parent == NULL) {
 		_root = newNode;
 		_root->color = BLACK;
+		_size++;
 		return true;
 	}
 	if(parent->val == val) {  //enlever ce if pour multi
 		delete newNode;
 		return false;
 	}
+	if(_end->parent)
+		_end->parent->right = NULL;
 	if(val < parent->val)   //compare
 		parent->left = newNode;
 	else
 		parent->right = newNode;
 	newNode->parent = parent;
 	_InsertBalance(newNode);
+	_size++;
+	_end->parent = max_node();
+	_end->val = _root->val;
+	_end->parent->right = _end;
 	return true;
 }
 
@@ -122,6 +141,7 @@ void ft::rbt<T>::_InsertBalance(Node<T> *node)
 		}
 	}
 	_root->color = BLACK;
+	_root->parent = NULL;
 }
 
 	template<typename T>
@@ -227,6 +247,7 @@ void ft::rbt<T>::DeleteValue(const T &val)
 			leaf->parent->right = NULL;
 		delete leaf;
 	}
+	_size--;
 }
 
 	template<typename T>
@@ -254,7 +275,7 @@ void ft::rbt<T>::_DeleteBalance(Node<T> *node)
 			}
 			if( other->right == NULL || other->right->color == BLACK) {
 				other->left->color = BLACK;
-					other->color = RED;
+				other->color = RED;
 				_right_rotation(other);
 				other = parent->right;
 			}
@@ -293,4 +314,13 @@ void ft::rbt<T>::_DeleteBalance(Node<T> *node)
 		}
 	}
 	node->color = BLACK;
+	_root->parent = NULL;
+}
+
+template<typename T>
+ft::Node<T>* ft::rbt<T>::max_node() {
+	Node<T> *leaf = _root;
+	while(leaf->right && leaf->right->isEnd == false)
+		leaf = leaf->right;
+	return leaf;
 }

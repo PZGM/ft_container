@@ -10,7 +10,9 @@ namespace ft
 		class rbt
 		{
 			public:
-				rbt() : _root(NULL){ }
+				rbt() : _root(NULL), _size(0) {
+				_end = new Node<T>(true);
+				}
 				~rbt() {
 					if(_root)
 						Destroy(_root);
@@ -23,9 +25,13 @@ namespace ft
 				void		Destroy(Node<T> *p);
 				void		DestroyI() {Destroy(_root);}
 				Node<T>*	getRoot() { return _root;}
+				size_t		getSize() { return _size;}
+				Node<T>		*max_node();
 
-			private:	
+			private:
+				Node<T>	*_end;
 				Node<T>	*_root;
+				size_t	_size;
 				void	_DeleteBalance(Node<T> *node);
 				void	_InsertBalance(Node<T> *node);
 				Node<T>	*_left_rotation(Node<T> *node);

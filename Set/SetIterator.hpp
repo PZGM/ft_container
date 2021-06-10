@@ -22,7 +22,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 						p = p->left;
 				}
 				else { 
-					while (p->parent && p == p->parent->right)
+					while (p->parent && p == p->parent->right) //when root parent null
 						p = p->parent;
 					p = p->parent;
 				}

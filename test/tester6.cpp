@@ -26,10 +26,8 @@ int main()
 	for( ; it != sat.end(); it++) {
 		std::cout << "it = "  << *it << std::endl;
 	}
-	/*
-	std::cout << "lol" << std::endl;
-	std::cout <<"begin = " << *it << std::endl;
-	it++;
+	std::cout <<"end = " << *it << std::endl;
+/*	it++;
 	std::cout << "begin + 1 = " << *it << std::endl;
 	it++;
 	std::cout << "begin + 2 = " << *it << std::endl;

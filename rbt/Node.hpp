@@ -15,18 +15,28 @@ namespace ft
 				Node *left;
 				Node *right;
 				Node *parent;
+				bool isEnd;
 				
 				Node () {
 					parent = NULL;
 					left = NULL;
 					right = NULL;
+					isEnd = false;
 					color = RED;
 				};
 
+				Node (bool x) {
+					parent = NULL;
+					left = NULL;
+					right = NULL;
+					isEnd = x;
+					color = RED;
+				}
 				Node(T val) : val(val) {
 					parent = NULL;
 					left = NULL;
 					right = NULL;
+					isEnd = false;
 					color = RED;
 				}
 			};

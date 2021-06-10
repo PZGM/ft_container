@@ -63,7 +63,7 @@ namespace ft
 				void print() { _tree.print(); }
 
 			private: //compare a implementer
-				size_type	_size;
+	//			size_type		_size;
 				rbt<T>			_tree;
 
 				void		_destroy_set(Node<T> *leaf);
