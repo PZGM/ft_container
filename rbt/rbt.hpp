@@ -27,6 +27,7 @@ namespace ft
 				void		DestroyI() {Destroy(_root);}
 				Node<T>*	getRoot() { return _root;}
 				size_t		getSize() { return _size;}
+				size_t		getSize() const { return _size;}
 				Node<T>		*max_node();
 				Node<T>		*min_node();
 

@@ -45,6 +45,7 @@ namespace ft
 				set<value_type, Alloc>		&operator=(const set<T, Alloc> &c);
 				iterator find (const value_type& val) const;	
 				void				swap (set& x);
+				size_type size()	const;
 
 				iterator			begin();
 				const_iterator			begin() const;
@@ -63,15 +64,22 @@ namespace ft
 				void print() { _tree.print(); }
 
 			private: //compare a implementer
-	//			size_type		_size;
 				rbt<T>			_tree;
 
 				void		_destroy_set(Node<T> *leaf);
-				iterator		_to_begin(Node<T> *);
-				const_iterator	_to_begin(Node<T> *) const;
-
+				
 				iterator		_to_end(Node<T> *);
 				const_iterator	_to_end(Node<T> *) const;
+
+				iterator		_to_begin(Node<T> *);
+				const_iterator	_to_begin(Node<T> *) const;
+			
+				reverse_iterator		_to_rend(Node<T> *);
+				const_reverse_iterator	_to_rend(Node<T> *) const;
+				
+				reverse_iterator		_to_rbegin(Node<T> *);
+				const_reverse_iterator	_to_rbegin(Node<T> *) const;
+
 		};
 
 	template <typename T, class Alloc>

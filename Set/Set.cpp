@@ -68,33 +68,15 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::find(c
 	return (_tree.Search(val, _tree.getRoot));
 }
 
-//begin
+// size
 
-	template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::begin() {
-	return (_to_begin(_tree.getRoot()));
+template <typename T,class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::size_type  ft::set<T, Compare, Alloc>::size() const{
+	return _tree.getSize();
 }
 
-template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) {
-	if(!leaf->left)
-		return leaf;
-	return(_to_begin(leaf->left));
-}
 
-template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::begin() const {
-	return (ft::set<T, Compare, Alloc>::_to_begin(_tree.getRoot));
-}
-
-template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) const {
-	if(!leaf->left)
-		return leaf;
-	return(_const_to_begin(leaf->left));
-}
-
-//end + 1 (= size?)
+//end
 
 	template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::end() {
@@ -118,5 +100,82 @@ typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::
 	if(!leaf->right)
 		return leaf;
 	return(_const_to_end(leaf->right));
+}
+
+//rend
+
+	template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::rend() {
+	return _to_rend(_tree.getRoot());
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::_to_rend(ft::Node<T> *leaf) {
+	if(!leaf->left)
+		return leaf;
+	return(_to_end(leaf->left));
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, Alloc>::rend() const {
+	return (_to_rend(_tree.getRoot));
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, Alloc>::_to_rend(ft::Node<T> *leaf) const {
+	if(!leaf->left)
+		return leaf;
+	return(_const_to_rend(leaf->left));
+}
+
+//rbegin
+
+	template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::rbegin() {
+	return _to_rbegin(_tree.getRoot());
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::_to_rbegin(ft::Node<T> *leaf) {
+	if(!leaf->right || leaf->right->isEnd == true)
+		return leaf;
+	return(_to_rbegin(leaf->right));
+}
+	template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, Alloc>::rbegin() const {
+	return _to_rbegin(_tree.getRoot());
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, Alloc>::_to_rbegin(ft::Node<T> *leaf) const {
+	if(!leaf->right || leaf->right->isEnd == true)
+		return leaf;
+	return(_to_rbegin(leaf->right));
+}
+
+
+//begin
+
+	template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::begin() {
+	return _to_begin(_tree.getRoot());
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) {
+	if(!leaf->left || leaf->left->isEnd == true)
+		return leaf;
+	return(_to_begin(leaf->left));
+}
+	template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::begin() const{
+	return _to_begin(_tree.getRoot());
+}
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_to_begin(ft::Node<T> *leaf) const {
+	if(!leaf->left || leaf->left->isEnd == true)
+		return leaf;
+	return(_to_begin(leaf->left));
 }
 
