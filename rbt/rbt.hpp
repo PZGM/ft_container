@@ -12,6 +12,7 @@ namespace ft
 			public:
 				rbt() : _root(NULL), _size(0) {
 				_end = new Node<T>(true);
+				_rend = new Node<T>(true);
 				}
 				~rbt() {
 					if(_root)
@@ -27,9 +28,11 @@ namespace ft
 				Node<T>*	getRoot() { return _root;}
 				size_t		getSize() { return _size;}
 				Node<T>		*max_node();
+				Node<T>		*min_node();
 
 			private:
 				Node<T>	*_end;
+				Node<T>	*_rend;
 				Node<T>	*_root;
 				size_t	_size;
 				void	_DeleteBalance(Node<T> *node);

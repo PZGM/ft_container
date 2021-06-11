@@ -6,7 +6,7 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/06/10 15:41:17 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/06/11 12:34:07 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ bool ft::rbt<T>::Search(const T & val, Node<T> **node)
 {
 	Node<T> *leaf = _root;
 	*node = NULL;
-	while (leaf)
+	while (leaf && leaf->isEnd == false)
 	{
 		*node = leaf;
 		if (leaf->val == val)
@@ -73,6 +73,8 @@ bool ft::rbt<T>::insert(const T & val)
 	}
 	if(_end->parent)
 		_end->parent->right = NULL;
+	if(_rend->parent)
+		_rend->parent->left = NULL;
 	if(val < parent->val)   //compare
 		parent->left = newNode;
 	else
@@ -81,8 +83,11 @@ bool ft::rbt<T>::insert(const T & val)
 	_InsertBalance(newNode);
 	_size++;
 	_end->parent = max_node();
+	_rend->parent = min_node();
 	_end->val = _root->val;
+	_rend->val = _root->val;
 	_end->parent->right = _end;
+	_rend->parent->left = _rend;
 	return true;
 }
 
@@ -236,11 +241,20 @@ void ft::rbt<T>::DeleteValue(const T &val)
 	}
 	else
 	{
+
+		if(_end->parent)
+			_end->parent->right = NULL;
+		if(_rend->parent)
+			_rend->parent->left = NULL;
 		_DeleteBalance(leaf);
-		if(leaf==_root)
-		{
+		_end->parent = max_node();
+		_rend->parent = min_node();
+		_end->val = _root->val;
+		_rend->val = _root->val;
+		_end->parent->right = _end;
+		_rend->parent->left = _rend;
+		if(leaf == _root)
 			_root = NULL;
-		}
 		else if(leaf==leaf->parent->left)
 			leaf->parent->left = NULL;
 		else if(leaf==leaf->parent->right)
@@ -322,5 +336,13 @@ ft::Node<T>* ft::rbt<T>::max_node() {
 	Node<T> *leaf = _root;
 	while(leaf->right && leaf->right->isEnd == false)
 		leaf = leaf->right;
+	return leaf;
+}
+
+template<typename T>
+ft::Node<T>* ft::rbt<T>::min_node() {
+	Node<T> *leaf = _root;
+	while(leaf->left && leaf->left->isEnd == false)
+		leaf = leaf->left;
 	return leaf;
 }
