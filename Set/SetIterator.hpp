@@ -12,8 +12,8 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 	public:
 		SetIterator(){};
 		~SetIterator(){};
-		SetIterator(ft::Node<T> * e) : p(e) {}
-		SetIterator(const SetIterator & mit) : p(mit.p) {}
+		SetIterator(ft::Node<T> * e) : p(e) , _bound(0) {}
+		SetIterator(const SetIterator & mit) : p(mit.p) , _bound(0) {}
 		SetIterator & operator++() {
 			if (p) {
 				if (p->right) {
@@ -29,19 +29,20 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 			}
 			return *this;
 		}
+
 		template <class Y>
 			SetIterator operator++(Y) {
 				SetIterator ret(*this);
 				operator++();
 				return ret;
 			}
+
 		SetIterator operator+(size_type n)
 		{
 			SetIterator ret(*this);
 			ret.p += n;
 			return (ret);
 		}
-
 
 		SetIterator & operator--() {
 			if (p) {
@@ -57,18 +58,33 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 			}
 			return *this;
 		}
+
+		void	SetBound(int pos) {
+			_bound = pos;
+		}
+
+		int		GetBound() const {
+			return _bound;
+		}
+		
+		bool isEnd() const {
+			return p->isEnd;
+		}
+
 		template <class Y>
 			SetIterator operator--(Y) {
 				SetIterator ret(*this);
 				operator--();
 				return ret;
 			}
+
 		SetIterator operator-(size_type n)
 		{
 			SetIterator ret(*this);
 			ret.p -= n;
 			return (ret);
 		}
+
 		bool operator==(const SetIterator & rhs) const {
 			return p==rhs.p;
 		}
@@ -82,6 +98,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 	private:
 
 		ft::Node<T> * p;
+		int _bound;
 };
 //	To Do
 template <typename T>

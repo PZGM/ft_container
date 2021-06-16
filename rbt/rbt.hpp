@@ -22,10 +22,12 @@ namespace ft
 				void		print();
 				bool		Search(const T &val, Node<T> **node);
 				bool		insert(const T &val);
+				size_t		DeleteAllValue(const T &val);
 				void		DeleteValue(const T &val);
 				void		Destroy(Node<T> *p);
 				void		DestroyI() {Destroy(_root);}
 				Node<T>*	getRoot() { return _root;}
+				Node<T>*	getRoot() const { return _root;}
 				size_t		getSize() { return _size;}
 				size_t		getSize() const { return _size;}
 				Node<T>		*max_node();

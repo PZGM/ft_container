@@ -45,7 +45,11 @@ namespace ft
 				set<value_type, Alloc>		&operator=(const set<T, Alloc> &c);
 				iterator find (const value_type& val) const;	
 				void				swap (set& x);
-				size_type size()	const;
+				size_type	size() const;
+				size_type	max_size() const;
+				size_type	count(const value_type & val) const;
+				bool		empty() const;
+				void		clear();
 
 				iterator			begin();
 				const_iterator			begin() const;
@@ -61,7 +65,11 @@ namespace ft
 				iterator insert(iterator position, const value_type& val);
 				template <class InputIterator>
 				void insert(InputIterator first, InputIterator last);
-				void print() { _tree.print(); }
+
+				// erase 
+				 void erase(iterator position);	
+				size_type erase(const value_type & val);
+				void erase(iterator first, iterator last);
 
 			private: //compare a implementer
 				rbt<T>			_tree;
@@ -69,31 +77,34 @@ namespace ft
 				void		_destroy_set(Node<T> *leaf);
 				
 				iterator		_to_end(Node<T> *);
-				const_iterator	_to_end(Node<T> *) const;
+				const_iterator	_const_to_end(Node<T> *) const;
 
 				iterator		_to_begin(Node<T> *);
-				const_iterator	_to_begin(Node<T> *) const;
+				const_iterator	_const_to_begin(Node<T> *) const;
 			
 				reverse_iterator		_to_rend(Node<T> *);
-				const_reverse_iterator	_to_rend(Node<T> *) const;
+				const_reverse_iterator	_const_to_rend(Node<T> *) const;
 				
 				reverse_iterator		_to_rbegin(Node<T> *);
-				const_reverse_iterator	_to_rbegin(Node<T> *) const;
+				const_reverse_iterator	_const_to_rbegin(Node<T> *) const;
+
+				iterator lower_bound (const value_type& val) const; // >=
+				iterator upper_bound (const value_type& val) const; // <=
 
 		};
 
-	template <typename T, class Alloc>
-		bool operator== (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		bool operator!= (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		bool operator>  (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		bool operator<  (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		bool operator>= (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
-	template <typename T, class Alloc>
-		bool operator<= (const set<T,Alloc>& lhs, const set<T,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator== (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator!= (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator>  (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator<  (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator>= (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
+	template <typename T, class Compare, class Alloc>
+		bool operator<= (const set<T,Compare,Alloc>& lhs, const set<T,Compare,Alloc>& rhs);
 }
 
 

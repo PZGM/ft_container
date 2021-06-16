@@ -1,6 +1,5 @@
 namespace ft
 {
-
 	enum COLOR {
 		RED,
 		BLACK
@@ -11,18 +10,20 @@ namespace ft
 		{
 			public:
 				T val;
-				COLOR color;
-				Node *left;
-				Node *right;
-				Node *parent;
-				bool isEnd;
-				
+				COLOR	color;
+				Node	*left;
+				Node	*right;
+				Node	*parent;
+				bool	isEnd;
+				int		pos; //-1 lower bound 0 normal 1 upper bound
+
 				Node () {
 					parent = NULL;
 					left = NULL;
 					right = NULL;
 					isEnd = false;
 					color = RED;
+					pos = 0;
 				};
 
 				Node (bool x) {
@@ -31,6 +32,7 @@ namespace ft
 					right = NULL;
 					isEnd = x;
 					color = RED;
+					pos = 0;
 				}
 				Node(T val) : val(val) {
 					parent = NULL;
@@ -38,6 +40,7 @@ namespace ft
 					right = NULL;
 					isEnd = false;
 					color = RED;
+					pos = 0;
 				}
 			};
 }

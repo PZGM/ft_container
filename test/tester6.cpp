@@ -17,9 +17,9 @@ int main()
 	std::cout << sat.size() << std::endl;
 	for (int i = 0; i < 80 ; i += 2)
 		sat.insert(i);
-//	std::cout << sat.empty() << std::endl;
-//	set<int> stonks;
-//	std::cout << (sat > stonks) << std::endl;
+	std::cout << sat.empty() << std::endl;
+	set<int> stonks;
+	std::cout << (sat > stonks) << std::endl;
 
 //	sat.print();
 	auto it = sat.begin();

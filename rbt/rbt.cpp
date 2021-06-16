@@ -6,36 +6,12 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/06/11 12:34:07 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/06/16 15:29:58 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rbt.hpp"
 #include "../Queue/Queue.hpp"
-
-	template<typename T>
-void ft::rbt<T>::print()
-{
-	Node<T> *node;
-	ft::queue<Node<T> *> q;
-	q.push(_root);
-	while(!q.empty())
-	{
-		node = q.front();
-		q.pop();
-		if(node->left)
-		{
-			std::cout<< "left: " << node->left->val << " ->color: " << ((node->left->color == RED) ? "RED" : "BLACK" ) << " ";
-			q.push(node->left);
-		}
-		if(node->right)
-		{
-			std::cout<< "right: " <<node->right->val<< " ->color: " <<  ((node->left->color == RED) ? "RED" : "BLACK") << " ";
-			q.push(node->right);
-		}
-		std::cout<<std::endl<<std::endl;
-	}
-}
 
 	template<typename T>
 bool ft::rbt<T>::Search(const T & val, Node<T> **node)
@@ -207,61 +183,71 @@ void ft::rbt<T>::Destroy(Node<T> *leaf)
 	delete leaf;
 }
 
+
+	template<typename T>
+size_t ft::rbt<T>::DeleteAllValue(const T &val) {
+	size_t i = 0;
+	Node<T> *leaf = NULL;
+	while(Search(val, leaf)) {
+		DeleteValue(val);
+		i++;
+	}
+	return i;
+}
+
 	template<typename T>
 void ft::rbt<T>::DeleteValue(const T &val)
 {
 	Node<T>		*leaf = NULL;
 	Node<T>		*nextNode = NULL;
-	Search(val,leaf);
-	if(leaf == NULL)
-		return;
-	if(leaf->left && leaf->right)
-	{
-		Node<T> *tmpNode = leaf->right;
-		while(tmpNode) {
-			nextNode = tmpNode;
-			tmpNode = tmpNode->left;
+	if(Search(val,leaf)) {
+		if(leaf->left && leaf->right)
+		{
+			Node<T> *tmpNode = leaf->right;
+			while(tmpNode) {
+				nextNode = tmpNode;
+				tmpNode = tmpNode->left;
+			}
+			leaf->val = nextNode->val;
+			leaf = nextNode;
 		}
-		leaf->val = nextNode->val;
-		leaf = nextNode;
+		if(leaf->left)
+		{
+			Node<T> *tmp = leaf->left;
+			leaf->val = tmp->val;
+			leaf->left = NULL;
+			delete tmp;
+		}
+		else if(leaf->right)
+		{
+			Node<T> *tmp = leaf->right;
+			leaf->val = tmp->val;
+			leaf->right = NULL;
+			delete tmp;
+		}
+		else
+		{
+			if(_end->parent)
+				_end->parent->right = NULL;
+			if(_rend->parent)
+				_rend->parent->left = NULL;
+			_DeleteBalance(leaf);
+			_end->parent = max_node();
+			_rend->parent = min_node();
+			_end->val = _root->val;
+			_rend->val = _root->val;
+			_end->parent->right = _end;
+			_rend->parent->left = _rend;
+			if(leaf == _root)
+				_root = NULL;
+			else if(leaf==leaf->parent->left)
+				leaf->parent->left = NULL;
+			else if(leaf==leaf->parent->right)
+				leaf->parent->right = NULL;
+			delete leaf;
+		}
+		_size--;
 	}
-	if(leaf->left)
-	{
-		Node<T> *tmp = leaf->left;
-		leaf->val = tmp->val;
-		leaf->left = NULL;
-		delete tmp;
-	}
-	else if(leaf->right)
-	{
-		Node<T> *tmp = leaf->right;
-		leaf->val = tmp->val;
-		leaf->right = NULL;
-		delete tmp;
-	}
-	else
-	{
-
-		if(_end->parent)
-			_end->parent->right = NULL;
-		if(_rend->parent)
-			_rend->parent->left = NULL;
-		_DeleteBalance(leaf);
-		_end->parent = max_node();
-		_rend->parent = min_node();
-		_end->val = _root->val;
-		_rend->val = _root->val;
-		_end->parent->right = _end;
-		_rend->parent->left = _rend;
-		if(leaf == _root)
-			_root = NULL;
-		else if(leaf==leaf->parent->left)
-			leaf->parent->left = NULL;
-		else if(leaf==leaf->parent->right)
-			leaf->parent->right = NULL;
-		delete leaf;
-	}
-	_size--;
 }
 
 	template<typename T>
@@ -344,5 +330,5 @@ ft::Node<T>* ft::rbt<T>::min_node() {
 	Node<T> *leaf = _root;
 	while(leaf->left && leaf->left->isEnd == false)
 		leaf = leaf->left;
-	return leaf;
-}
+		return leaf;
+}	
