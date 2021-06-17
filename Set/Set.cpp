@@ -69,7 +69,7 @@ void ft::set<T, Compare, Alloc>::erase(iterator position) {
 }
 
 template <typename T,class Compare, class Alloc>
- typename ft::set<T,Compare,Alloc>::size_type ft::set<T, Compare, Alloc>::erase(const value_type & val) {
+typename ft::set<T,Compare,Alloc>::size_type ft::set<T, Compare, Alloc>::erase(const value_type & val) {
 	return _tree.DeleteAllValue(val);
 }
 
@@ -77,13 +77,13 @@ template <typename T,class Compare, class Alloc>
 void ft::set<T, Compare, Alloc>::erase(iterator first, iterator last) {
 	if (first.GetValue() <= 0)
 		_tree.DeleteValue(*first);
-		first++;
+	first++;
 	while(first != last) { 
 		_tree.DeleteValue(*first);
 		first++;
 	}
-	if (first.GetValue() >= 0)
-	_tree.DeleteValue(*first);
+	if (first.GetValue() < 1)
+		_tree.DeleteValue(*first);
 }
 
 
@@ -102,7 +102,7 @@ typename ft::set<T, Compare, Alloc>::size_type  ft::set<T, Compare, Alloc>::size
 	return _tree.getSize();
 }
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::size_type ft::set<T, Compare, Alloc>::max_size() const
 {
 	size_type max = 0;
@@ -112,7 +112,7 @@ typename ft::set<T, Compare, Alloc>::size_type ft::set<T, Compare, Alloc>::max_s
 
 //end
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::end() {
 	return _to_end(_tree.getRoot());
 }
@@ -138,7 +138,7 @@ typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::
 
 //rend
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::rend() {
 	return _to_rend(_tree.getRoot());
 }
@@ -164,7 +164,7 @@ typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, 
 
 //rbegin
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>::rbegin() {
 	return _to_rbegin(_tree.getRoot());
 }
@@ -175,7 +175,7 @@ typename ft::set<T, Compare, Alloc>::reverse_iterator ft::set<T, Compare, Alloc>
 		return leaf;
 	return(_to_rbegin(leaf->right));
 }
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, Alloc>::rbegin() const {
 	return _const_to_rbegin(_tree.getRoot());
 }
@@ -190,7 +190,7 @@ typename ft::set<T, Compare, Alloc>::const_reverse_iterator ft::set<T, Compare, 
 
 //begin
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::begin() {
 	return _to_begin(_tree.getRoot());
 }
@@ -201,14 +201,14 @@ typename ft::set<T, Compare, Alloc>::iterator ft::set<T, Compare, Alloc>::_to_be
 		return leaf;
 	return(_to_begin(leaf->left));
 }
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::begin() const{
 	return _const_to_begin(_tree.getRoot());
 }
 
 template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::const_iterator ft::set<T, Compare, Alloc>::_const_to_begin(ft::Node<T> *leaf) const {
-	if(!leaf->left || leaf->left->isEnd == true)
+	if(leaf->left == NULL || leaf->left->isEnd == true)
 		return leaf;
 	return(_const_to_begin(leaf->left));
 }
@@ -250,10 +250,11 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 	iterator it = begin();
 	it++;
 	while (it != end()) {
-		if(*it ==  val) {
+		if(*it >=  val) {
 			it.SetValue(-1);
 			return it;
 		}
+		it++;
 	}	
 	return NULL;
 }
@@ -263,10 +264,11 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::upper_boun
 	iterator it = begin();
 	it++;
 	while (it != end()) {
-		if(*it ==  val) {
+		if(*it >  val) {
 			it.SetValue(1);
 			return it;
 		}
+		it++;
 	}
 	return NULL;
 }
@@ -290,7 +292,7 @@ bool ft::operator== (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Com
 }
 
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 bool ft::operator!= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
 	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
 	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
@@ -306,7 +308,7 @@ bool ft::operator!= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Com
 	return (false);
 }
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 bool ft::operator> (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
 	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
 	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
@@ -324,7 +326,7 @@ bool ft::operator> (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Comp
 	return (false);
 }
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 bool ft::operator< (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
 	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
 	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
@@ -342,7 +344,7 @@ bool ft::operator< (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Comp
 	return (false);
 }
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 bool ft::operator>= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
 	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
 	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
@@ -360,7 +362,7 @@ bool ft::operator>= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Com
 	return (false);
 }
 
-	template <typename T, class Compare, class Alloc>
+template <typename T, class Compare, class Alloc>
 bool ft::operator<= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
 	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
 	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
@@ -378,3 +380,26 @@ bool ft::operator<= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Com
 	return (false);
 }
 
+// comparateur
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::key_compare ft::set<T, Compare, Alloc>::key_comp() const {
+	return ft::set<T, Compare, Alloc>::key_compare();
+}
+
+
+template <typename T, class Compare, class Alloc>
+typename ft::set<T, Compare, Alloc>::value_compare ft::set<T, Compare, Alloc>::value_comp() const {
+	return ft::set<T, Compare, Alloc>::value_compare();
+}
+
+
+template <typename T, class Compare, class Alloc>
+std::pair<typename ft::set<T, Compare, Alloc>::iterator, typename ft::set<T, Compare, Alloc>::iterator> ft::set<T, Compare, Alloc>::equal_range (const T & val) const {
+	std::pair<iterator, iterator> bound;
+
+	bound.first = lower_bound(val);
+	bound.second = upper_bound(val);
+
+	return bound;
+}

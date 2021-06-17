@@ -7,7 +7,7 @@
 #include <stdexcept>
 #include <memory>
 #include "../IsType.hpp"
-#include "../rbt/rbt.cpp"
+#include "rbt.cpp"
 
 namespace ft
 {
@@ -24,6 +24,7 @@ namespace ft
 				typedef T						value_type;
 				typedef T						key_type;
 				typedef Compare					key_compare;
+				typedef Compare					value_compare;
 				typedef Alloc					allocator_type;
 				typedef value_type&					reference;
 				typedef const value_type&				const_reference;
@@ -71,6 +72,10 @@ namespace ft
 				size_type erase(const value_type & val);
 				void erase(iterator first, iterator last);
 
+				key_compare						key_comp() const;
+				value_compare					value_comp() const;
+				std::pair<iterator,iterator>	equal_range(const value_type& val) const;
+
 			private: //compare a implementer
 				rbt<T>			_tree;
 
@@ -88,8 +93,8 @@ namespace ft
 				reverse_iterator		_to_rbegin(Node<T> *);
 				const_reverse_iterator	_const_to_rbegin(Node<T> *) const;
 
-				iterator lower_bound (const value_type& val) const; // >=
-				iterator upper_bound (const value_type& val) const; // <=
+				iterator lower_bound(const value_type& val) const;
+				iterator upper_bound(const value_type& val) const;   //pourquoi ca fonctionne alors que private
 
 		};
 
