@@ -13,7 +13,7 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 		SetIterator(){};
 		~SetIterator(){};
 		SetIterator(ft::Node<T> * e) : p(e) , _bound(0) {}
-		SetIterator(const SetIterator & mit) : p(mit.p) , _bound(0) {}
+		SetIterator(const SetIterator & mit) : p(mit.p) , _bound(mit._bound) {}
 		SetIterator & operator++() {
 			if (p) {
 				if (p->right) {
@@ -94,7 +94,10 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 		T & operator*() {
 			return p->val;
 		}
-
+		
+		void newp(ft::Node<T> *e) {
+			p = e;
+		}
 	private:
 
 		ft::Node<T> * p;

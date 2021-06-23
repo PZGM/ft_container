@@ -5,6 +5,7 @@
 #include <cstddef>
 #include <limits.h>
 #include <stdexcept>
+#include <functional>
 #include <memory>
 #include "../IsType.hpp"
 #include "rbt.cpp"
@@ -17,7 +18,7 @@ namespace ft
 				return x<y;
 			}
 		};	
-	template <typename T, class Compare = less<T>, class Alloc = std::allocator<T> >
+	template <typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
 		class set
 		{
 			public:
@@ -76,8 +77,12 @@ namespace ft
 				value_compare					value_comp() const;
 				std::pair<iterator,iterator>	equal_range(const value_type& val) const;
 
+				iterator lower_bound(const value_type& val) const;
+				iterator upper_bound(const value_type& val) const;
+
 			private: //compare a implementer
-				rbt<T>			_tree;
+				Compare					_comp;
+				rbt<T, Compare>			_tree;
 
 				void		_destroy_set(Node<T> *leaf);
 				
@@ -92,10 +97,7 @@ namespace ft
 				
 				reverse_iterator		_to_rbegin(Node<T> *);
 				const_reverse_iterator	_const_to_rbegin(Node<T> *) const;
-
-				iterator lower_bound(const value_type& val) const;
-				iterator upper_bound(const value_type& val) const;   //pourquoi ca fonctionne alors que private
-
+	
 		};
 
 	template <typename T, class Compare, class Alloc>

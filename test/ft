@@ -1,35 +1,46 @@
-===swap two deque of same size===
-100
-200
-300
-400
-____________________4|4
+iterator pair 1
+iterator pair 0
+1
 0
 1
-2
-3
-===swap two deque of different size===
--100
--200
--300
--400
-____________________4|1
--1
-===swap two deque with one empty===
-100
-200
-300
-400
-____________________4|0
-===swap with non member function===
-100
-200
-300
-400
-____________________4|4
-0
-1
-2
-3
-===swap two empty deques with non member function===
-____________________0|0
+it = 0
+it = 2
+it = 4
+it = 6
+it = 8
+it = 10
+it = 12
+it = 14
+it = 16
+it = 18
+it = 20
+it = 22
+it = 24
+it = 26
+it = 28
+it = 30
+it = 32
+it = 34
+it = 36
+it = 38
+it = 40
+it = 42
+it = 44
+it = 46
+it = 48
+it = 50
+it = 52
+it = 54
+it = 56
+it = 58
+it = 60
+it = 62
+it = 64
+it = 66
+it = 68
+it = 70
+it = 72
+it = 74
+it = 76
+it = 78
+end = 30

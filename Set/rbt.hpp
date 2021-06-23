@@ -6,10 +6,11 @@
 
 namespace ft
 {
-	template<typename T>
+	template<typename T, class Compare>
 		class rbt
 		{
 			public:
+
 				rbt() : _root(new Node<T>()), _size(0) {
 				_end = new Node<T>(true);
 				_rend = new Node<T>(true);
@@ -36,6 +37,8 @@ namespace ft
 				Node<T>		*min_node();
 
 			private:
+
+				Compare	_comp;
 				Node<T>	*_end;
 				Node<T>	*_rend;
 				Node<T>	*_root;

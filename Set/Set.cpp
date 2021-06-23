@@ -75,18 +75,25 @@ typename ft::set<T,Compare,Alloc>::size_type ft::set<T, Compare, Alloc>::erase(c
 
 template <typename T,class Compare, class Alloc>
 void ft::set<T, Compare, Alloc>::erase(iterator first, iterator last) {
-	if (first.GetValue() <= 0)
-		_tree.DeleteValue(*first);
+	ft::Node<T> *leaf;
+	T val;
+	T end = *last;
+
+	iterator tmp = first;
 	first++;
-	while(first != last) { 
-		_tree.DeleteValue(*first);
+	if (tmp.GetBound() <= 0)
+		_tree.DeleteValue(*tmp);
+	while(*first != end) {
+		tmp = first;
 		first++;
+		val = *first;
+		_tree.DeleteValue(*tmp);
+		_tree.Search(val, &leaf);
+		first.newp(leaf);
 	}
-	if (first.GetValue() < 1)
-		_tree.DeleteValue(*first);
+	if (last.GetBound() < 1)
+		_tree.DeleteValue(*last);
 }
-
-
 
 // find
 
@@ -250,156 +257,157 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 	iterator it = begin();
 	it++;
 	while (it != end()) {
-		if(*it >=  val) {
-			it.SetValue(-1);
+		if (!_comp(*it, val)) {		//(*it >=  val) {
+			it.SetBound(-1);
 			return it;
 		}
 		it++;
-	}	
-	return NULL;
-}
+		}	
+		return NULL;
+	}
 
-template <typename T,class Compare, class Alloc>
-typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::upper_bound (const value_type& val) const {
-	iterator it = begin();
-	it++;
-	while (it != end()) {
-		if(*it >  val) {
-			it.SetValue(1);
-			return it;
+	template <typename T,class Compare, class Alloc>
+		typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::upper_bound (const value_type& val) const {
+			iterator it = begin();
+			it++;
+			while (it != end()) {
+				if(!_comp(*it, val)) {
+					it++;
+					it.SetBound(1);
+					return it;
+				}
+				it++;
+			}
+			return NULL;
 		}
-		it++;
-	}
-	return NULL;
-}
 
-// relational operator
+	// relational operator
 
-template <typename T, class Compare, class Alloc>
-bool ft::operator== (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	if (lhs.size() != rhs.size())
-		return (false);
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a != *b)
-			return (false);
-		a++;
-		b++;
-	}
-	return (true);
-}
-
-
-template <typename T, class Compare, class Alloc>
-bool ft::operator!= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	if (lhs.size() != rhs.size())
-		return (true);
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a != *b)
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator== (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			if (lhs.size() != rhs.size())
+				return (false);
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a != *b)
+					return (false);
+				a++;
+				b++;
+			}
 			return (true);
-		a++;
-		b++;
-	}
-	return (false);
-}
+		}
 
-template <typename T, class Compare, class Alloc>
-bool ft::operator> (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a > *b)
-			return (true);
-		if (*a < *b)
+
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator!= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			if (lhs.size() != rhs.size())
+				return (true);
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a != *b)
+					return (true);
+				a++;
+				b++;
+			}
 			return (false);
-		a++;
-		b++;
-	}
-	if (lhs.size() > rhs.size())
-		return (true);
-	return (false);
-}
+		}
 
-template <typename T, class Compare, class Alloc>
-bool ft::operator< (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a < *b)
-			return (true);
-		if (*a > *b)
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator> (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a > *b)
+					return (true);
+				if (*a < *b)
+					return (false);
+				a++;
+				b++;
+			}
+			if (lhs.size() > rhs.size())
+				return (true);
 			return (false);
-		a++;
-		b++;
-	}
-	if (lhs.size() < rhs.size())
-		return (true);
-	return (false);
-}
+		}
 
-template <typename T, class Compare, class Alloc>
-bool ft::operator>= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a > *b)
-			return (true);
-		if (*a < *b)
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator< (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a < *b)
+					return (true);
+				if (*a > *b)
+					return (false);
+				a++;
+				b++;
+			}
+			if (lhs.size() < rhs.size())
+				return (true);
 			return (false);
-		a++;
-		b++;
-	}
-	if (lhs.size() >= rhs.size())
-		return (true);
-	return (false);
-}
+		}
 
-template <typename T, class Compare, class Alloc>
-bool ft::operator<= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
-	typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
-	typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
-	while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
-	{
-		if (*a < *b)
-			return (true);
-		if (*a > *b)
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator>= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a > *b)
+					return (true);
+				if (*a < *b)
+					return (false);
+				a++;
+				b++;
+			}
+			if (lhs.size() >= rhs.size())
+				return (true);
 			return (false);
-		a++;
-		b++;
-	}
-	if (lhs.size() <= rhs.size())
-		return (true);
-	return (false);
-}
+		}
 
-// comparateur
+	template <typename T, class Compare, class Alloc>
+		bool ft::operator<= (const ft::set<T, Compare, Alloc>& lhs, const ft::set<T, Compare, Alloc>& rhs) {
+			typename ft::set<T, Compare, Alloc>::iterator a = lhs.begin();
+			typename ft::set<T, Compare, Alloc>::iterator b = rhs.begin();
+			while (a != lhs.end() && b != rhs.end() && !a.isEnd() && !b.isEnd())
+			{
+				if (*a < *b)
+					return (true);
+				if (*a > *b)
+					return (false);
+				a++;
+				b++;
+			}
+			if (lhs.size() <= rhs.size())
+				return (true);
+			return (false);
+		}
 
-template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::key_compare ft::set<T, Compare, Alloc>::key_comp() const {
-	return ft::set<T, Compare, Alloc>::key_compare();
-}
+	// comparateur
+
+	template <typename T, class Compare, class Alloc>
+		typename ft::set<T, Compare, Alloc>::key_compare ft::set<T, Compare, Alloc>::key_comp() const {
+			return ft::set<T, Compare, Alloc>::key_compare();
+		}
 
 
-template <typename T, class Compare, class Alloc>
-typename ft::set<T, Compare, Alloc>::value_compare ft::set<T, Compare, Alloc>::value_comp() const {
-	return ft::set<T, Compare, Alloc>::value_compare();
-}
+	template <typename T, class Compare, class Alloc>
+		typename ft::set<T, Compare, Alloc>::value_compare ft::set<T, Compare, Alloc>::value_comp() const {
+			return ft::set<T, Compare, Alloc>::value_compare();
+		}
 
 
-template <typename T, class Compare, class Alloc>
-std::pair<typename ft::set<T, Compare, Alloc>::iterator, typename ft::set<T, Compare, Alloc>::iterator> ft::set<T, Compare, Alloc>::equal_range (const T & val) const {
-	std::pair<iterator, iterator> bound;
+	template <typename T, class Compare, class Alloc>
+		std::pair<typename ft::set<T, Compare, Alloc>::iterator, typename ft::set<T, Compare, Alloc>::iterator> ft::set<T, Compare, Alloc>::equal_range (const T & val) const {
+			std::pair<iterator, iterator> bound;
 
-	bound.first = lower_bound(val);
-	bound.second = upper_bound(val);
+			bound.first = lower_bound(val);
+			bound.second = upper_bound(val);
 
-	return bound;
-}
+			return bound;
+		}
