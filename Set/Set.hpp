@@ -44,14 +44,14 @@ namespace ft
 				set(const set& x);
 				~set();
 
-				set<value_type, Alloc>		&operator=(const set<T, Alloc> &c);
-				iterator find (const value_type& val) const;	
-				void				swap (set& x);
-				size_type	size() const;
-				size_type	max_size() const;
-				size_type	count(const value_type & val) const;
-				bool		empty() const;
-				void		clear();
+				set<T, Compare, Alloc>		&operator=(const set<T,Compare, Alloc> &rhs);
+				iterator					find(const value_type& val) const;	
+				void						swap(set& x);
+				size_type					size() const;
+				size_type					max_size() const;
+				size_type					count(const value_type & val) const;
+				bool						empty() const;
+				void						clear();
 
 				iterator			begin();
 				const_iterator			begin() const;
@@ -80,9 +80,9 @@ namespace ft
 				iterator lower_bound(const value_type& val) const;
 				iterator upper_bound(const value_type& val) const;
 
-			private: //compare a implementer
+			private:
 				Compare					_comp;
-				rbt<T, Compare>			_tree;
+				rbt<T, Compare>			*_tree;
 
 				void		_destroy_set(Node<T> *leaf);
 				

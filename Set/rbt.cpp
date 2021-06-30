@@ -6,7 +6,7 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/06/23 12:30:49 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/06/30 13:10:04 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,7 @@
 #include "../Queue/Queue.hpp"
 
 	template<typename T, class Compare>
-bool ft::rbt<T,Compare>::Search(const T & val, Node<T> **node)
-{
+bool ft::rbt<T,Compare>::Search(const T & val, Node<T> **node) const {
 	Node<T> *leaf = _root;
 	*node = NULL;
 	while (leaf && leaf->isEnd == false)
@@ -32,8 +31,7 @@ bool ft::rbt<T,Compare>::Search(const T & val, Node<T> **node)
 }
 
 	template<typename T, class Compare>
-bool ft::rbt<T,Compare>::insert(const T & val)
-{
+bool ft::rbt<T,Compare>::insert(const T & val) {
 	Node<T> *parent = NULL;
 	Node<T> *newNode = new Node<T>(val);
 	Search(val, &parent);
@@ -69,8 +67,7 @@ bool ft::rbt<T,Compare>::insert(const T & val)
 }
 
 	template<typename T, class Compare>
-void ft::rbt<T,Compare>::_InsertBalance(Node<T> *node)
-{
+void ft::rbt<T,Compare>::_InsertBalance(Node<T> *node) {
 	Node<T> *parent = node->parent;
 	Node<T> *grandParent = NULL;
 	while(parent && parent->color == RED)
@@ -127,8 +124,7 @@ void ft::rbt<T,Compare>::_InsertBalance(Node<T> *node)
 }
 
 	template<typename T, class Compare>
-ft::Node<T> *ft::rbt<T,Compare>::_left_rotation(Node<T> *leaf)
-{
+ft::Node<T> *ft::rbt<T,Compare>::_left_rotation(Node<T> *leaf) {
 	Node<T> *y = leaf->right;
 	if(y == NULL)
 		return leaf;
@@ -151,8 +147,7 @@ ft::Node<T> *ft::rbt<T,Compare>::_left_rotation(Node<T> *leaf)
 }
 
 	template<typename T, class Compare>
-ft::Node<T>* ft::rbt<T,Compare>::_right_rotation(Node<T> *leaf)
-{
+ft::Node<T>* ft::rbt<T,Compare>::_right_rotation(Node<T> *leaf) {
 	Node<T> *y = leaf->left;
 	if(y == NULL)
 		return leaf;
@@ -175,8 +170,7 @@ ft::Node<T>* ft::rbt<T,Compare>::_right_rotation(Node<T> *leaf)
 }
 
 	template<typename T, class Compare>
-void ft::rbt<T,Compare>::Destroy(Node<T> *leaf)
-{
+void ft::rbt<T,Compare>::Destroy(Node<T> *leaf) {
 	if(leaf->left)
 		Destroy(leaf->left);
 	if(leaf->right)
@@ -189,7 +183,7 @@ void ft::rbt<T,Compare>::Destroy(Node<T> *leaf)
 size_t ft::rbt<T,Compare>::DeleteAllValue(const T &val) {
 	size_t i = 0;
 	Node<T> *leaf = NULL;
-	while(Search(val, leaf)) {
+	while(Search(val, &leaf)) {
 		DeleteValue(val);
 		i++;
 	}
@@ -333,3 +327,27 @@ ft::Node<T>* ft::rbt<T,Compare>::min_node() {
 		leaf = leaf->left;
 		return leaf;
 }
+
+// operator=
+
+template <typename T, class Compare>
+ft::rbt<T, Compare>  & ft::rbt<T, Compare>::operator=(const rbt<T, Compare> & src) {
+	if (_size > 0)
+		Destroy(_root);
+	Node<T> *leaf = src.min_node();
+	while (leaf != src.max_node()) {
+		insert(leaf->val);
+			if (leaf->right) {
+					leaf = leaf->right;
+					while (leaf->left)
+						leaf = leaf->left;
+				}
+				else { 
+					while (leaf->parent && leaf == leaf->parent->right) //when root parent null
+						leaf = leaf->parent;
+					leaf = leaf->parent;
+				}
+	}
+	insert(leaf->val);
+}
+

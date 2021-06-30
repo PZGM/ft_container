@@ -1,46 +1,112 @@
-iterator pair 1
-iterator pair 0
+===Default constructor===
+0
+===Range constructor===
+6
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===Range constructor with reverse iterator===
+6
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===Range constructor with partial vector iterators===
+3
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===Range constructor with set iterators===
+6
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===Copy constructor===
+6
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===Copy constructor with empty set===
+0
+===Assign operator with empty set===
+0
+===Assign operator===
+6
+_0
+_1
+_2
+_3
+_4
+_5
+^5
+^4
+^3
+^2
+^1
+^0
+===empty===
 1
 0
+0
+0
+0
+0
 1
-it = 0
-it = 2
-it = 4
-it = 6
-it = 8
-it = 10
-it = 12
-it = 14
-it = 16
-it = 18
-it = 20
-it = 22
-it = 24
-it = 26
-it = 28
-it = 30
-it = 32
-it = 34
-it = 36
-it = 38
-it = 40
-it = 42
-it = 44
-it = 46
-it = 48
-it = 50
-it = 52
-it = 54
-it = 56
-it = 58
-it = 60
-it = 62
-it = 64
-it = 66
-it = 68
-it = 70
-it = 72
-it = 74
-it = 76
-it = 78
-end = 40
+1
+0
+===size===
+0
+6
+6
+6
+6
+6
+0
+0
+6
+===max size===
+230584300921369395

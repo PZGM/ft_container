@@ -19,11 +19,16 @@ namespace ft
 				_end->parent = _root;
 				_rend->parent = _root;
 				}
+
 				~rbt() {
 					if(_root)
 						Destroy(_root);
 				}
-				bool		Search(const T &val, Node<T> **node);
+
+
+				rbt<T, Compare>		&operator=(const rbt<T, Compare> &src);
+
+				bool		Search(const T &val, Node<T> **node) const;
 				bool		insert(const T &val);
 				size_t		DeleteAllValue(const T &val);
 				void		DeleteValue(const T &val);
@@ -49,5 +54,4 @@ namespace ft
 				Node<T>	*_right_rotation(Node<T> *node);
 		};
 }
-
 #endif

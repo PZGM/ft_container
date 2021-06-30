@@ -52,23 +52,11 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 					while (p->val < p->parent->val)
 						p = p->parent;
 					p = p->parent;
-					while (p->right)
-						p->right;
+				//	while (p->right)
+				//		p = p->right;
 				}
 			}
 			return *this;
-		}
-
-		void	SetBound(int pos) {
-			_bound = pos;
-		}
-
-		int		GetBound() const {
-			return _bound;
-		}
-		
-		bool isEnd() const {
-			return p->isEnd;
 		}
 
 		template <class Y>
@@ -83,6 +71,19 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 			SetIterator ret(*this);
 			ret.p -= n;
 			return (ret);
+		}
+		
+		void	SetBound(int pos) {
+
+			_bound = pos;
+		}
+
+		int		GetBound() const {
+			return _bound;
+		}
+		
+		bool isEnd() const {
+			return p->isEnd;
 		}
 
 		bool operator==(const SetIterator & rhs) const {
@@ -103,39 +104,31 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 		ft::Node<T> * p;
 		int _bound;
 };
-//	To Do
+
 template <typename T>
 class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 {
 	public:
-
-		SetReverseIterator(ft::Node<T> * e) : p(e) {}
-		SetReverseIterator(const SetReverseIterator & mit) : p(mit.p) {}
-		SetReverseIterator & operator++() {
-			if (p)
-				p = p->prev;;
-			return *this;
-		}
-		template <class Y>
-			SetReverseIterator operator++(Y) {
-				SetReverseIterator ret(*this);
-				operator++();
-				return ret;
-			}
-
-		SetReverseIterator operator+(size_type n)
-		{
-			SetReverseIterator ret(*this);
-			p -= n;
-			return (*this);
-		}
-
-
+		SetReverseIterator(){};
+		~SetReverseIterator(){};
+		SetReverseIterator(ft::Node<T> * e) : p(e) , _bound(0) {}
+		SetReverseIterator(const SetReverseIterator & mit) : p(mit.p) , _bound(mit._bound) {}
 		SetReverseIterator & operator--() {
-			if (p)
-				p = p->prev;
+			if (p) {
+				if (p->right) {
+					p = p->right;
+					while (p->left)
+						p = p->left;
+				}
+				else { 
+					while (p->parent && p == p->parent->right) //when root parent null
+						p = p->parent;
+					p = p->parent;
+				}
+			}
 			return *this;
 		}
+
 		template <class Y>
 			SetReverseIterator operator--(Y) {
 				SetReverseIterator ret(*this);
@@ -146,9 +139,52 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 		SetReverseIterator operator-(size_type n)
 		{
 			SetReverseIterator ret(*this);
-			p += n;
-			return (*this);
+			ret.p += n;
+			return (ret);
 		}
+
+		SetReverseIterator & operator++() {
+			if (p) {
+				if (p->left)
+					p = p->left;
+				else {
+					while (p->val < p->parent->val)
+						p = p->parent;
+					p = p->parent;
+				//	while (p->right) ??
+				//		p = p->right;
+				}
+			}
+			return *this;
+		}
+
+		template <class Y>
+			SetReverseIterator operator++(Y) {
+				SetReverseIterator ret(*this);
+				operator++();
+				return ret;
+			}
+
+		SetReverseIterator operator+(size_type n)
+		{
+			SetReverseIterator ret(*this);
+			ret.p -= n;
+			return (ret);
+		}
+		
+		void	SetBound(int pos) {
+
+			_bound = pos;
+		}
+
+		int		GetBound() const {
+			return _bound;
+		}
+		
+		bool isEnd() const {
+			return p->isEnd;
+		}
+
 		bool operator==(const SetReverseIterator & rhs) const {
 			return p==rhs.p;
 		}
@@ -158,9 +194,14 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 		T & operator*() {
 			return p->val;
 		}
-
+		
+		void newp(ft::Node<T> *e) {
+			p = e;
+		}
 	private:
 
 		ft::Node<T> * p;
+		int _bound;
 };
+
 #endif

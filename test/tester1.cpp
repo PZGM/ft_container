@@ -9,32 +9,16 @@ using namespace std;
 using namespace ft;
 #endif
 
-	template <class T>
-		struct mycomparison : std::binary_function <T,T,bool> {
-			bool operator() (const T& x, const T& y) const {
-				return x>y;
-			}
-		};
-
 int main()
 {
 	std::cout << "===Default constructor===" << std::endl;
-	set<int, mycomparison<int>> st1;
+	set<int> st1;
 	std::cout << st1.size() << std::endl;
 	for (auto it = st1.begin(); it != st1.end(); it++)
 		std::cout << "_" << *it << std::endl;
 	for (auto it = st1.rbegin(); it != st1.rend(); it++)
 		std::cout << "^" << *it << std::endl;
 
-
-	std::cout << "===Default constructori with custom comp===" << std::endl;
-	set<int, mycomparison<int>> st2;
-	std::cout << st2.size() << std::endl;
-	for (auto it = st2.begin(); it != st2.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st2.rbegin(); it != st2.rend(); it++)
-		std::cout << "^" << *it << std::endl;
-	
 	//create a vector with incremental values
 	vector<int> vec(6, 8);
 	int i = 0;
@@ -42,7 +26,7 @@ int main()
 		*it = i++;
 
 	std::cout << "===Range constructor===" << std::endl;
-	set<int, mycomparison<int>> st3(vec.begin(), vec.end());
+	set<int> st3(vec.begin(), vec.end());
 	std::cout << st3.size() << std::endl;
 	for (auto it = st3.begin(); it != st3.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -50,7 +34,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Range constructor with reverse iterator===" << std::endl;
-	set<int, mycomparison<int>> st4(vec.rbegin(), vec.rend());
+	set<int> st4(vec.rbegin(), vec.rend());
 	std::cout << st4.size() << std::endl;
 	for (auto it = st4.begin(); it != st4.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -58,7 +42,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Range constructor with partial vector iterators===" << std::endl;
-	set<int, mycomparison<int>> st5(vec.begin() + 2, vec.end() - 1);
+	set<int> st5(vec.begin() + 2, vec.end() - 1);
 	std::cout << st5.size() << std::endl;
 	
 	st5.insert(vec.begin(), vec.end());
@@ -69,7 +53,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Range constructor with set iterators===" << std::endl;
-	set<int, mycomparison<int>> st6(vec.begin(), vec.end());
+	set<int> st6(vec.begin(), vec.end());
 	std::cout << st6.size() << std::endl;
 	for (auto it = st6.begin(); it != st6.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -77,7 +61,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 
 	std::cout << "===Copy constructor===" << std::endl;
-	set<int, mycomparison<int>> st7(st5);
+	set<int> st7(st5);
 	std::cout << st7.size() << std::endl;
 	for (auto it = st7.begin(); it != st7.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -85,15 +69,15 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Copy constructor with empty set===" << std::endl;
-	set<int, mycomparison<int>> st8(st1);
+	set<int> st8(st1);
 	std::cout << st8.size() << std::endl;
 	for (auto it = st8.begin(); it != st8.end(); it++)
 		std::cout << "_" << *it << std::endl;
 	for (auto it = st8.rbegin(); it != st8.rend(); it++)
 		std::cout << "^" << *it << std::endl;	
 
-	set<int, mycomparison<int>> st9;
-	set<int, mycomparison<int>> st10;
+	set<int> st9;
+	set<int> st10;
 
 	std::cout << "===Assign operator with empty set===" << std::endl;
 	st9 = st1;
@@ -113,7 +97,6 @@ int main()
 
 	std::cout<< "===empty===" << std::endl;
 	std::cout << st1.empty() << std::endl;
-	std::cout << st2.empty() << std::endl;
 	std::cout << st3.empty() << std::endl;
 	std::cout << st4.empty() << std::endl;
 	std::cout << st5.empty() << std::endl;
@@ -126,7 +109,6 @@ int main()
 
 	std::cout<< "===size===" << std::endl;
 	std::cout << st1.size() << std::endl;
-	std::cout << st2.size() << std::endl;
 	std::cout << st3.size() << std::endl;
 	std::cout << st4.size() << std::endl;
 	std::cout << st5.size() << std::endl;
@@ -138,4 +120,6 @@ int main()
 
 	std::cout << "===max size===" << std::endl;
 	std::cout << st1.max_size() << std::endl;
+
+	st1.swap(st3);
 }

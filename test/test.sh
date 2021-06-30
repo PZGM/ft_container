@@ -8,14 +8,14 @@ then
 fi
 
 
-# test 1 vec 
+# test 1 set
 
 if [ $# = 0 ] || [ $1 = "1" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	clang++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	clang++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -24,7 +24,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 01 Vector test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFFF 01 Set test 1 vvvvvvvv"
 	diff ft std
 
 fi

@@ -18,6 +18,7 @@ namespace ft
 				int		pos; //-1 lower bound 0 normal 1 upper bound
 
 				Node () {
+					val = T();
 					parent = NULL;
 					left = NULL;
 					right = NULL;
@@ -27,6 +28,7 @@ namespace ft
 				};
 
 				Node (bool x) {
+					val = T();
 					parent = NULL;
 					left = NULL;
 					right = NULL;
