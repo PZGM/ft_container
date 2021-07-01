@@ -6,7 +6,7 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/06/30 13:10:04 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/07/01 11:51:32 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 bool ft::rbt<T,Compare>::Search(const T & val, Node<T> **node) const {
 	Node<T> *leaf = _root;
 	*node = NULL;
+	if ( _size == 0)
+		return false;
 	while (leaf && leaf->isEnd == false)
 	{
 		*node = leaf;

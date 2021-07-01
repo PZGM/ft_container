@@ -19,7 +19,7 @@ namespace ft
 			}
 		};	
 	template <typename T, class Compare = std::less<T>, class Alloc = std::allocator<T> >
-		class set
+		class set //nb iteration verif existe
 		{
 			public:
 				typedef T						value_type;

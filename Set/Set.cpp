@@ -11,10 +11,12 @@ ft::set<T, Compare, Alloc>::set(const key_compare& comp, const allocator_type& a
 template <typename T,class Compare, class Alloc>
 ft::set<T, Compare, Alloc>::set(const ft::set<T,Compare,Alloc>& x) {
 	_tree = new rbt<T,Compare>;
-	iterator end = x.end();
-	if (size() > 0) {
-		end--;
-		insert(x.begin(), end);
+	iterator it = x.begin();
+	if (x.size() > 0) {
+		while (it.isEnd() == false) {			
+		if (insert(*it).second == false)
+			it++;
+		}
 	}
 }
 
