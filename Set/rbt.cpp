@@ -6,7 +6,7 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/07/01 13:34:01 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/07/01 15:34:28 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -353,6 +353,10 @@ template <typename T, class Compare>
 ft::rbt<T, Compare>  & ft::rbt<T, Compare>::operator=(const rbt<T, Compare> & src) {
 	if (_size > 0)
 		Destroy(_root, 0);
+	if (src._size == 0) {
+		return *this;
+	}
+
 	Node<T> *leaf = src.min_node();
 	while (leaf != src.max_node()) {
 		insert(leaf->val);

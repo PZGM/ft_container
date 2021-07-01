@@ -13,8 +13,8 @@ ft::set<T, Compare, Alloc>::set(const ft::set<T,Compare,Alloc>& x) {
 	iterator it = x.begin();
 	if (x.size() > 0) {
 		while (it.isEnd() == false) {			
-		if (insert(*it).second == false)
-			it++;
+			if (insert(*it).second == false)
+				it++;
 		}
 	}
 }
@@ -124,7 +124,7 @@ typename ft::set<T, Compare, Alloc>::size_type  ft::set<T, Compare, Alloc>::size
 template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::size_type ft::set<T, Compare, Alloc>::max_size() const
 {
-	return (Alloc().max_size());
+	return ((Alloc().max_size() -1) / 10);
 }
 
 //end
@@ -287,7 +287,8 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 	it++;
 	while (it != end()) {
 		if (!_comp(*it, val)) {		//(*it >=  val) {
-			it.SetBound(-1);
+			if (count(val) < 1)
+				it.SetBound(-1);
 			return it;
 		}
 		it++;
@@ -298,12 +299,15 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 	template <typename T,class Compare, class Alloc>
 		typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::upper_bound (const value_type& val) const {
 			iterator it = begin();
+			size_type i = 0;
 			it++;
 			while (it != end()) {
 				if(!_comp(*it, val)) {
-					it++;
-					it.SetBound(1);
-					return it;
+					if (++i == count(val)) {
+						it++;
+						it.SetBound(1);
+						return it;
+					}
 				}
 				it++;
 			}
@@ -320,10 +324,10 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 				end--;
 				erase(begin(), end);
 			}
-	/*		end = rhs.end();
-			end--;
-			insert(rhs.begin(), end);
-	*/		
+			/*		end = rhs.end();
+					end--;
+					insert(rhs.begin(), end);
+					*/		
 			*(this->_tree) = *(rhs._tree);
 			return *this;
 		}
