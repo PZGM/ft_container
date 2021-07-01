@@ -46,19 +46,19 @@ class SetIterator : public std::iterator<std::input_iterator_tag, T>
 
 		SetIterator & operator--() {
 			if (p) {
-				if (p->left)
+				if (p->left) {
 					p = p->left;
-				else {
-					while (p->val < p->parent->val)
+					while (p->right)
+						p = p->right;
+				}
+				else { 
+					while (p->parent && p == p->parent->left) //when root parent null
 						p = p->parent;
 					p = p->parent;
-				//	while (p->right)
-				//		p = p->right;
 				}
 			}
 			return *this;
 		}
-
 		template <class Y>
 			SetIterator operator--(Y) {
 				SetIterator ret(*this);
@@ -145,14 +145,15 @@ class SetReverseIterator : public std::iterator<std::input_iterator_tag, T>
 
 		SetReverseIterator & operator++() {
 			if (p) {
-				if (p->left)
+				if (p->left) {
 					p = p->left;
-				else {
-					while (p->val < p->parent->val)
+					while (p->right)
+						p = p->right;
+				}
+				else { 
+					while (p->parent && p == p->parent->left) //when root parent null
 						p = p->parent;
 					p = p->parent;
-				//	while (p->right) ??
-				//		p = p->right;
 				}
 			}
 			return *this;

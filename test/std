@@ -1,112 +1,35 @@
-===Default constructor===
+===swap two deque of same size===
+100
+200
+300
+400
+____________________4|4
 0
-===Range constructor===
-6
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===Range constructor with reverse iterator===
-6
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===Range constructor with partial vector iterators===
+1
+2
 3
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===Range constructor with set iterators===
-6
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===Copy constructor===
-6
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===Copy constructor with empty set===
-0
-===Assign operator with empty set===
-0
-===Assign operator===
-6
-_0
-_1
-_2
-_3
-_4
-_5
-^5
-^4
-^3
-^2
-^1
-^0
-===empty===
-1
-0
-0
-0
-0
+===swap two deque of different size===
+-100
+-200
+-300
+-400
+____________________4|1
+-1
+===swap two deque with one empty===
+100
+200
+300
+400
+____________________4|0
+===swap with non member function===
+100
+200
+300
+400
+____________________4|4
 0
 1
-1
-0
-===size===
-0
-6
-6
-6
-6
-6
-0
-0
-6
-===max size===
-230584300921369395
+2
+3
+===swap two empty deques with non member function===
+____________________0|0

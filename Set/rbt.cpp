@@ -6,7 +6,7 @@
 /*   By: pzgm <marvin@42.fr>                        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/06/10 14:22:27 by pzgm              #+#    #+#             */
-/*   Updated: 2021/07/01 11:51:32 by pzgm             ###   ########.fr       */
+/*   Updated: 2021/07/01 13:34:01 by pzgm             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,11 +172,11 @@ ft::Node<T>* ft::rbt<T,Compare>::_right_rotation(Node<T> *leaf) {
 }
 
 	template<typename T, class Compare>
-void ft::rbt<T,Compare>::Destroy(Node<T> *leaf) {
+void ft::rbt<T,Compare>::Destroy(Node<T> *leaf, int i) {
 	if(leaf->left)
-		Destroy(leaf->left);
+		Destroy(leaf->left, i + 1);
 	if(leaf->right)
-		Destroy(leaf->right);
+		Destroy(leaf->right, i + 1);
 	delete leaf;
 }
 
@@ -330,12 +330,29 @@ ft::Node<T>* ft::rbt<T,Compare>::min_node() {
 		return leaf;
 }
 
+template<typename T, class Compare>
+ft::Node<T>* ft::rbt<T,Compare>::max_node() const {
+	Node<T> *leaf = _root;
+	while(leaf->right && leaf->right->isEnd == false)
+		leaf = leaf->right;
+	return leaf;
+}
+
+template<typename T, class Compare>
+ft::Node<T>* ft::rbt<T,Compare>::min_node() const {
+	Node<T> *leaf = _root;
+	while(leaf->left && leaf->left->isEnd == false)
+		leaf = leaf->left;
+		return leaf;
+}
+
+
 // operator=
 
 template <typename T, class Compare>
 ft::rbt<T, Compare>  & ft::rbt<T, Compare>::operator=(const rbt<T, Compare> & src) {
 	if (_size > 0)
-		Destroy(_root);
+		Destroy(_root, 0);
 	Node<T> *leaf = src.min_node();
 	while (leaf != src.max_node()) {
 		insert(leaf->val);
@@ -351,5 +368,6 @@ ft::rbt<T, Compare>  & ft::rbt<T, Compare>::operator=(const rbt<T, Compare> & sr
 				}
 	}
 	insert(leaf->val);
+	return *this;
 }
 

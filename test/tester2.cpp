@@ -138,4 +138,21 @@ int main()
 
 	std::cout << "===max size===" << std::endl;
 	std::cout << st1.max_size() << std::endl;
+
+
+	std::cout << "===swap===" << std::endl;
+	
+
+	for (auto it = st1.begin(); it != st1.end(); it++)
+		std::cout << "1 : " << *it << std::endl;
+	for (auto it = st3.begin(); it != st3.end(); it++)
+		std::cout << "3 : " << *it << std::endl;
+	
+	st1.swap(st3);
+
+	for (auto it = st1.begin(); it != st1.end(); it++)
+		std::cout << "1 : " << *it << std::endl;
+	for (auto it = st3.begin(); it != st3.end(); it++)
+		std::cout << "3 : " << *it << std::endl;
+
 }

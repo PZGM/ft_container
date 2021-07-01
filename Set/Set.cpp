@@ -7,7 +7,6 @@ ft::set<T, Compare, Alloc>::set(const key_compare& comp, const allocator_type& a
 	_tree = new rbt<T, Compare>;
 }
 
-
 template <typename T,class Compare, class Alloc>
 ft::set<T, Compare, Alloc>::set(const ft::set<T,Compare,Alloc>& x) {
 	_tree = new rbt<T,Compare>;
@@ -125,9 +124,7 @@ typename ft::set<T, Compare, Alloc>::size_type  ft::set<T, Compare, Alloc>::size
 template <typename T, class Compare, class Alloc>
 typename ft::set<T, Compare, Alloc>::size_type ft::set<T, Compare, Alloc>::max_size() const
 {
-	size_type max = 0;
-	max--;
-	return (max);
+	return (Alloc().max_size());
 }
 
 //end
@@ -278,7 +275,7 @@ void  ft::set<T, Compare, Alloc>::swap(set & x) {
 	rbt<T, Compare>  *tmp;
 	tmp  = x._tree;
 	x._tree = _tree;
-	_tree = x._tree;
+	_tree = tmp;
 }
 
 
@@ -313,7 +310,7 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 			return NULL;
 		}
 
-	// operator
+	// operator=
 
 	template <typename T, class Compare, class Alloc>
 		ft::set<T,Compare, Alloc>  & ft::set<T,Compare, Alloc>::operator=(const ft::set<T, Compare, Alloc>& rhs) {
@@ -327,7 +324,7 @@ typename ft::set<T,Compare,Alloc>::iterator ft::set<T,Compare,Alloc>::lower_boun
 			end--;
 			insert(rhs.begin(), end);
 	*/		
-			this->_tree = rhs._tree;
+			*(this->_tree) = *(rhs._tree);
 			return *this;
 		}
 
