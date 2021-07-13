@@ -3,7 +3,7 @@
 #include <queue>
 #include <vector>
 #include "../Queue/Queue.hpp"
-#include "../LisT/List.cpp"
+#include "../LisT/List.hpp"
 
 #ifdef STD
 using namespace std;

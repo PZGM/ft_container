@@ -1,8 +1,8 @@
 #include <vector>
 #include <deque>
 #include <iostream>
-#include "../DeQue/Deque.cpp"
-//#include "../Vector/Vector.cpp"
+#include "../DeQue/Deque.hpp"
+//#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;

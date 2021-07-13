@@ -1,6 +1,10 @@
-#include "../DeQue/Deque.cpp"
+#include <vector>
+#include <list>
+#include <set>
 #include <iostream>
-#include <deque>
+#include "../Set/Set.hpp"
+#include "../LisT/List.hpp"
+
 
 #ifdef STD
 using namespace std;
@@ -8,112 +12,158 @@ using namespace std;
 using namespace ft;
 #endif
 
-int main()
+int main ()
 {
-	deque<int> dek;
+	set<int> myset;
+	set<int>::iterator itlow;
+	set<int>::iterator itup;
 
-	dek.push_back(0);
-	dek.push_back(0);
-	dek.push_back(0);
-	dek.push_back(1);
-	dek.push_back(2);
+	std::cout << "===Find===" << std::endl;
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
-		std::cout << *it<< std::endl;
+	myset.insert(42);
+	myset.insert(42);
+	myset.insert(21);
+	myset.insert(0);
+	myset.insert(-1);
 
-	std::cout << "----------------------" << std::endl;
-	dek.insert(dek.begin(), 4, 5);
+	auto it = myset.find(42);
+	std::cout << "value 42 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
-		std::cout << *it<< std::endl;
+	myset.erase(42);
 
-	std::cout << "----------------------" << std::endl;
-	deque<int>  dek2 = dek;
-	for (auto ite = dek.begin(); ite != dek.end(); ite++)
-		std::cout << "_" << *ite << std::endl;
+	it = myset.find(42);
+	std::cout << "value 42 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	dek.insert(dek.end(), dek2.begin(), dek2.end());
-	for (auto it = dek.begin(); it != dek.end(); it++)
-		std::cout << *it<< std::endl;
+	it = myset.find(50);
+	std::cout << "value 50 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	std::cout << "----------------------" << std::endl;
-	dek.insert(dek.begin() + 3, dek.begin(), dek.end());
-	for (auto it = dek.begin(); it != dek.end(); it++)
-		std::cout << *it<< std::endl;
+	myset.insert(50);
 
-	std::cout << "empty dek2: " << dek2.empty() << std::endl;
+	it = myset.find(50);
+	std::cout << "value 50 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	std::cout << "size dek: " << dek.size() << std::endl;
-	for (deque<int>::reverse_iterator it = dek.rbegin(); it != dek.rend(); it++)
-		dek.pop_back();
+	it = myset.find(0);
+	std::cout << "value 0 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	std::cout << "empty dek: " << dek.empty() << std::endl;
-	std::cout << "size dek: " << dek.size() << std::endl;
-	std::cout << "size_max dek: " << dek.max_size() << std::endl;
+	myset.erase(0);
 
-	dek.push_back(42);
-	dek.push_back(2);
-	dek.push_back(3);
-	dek.push_back(4);
-	dek.push_back(5);
-	dek.push_back(6);
+	it = myset.find(0);
+	std::cout << "value 0 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	std::cout << dek.front() << std::endl;
-	std::cout << dek.back() << std::endl;
+	it = myset.find(-1);
+	std::cout << "value -1 : " << ((it == myset.end()) ? "not found" : "FOUND=") << std::endl;
 
-	dek2.insert(dek2.end(), dek.begin(), dek.end());
-	dek2.insert(dek2.end(), dek.begin(), dek.end());
-	dek.insert(dek.end(), dek.begin(), dek.end());
+	myset.erase(-1);
 
-	std::cout << dek.front() << std::endl;
+	std::cout << "===count===" << std::endl;
 
-	dek2.swap(dek);
-	dek2.swap(dek);
-	dek2.swap(dek);
-	dek2.swap(dek2);
-	dek2.swap(dek);
-	dek2.swap(dek);
-	dek.swap(dek);
-	dek2.swap(dek);
-	dek2.swap(dek);
-	dek2.swap(dek);
-	dek.swap(dek2);
-	dek2.swap(dek);
-	dek.swap(dek);
-	dek2.swap(dek);
-	for (auto it = dek.begin(); it != dek.end(); it++)
-		std::cout << *it<< std::endl;
+	myset.insert(0);
+	myset.insert(42);
+	myset.insert(0);
+	myset.insert(11);
+	myset.insert(0);
+	myset.insert(42);
 
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
-		std::cout << *it<< std::endl;
+	int ret = myset.count(0);
+	std::cout << "value 0 : " << ret << std::endl;
+	ret = myset.count(42);
+	std::cout << "value 42 : " << ret << std::endl;
+	ret = myset.count(10);
+	std::cout << "value 10 : " << ret << std::endl;
+	ret = myset.count(11);
+	std::cout << "value 11 : " << ret << std::endl;
+	myset.erase(42);
+	ret = myset.count(42);
+	std::cout << "value 42 : " << ret << std::endl;
+	myset.insert(11);
+	ret = myset.count(11);
+	std::cout << "value 11 : " << ret << std::endl;
 
+	std::cout << "===lower bound===" << std::endl;
 
-	dek.assign(dek.begin(), dek.end());
-	
-	deque<char> chat;
+	myset.insert(0);
+	myset.insert(2);
+	myset.insert(5);
+	myset.insert(6);
+	myset.insert(7);
+	myset.insert(9);
 
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	chat.push_back('1');
-	deque<deque<char> > *oof = new deque<deque<char> >();
+	it = myset.lower_bound(-1);
+	std::cout << "value -1 : " << *it << std::endl;
+	it = myset.lower_bound(0);
+	std::cout << "value 0 : " << *it << std::endl;
+	it = myset.lower_bound(1);
+	std::cout << "value 1 : " << *it << std::endl;
+	it = myset.lower_bound(2);
+	std::cout << "value 2 : " << *it << std::endl;
+	it = myset.lower_bound(3);
+	std::cout << "value 3 : " << *it << std::endl;
+	it = myset.lower_bound(4);
+	std::cout << "value 4 : " << *it << std::endl;
+	it = myset.lower_bound(5);
+	std::cout << "value 5 : " << *it << std::endl;
+	it = myset.lower_bound(6);
+	std::cout << "value 6 : " << *it << std::endl;
+	it = myset.lower_bound(7);
+	std::cout << "value 7 : " << *it << std::endl;
+	it = myset.lower_bound(8);
+	std::cout << "value 8 : " << *it << std::endl;
+	it = myset.lower_bound(9);
+	std::cout << "value 9 : " << *it << std::endl;
+	it = myset.lower_bound(10);
+	std::cout << "value 10 : " << *it << std::endl;
 
-	oof->push_back(chat);
-	oof->push_back(chat);
-	oof->push_back(chat);
-	oof->push_back(chat);
-	oof->push_back(chat);
-	oof->push_back(chat);
-	oof->push_back(chat);
+	std::cout << "===upper bound===" << std::endl;
 
-	dek.clear();
-	dek.insert(dek.begin(), chat.begin(), chat.end());
+	it = myset.upper_bound(-1);
+	std::cout << "value -1 : " << *it << std::endl;
+	it = myset.upper_bound(0);
+	std::cout << "value 0 : " << *it << std::endl;
+	it = myset.upper_bound(1);
+	std::cout << "value 1 : " << *it << std::endl;
+	it = myset.upper_bound(2);
+	std::cout << "value 2 : " << *it << std::endl;
+	it = myset.upper_bound(3);
+	std::cout << "value 3 : " << *it << std::endl;
+	it = myset.upper_bound(4);
+	std::cout << "value 4 : " << *it << std::endl;
+	it = myset.upper_bound(5);
+	std::cout << "value 5 : " << *it << std::endl;
+	it = myset.upper_bound(6);
+	std::cout << "value 6 : " << *it << std::endl;
+	it = myset.upper_bound(7);
+	std::cout << "value 7 : " << *it << std::endl;
+	it = myset.upper_bound(8);
+	std::cout << "value 8 : " << *it << std::endl;
+	it = myset.upper_bound(9);
+	std::cout << "value 9 : " << *it << std::endl;
+	it = myset.upper_bound(10);
+	std::cout << "value 10 : " << *it << std::endl;
 
-	deque<deque<int> > vic = deque<deque<int> >(5, dek);
-	vic.erase(vic.begin());
-	delete oof;
+	std::cout << "===equal range===" << std::endl;
+
+	auto pair = myset.equal_range(-1);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(0);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(1);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(2);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(3);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(4);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(5);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(6);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(7);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(8);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(9);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
+	pair = myset.equal_range(10);
+	std::cout << *(pair.first) << " _ " << *(pair.second) << " " << ((pair.first == pair.second) ? "EQUALS" : "not equals") << std::endl;
 }

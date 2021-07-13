@@ -2,7 +2,7 @@
 # define DEQUE_ITERATOR_HPP
 
 #include <iterator>
-#include "../Vector/Vector.cpp"
+#include "../Vector/Vector.hpp"
 
 template <typename T, class Alloc = std::allocator<T> >
 class DequeIterator : public std::iterator<std::input_iterator_tag, T>

@@ -1,7 +1,7 @@
 #ifndef QUEUE_HPP
 # define QUEUE_HPP
 
-#include "../DeQue/Deque.cpp"
+#include "../DeQue/Deque.hpp"
 
 namespace ft
 {
