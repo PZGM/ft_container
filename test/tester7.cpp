@@ -1,8 +1,8 @@
 #include <vector>
 #include <list>
 #include <iostream>
-#include "../LisT/List.cpp"
-#include "../Vector/Vector.cpp"
+#include "../LisT/List.hpp"
+#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;

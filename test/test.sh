@@ -7,9 +7,6 @@ then
 	san="-fsanitize=address"
 fi
 
-
-# test 1 set
-
 if [ $# = 0 ] || [ $1 = "1" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
@@ -29,8 +26,6 @@ then
 
 fi
 
-# test 2 dek
-
 if [ $# =  0 ] || [ $1 = "2" ] || [[ $# = 1  &&  $1 = "san" ]]
 
 then
@@ -46,13 +41,10 @@ then
 	fi
 
 
-	echo "vvvvvvvv DIFFF 02 Deque test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFFF 02 Set test 2 vvvvvvvv"
 	diff ft std
 
 fi
-
-
-#test 3 stack
 
 if [ $# = 0 ] || [ $1 = "3" ] || [[ $# = 1  &&  $1 = "san" ]]
 
@@ -69,12 +61,10 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 03 Stack test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFFF 03 Set test 3  vvvvvvvv"
 	diff ft std
 
 fi
-
-#test 4 dek 
 
 if [ $# = 0 ] || [ $1 = "4" ] || [[ $# = 1  &&  $1 = "san" ]]
 

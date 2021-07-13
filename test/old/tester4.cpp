@@ -1,4 +1,4 @@
-#include "../DeQue/Deque.cpp"
+#include "../DeQue/Deque.hpp"
 #include <iostream>
 #include <deque>
 

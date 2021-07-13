@@ -1,7 +1,8 @@
 #include <vector>
 #include <set>
 #include <iostream>
-#include "../Set/Set.cpp"
+#include "../Set/Set.hpp"
+#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;

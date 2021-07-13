@@ -1,7 +1,7 @@
 #include <vector>
 #include <deque>
 #include <iostream>
-#include "../DeQue/Deque.cpp"
+#include "../DeQue/Deque.hpp"
 #include <stack>
 
 #ifdef STD

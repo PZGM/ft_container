@@ -1,7 +1,8 @@
 #include <vector>
 #include <set>
 #include <iostream>
-#include "../Set/Set.cpp"
+#include "../Set/Set.hpp"
+#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;
@@ -81,6 +82,7 @@ int main()
 	std::cout << "===Assign operator with empty set===" << std::endl;
 	st9 = st1;
 	std::cout << st9.size() << std::endl;
+	st9.insert(5);
 	for (auto it = st9.begin(); it != st9.end(); it++)
 		std::cout << "_" << *it << std::endl;
 	for (auto it = st9.rbegin(); it != st9.rend(); it++)
@@ -107,7 +109,6 @@ int main()
 	std::cout << st9.empty() << std::endl;
 	std::cout << st10.empty() << std::endl;
 
-
 	std::cout<< "===size===" << std::endl;
 	std::cout << st1.size() << std::endl;
 	std::cout << st3.size() << std::endl;
@@ -123,10 +124,7 @@ int main()
 	std::cout << st1.max_size() << std::endl;
 
 
-
 	std::cout << "===swap===" << std::endl;
-	
-
 	for (auto it = st1.begin(); it != st1.end(); it++)
 		std::cout << "1 : " << *it << std::endl;
 	for (auto it = st3.begin(); it != st3.end(); it++)
