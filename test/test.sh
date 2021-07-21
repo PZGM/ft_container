@@ -11,8 +11,8 @@ if [ $# = 0 ] || [ $1 = "1" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -30,8 +30,8 @@ if [ $# =  0 ] || [ $1 = "2" ] || [[ $# = 1  &&  $1 = "san" ]]
 
 then
 	rm -f a.out ft.bin std.bin
-	clang++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 			cat ft
@@ -51,8 +51,8 @@ if [ $# = 0 ] || [ $1 = "3" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester3.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester3.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester3.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester3.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -70,8 +70,8 @@ if [ $# = 0 ] || [ $1 = "4" ] || [[ $# = 1  &&  $1 = "san" ]]
 
 then
 	rm -f a.out ft.bin std.bin
-	clang++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -92,8 +92,8 @@ if [ $# = 0 ] || [ $1 = "5" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -114,8 +114,8 @@ if [ $# = 0 ] || [ $1 = "6" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester6.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester6.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester6.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester6.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -136,8 +136,8 @@ if [ $# = 0 ] || [ $1 = "7" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester7.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester7.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester7.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester7.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -159,8 +159,8 @@ if [ $# = 0 ] || [ $1 = "8" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester8.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester8.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester8.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester8.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -181,8 +181,8 @@ if [ $# = 0 ] || [ $1 = "9" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester9.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester9.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester9.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester9.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -203,8 +203,8 @@ if [ $# = 0 ] || [ $1 = "10" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester10.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester10.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester10.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester10.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -225,8 +225,8 @@ if [ $# = 0 ] || [ $1 = "11" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester11.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester11.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester11.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester11.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -247,8 +247,8 @@ if [ $# = 0 ] || [ $1 = "12" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester12.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester12.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester12.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester12.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -269,8 +269,8 @@ if [ $# = 0 ] || [ $1 = "13" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester13.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester13.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester13.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester13.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -291,8 +291,8 @@ if [ $# = 0 ] || [ $1 = "14" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -313,8 +313,8 @@ if [ $# = 0 ] || [ $1 = "15" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester15.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester15.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester15.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester15.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -335,8 +335,8 @@ if [ $# = 0 ] || [ $1 = "16" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester16.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester16.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester16.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester16.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -357,8 +357,8 @@ if [ $# = 0 ] || [ $1 = "17" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester17.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester17.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester17.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester17.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -379,8 +379,8 @@ if [ $# = 0 ] || [ $1 = "18" ] || [ $1 = "stack" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester18.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester18.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester18.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester18.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -401,8 +401,8 @@ if [ $# = 0 ] || [ $1 = "19" ] || [ $1 = "stack" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester19.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester19.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester19.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester19.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -423,8 +423,8 @@ if [ $# = 0 ] || [ $1 = "20" ] || [ $1 = "queue" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester20.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester20.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester20.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester20.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -445,8 +445,8 @@ if [ $# = 0 ] || [ $1 = "21" ] || [ $1 = "queue" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -467,8 +467,8 @@ if [ $# = 0 ] || [ $1 = "22" ] || [ $1 = "deque" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -489,8 +489,8 @@ if [ $# = 0 ] || [ $1 = "23" ] || [ $1 = "deque" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester23.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester23.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester23.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester23.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -511,8 +511,8 @@ if [ $# = 0 ] || [ $1 = "24" ] || [ $1 = "deque" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester24.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester24.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester24.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester24.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -533,8 +533,8 @@ if [ $# = 0 ] || [ $1 = "25" ] || [ $1 = "deque" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester25.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester25.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester25.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester25.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -555,8 +555,8 @@ if [ $# = 0 ] || [ $1 = "26" ] || [ $1 = "deque" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	clang++ tester26.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	clang++ tester26.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	c++ tester26.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester26.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft

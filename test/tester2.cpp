@@ -1,7 +1,7 @@
 #include <vector>
-#include <set>
+#include <map>
 #include <iostream>
-#include "../Set/Set.hpp"
+#include "../Map/Map.hpp"
 #include "../Vector/Vector.hpp"
 
 #ifdef STD
@@ -20,7 +20,7 @@ using namespace ft;
 int main()
 {
 	std::cout << "===Default constructor===" << std::endl;
-	set<int, mycomparison<int>> st1;
+	map<int, mycomparison<int>> st1;
 	std::cout << st1.size() << std::endl;
 	for (auto it = st1.begin(); it != st1.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -29,7 +29,7 @@ int main()
 
 
 	std::cout << "===Default constructori with custom comp===" << std::endl;
-	set<int, mycomparison<int>> st2;
+	map<int, mycomparison<int>> st2;
 	std::cout << st2.size() << std::endl;
 	for (auto it = st2.begin(); it != st2.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -43,7 +43,7 @@ int main()
 		*it = i++;
 
 	std::cout << "===Range constructor===" << std::endl;
-	set<int, mycomparison<int>> st3(vec.begin(), vec.end());
+	map<int, mycomparison<int>> st3(vec.begin(), vec.end());
 	std::cout << st3.size() << std::endl;
 	for (auto it = st3.begin(); it != st3.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -51,7 +51,7 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 	
 	std::cout << "===Range constructor with reverse iterator===" << std::endl;
-	set<int, mycomparison<int>> st4(vec.rbegin(), vec.rend());
+	map<int, mycomparison<int>> st4(vec.rbegin(), vec.rend());
 	std::cout << st4.size() << std::endl;
 	for (auto it = st4.begin(); it != st4.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -59,7 +59,7 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	std::cout << "===Range constructor with partial vector iterators===" << std::endl;
-	set<int, mycomparison<int>> st5(vec.begin() + 2, vec.end() - 1);
+	map<int, mycomparison<int>> st5(vec.begin() + 2, vec.end() - 1);
 	std::cout << st5.size() << std::endl;
 	
 	st5.insert(vec.begin(), vec.end());
@@ -69,8 +69,8 @@ int main()
 	for (auto it = st5.rbegin(); it != st5.rend(); it++)
 		std::cout << "^" << *it << std::endl;
 
-	std::cout << "===Range constructor with set iterators===" << std::endl;
-	set<int, mycomparison<int>> st6(vec.begin(), vec.end());
+	std::cout << "===Range constructor with map iterators===" << std::endl;
+	map<int, mycomparison<int>> st6(vec.begin(), vec.end());
 	std::cout << st6.size() << std::endl;
 	for (auto it = st6.begin(); it != st6.end(); it++)
 		std::cout << "_" << *it << std::endl;
@@ -78,25 +78,25 @@ int main()
 		std::cout << "^" << *it << std::endl;	
 
 	std::cout << "===Copy constructor===" << std::endl;
-	set<int, mycomparison<int>> st7(st5);
+	map<int, mycomparison<int>> st7(st5);
 	std::cout << st7.size() << std::endl;
 	for (auto it = st7.begin(); it != st7.end(); it++)
 		std::cout << "_" << *it << std::endl;
 	for (auto it = st7.rbegin(); it != st7.rend(); it++)
 		std::cout << "^" << *it << std::endl;	
 	
-	std::cout << "===Copy constructor with empty set===" << std::endl;
-	set<int, mycomparison<int>> st8(st1);
+	std::cout << "===Copy constructor with empty map===" << std::endl;
+	map<int, mycomparison<int>> st8(st1);
 	std::cout << st8.size() << std::endl;
 	for (auto it = st8.begin(); it != st8.end(); it++)
 		std::cout << "_" << *it << std::endl;
 	for (auto it = st8.rbegin(); it != st8.rend(); it++)
 		std::cout << "^" << *it << std::endl;	
 
-	set<int, mycomparison<int>> st9;
-	set<int, mycomparison<int>> st10;
+	map<int, mycomparison<int>> st9;
+	map<int, mycomparison<int>> st10;
 
-	std::cout << "===Assign operator with empty set===" << std::endl;
+	std::cout << "===Assign operator with empty map===" << std::endl;
 	st9 = st1;
 	std::cout << st9.size() << std::endl;
 	for (auto it = st9.begin(); it != st9.end(); it++)
