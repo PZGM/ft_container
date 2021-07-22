@@ -73,10 +73,11 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, T>
 		bool operator!=(const MapIterator & rhs) const {
 			return p!=rhs.p;
 		}
-			ft::pair<Key, T> & operator*() {
+		
+		ft::pair<Key, T> & operator*() {
 			ft::pair<Key, T> x;
 			x.first = p->key;
-			x.second = p.val;
+			x.second = p->val;
 			return x;
 		}
 
@@ -157,7 +158,7 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, T>
 		ft::pair<Key, T> & operator*() {
 			ft::pair<Key, T> x;
 			x.first = p->key;
-			x.second = p.val;
+			x.second = p->val;
 			return x;
 		}
 
