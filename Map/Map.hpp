@@ -10,14 +10,16 @@
 
 namespace ft
 {
-	template <class T, class Key>
-		struct less : std::binary_function <Key,T,bool> {
-			bool operator() (const T& x, const T& y) const {
-				return x<y;
+	template <class Key>
+		struct less : std::binary_function <Key,Key,bool> {
+			bool operator() (const Key & x, const Key & y) const {
+				if (x > y)
+					return true;
+				return false;
 			}
 		};
 
-	template <typename Key, typename T, class Compare = std::less<Key>, class Alloc = std::allocator<pair<Key, T> > >
+	template <typename Key, typename T, class Compare = less<Key>, class Alloc = std::allocator<pair<Key, T> > >
 		class map
 		{
 			public:
@@ -40,7 +42,7 @@ namespace ft
 				//default constructor
 
 				explicit	map(const key_compare & comp = key_compare()) : _size(0) {
-					_xnode = new elem<Key ,T>;
+					_xnode = new struct_type;
 					_xnode->next = _xnode;
 					_xnode->prev = _xnode;
 				}
@@ -49,14 +51,14 @@ namespace ft
 
 				template <class InputIterator>
 					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {	
-						_xnode = new elem<Key, T>();	
-						elem<Key, T> *cur = _xnode;
-						elem<Key, T> *tmp = _xnode;
+						_xnode = new struct_type();	
+						struct_type *cur = _xnode;
+						struct_type *tmp = _xnode;
 						int i = 0;
 
 						while (first != last)
 						{
-							cur = new elem<Key, T>(*(first).first, *(first).second);
+							cur = new struct_type(*(first).first, *(first).second);
 							if (!tmp)
 								_xnode->next = cur;
 							else
@@ -70,18 +72,20 @@ namespace ft
 						_xnode->prev = cur;
 						_size = i;
 					}
-
+				//  copy constructoor
 				map(const map& src) {
 					_size = 0;
-					_xnode = new elem<Key, T>;
+					_xnode = new struct_type;
 					_xnode->next = _xnode;
 					_xnode->prev = _xnode;
-					insert(begin(), src.begin(), src.end());
+					insert(src.begin(), src.end());
 				}
 
+
+				//destructor 
 				~map() {
-					elem<Key, T> *cur = _xnode->next;
-					elem<Key, T> *tmp;
+					struct_type *cur = _xnode->next;
+					struct_type *tmp;
 					while (cur != _xnode)
 					{
 						tmp = cur;
@@ -91,138 +95,167 @@ namespace ft
 					delete (_xnode);
 				}
 
+				//operator=
 				map<value_type, Alloc>		&operator=(const map<Key,T, Alloc> &x) {
 					clear();
 					delete (_xnode);
-					_xnode = new elem<Key, T>;
+					_xnode = new struct_type;
 					_xnode->next = _xnode;
 					_xnode->prev = _xnode;
 					insert(begin(), x.begin(), x.end());
 					return (*this);
 				}
 
+
+				//begin
 				iterator			begin() {
-					return (ft::map<Key,T, Alloc>::iterator(_xnode->next));
+					return (iterator(_xnode->next));
 				}
 
 				const_iterator		begin() const {
-					return (ft::map<Key,T, Alloc>::iterator(_xnode->next));
+					return (iterator(_xnode->next));
 				}
-
+				//end
 				iterator			end() {
-					return (ft::map<Key,T, Alloc>::iterator(_xnode));
+					return (iterator(_xnode));
 				}
 
 				const_iterator		end() const {
-					return (ft::map<Key,T, Alloc>::iterator(_xnode));
+					return (iterator(_xnode));
 				}
-
+				//rbegin
 				reverse_iterator		rbegin() {
-					return (ft::map<Key,T, Alloc>::reverse_iterator(_xnode->prev));
+					return (reverse_iterator(_xnode->prev));
 				}
 
 				const_reverse_iterator	rbegin() const {
-					return (ft::map<Key,T, Alloc>::reverse_iterator(_xnode->prev));
+					return (reverse_iterator(_xnode->prev));
 				}
-
+				//rend
 				reverse_iterator		rend() {
-					return (ft::map<Key,T, Alloc>::reverse_iterator(_xnode));
+					return (reverse_iterator(_xnode));
 				}
 
 				const_reverse_iterator	rend() const {
-					return (ft::map<Key,T, Alloc>::reverse_iterator(_xnode));
+					return (reverse_iterator(_xnode));
 				}
-
+				//empty
 				bool				empty() const {
 					return (!_size);
 				}
-
+				//size
 				size_type			size() const {
 					return (_size);
 				}
-
+				//max_size
 				size_type			max_size() const {
-					return allocator().max_size;
+					return allocator_type().max_size;
+				}
+				//operator[]
+				mapped_type & operator[] (const key_type& k) {
+					struct_type * cur = new struct_type();
+					cur = _xnode->next;
+					while (cur != _xnode) { 
+						if (cur->key == k)
+							return cur->val;
+						cur = cur->next;
+					}
+					const pair<const Key, T> x(k, T());
+					return ((*(insert(x).first)).second);
+				}
+				//insert
+				iterator insert(iterator position, const value_type& val){
+					return insert(val).first;		
 				}
 
-				void				clear() {
-					elem<Key, T> *cur = _xnode->next;
-					elem<Key, T> *tmp;
-					while (cur != _xnode)
+
+				pair<iterator,bool>			insert(const value_type& val) {
+					struct_type *cur = _xnode;
+					if (_size == 0)
 					{
-						tmp = cur;
-						cur = cur->next;
-						delete (tmp);
+						struct_type * newNode = new struct_type(val);
+						cur->next->prev = newNode;
+						newNode->next = cur->next;
+						newNode->prev = cur;
+						cur->next = newNode;
+						_size++;
+						return pair<iterator, bool>(iterator(newNode), false);
+
 					}
-					_xnode->prev = _xnode;
-					_xnode->next = _xnode;
-					_size = 0;
+					do {
+						if (val.first == cur->key)
+							return pair<iterator, bool>(iterator(cur), true);
+						if (cur->next == _xnode || Compare()(cur->next->key, val.first))
+							break;
+						cur = cur->next;
+					} 
+					while (cur != _xnode); 
+					struct_type * newNode = new struct_type(val);
+					cur->next->prev = newNode;
+					newNode->next = cur->next;
+					newNode->prev = cur;
+					cur->next = newNode;
+					_size++;
+					return pair<iterator, bool>(iterator(newNode), false);
 				}
 
 				template <class InputIterator>
-					void				assign(InputIterator first, InputIterator last) {
-						map<Key, T> lst(first, last); 
-						clear();
-						insert(begin(), lst.begin(), lst.end());
+					void insert (InputIterator first, InputIterator last) {
+						pair<Key, T> tmp;
+						while (first != last && first != end())
+						{
+							value_type val = value_type((*first).first, (*first).second);
+							insert(val);
+							first++;
+						}
 					}
 
-				void				assign(size_type n, const_reference val) {
-					clear();
-					insert(begin(), n, val);
-				}
-
-				void				push_front (const value_type& val) {
-					insert(begin(), val);
-				}
-
-				void				push_back(const value_type& val) {
-					insert(end(), val);	
-				}
-
-				void				pop_front() {
-					erase(begin());	
-				}
-
-				void				pop_back() {
-					erase(end() - 1);
-				}
-
-				void				swap (map& x) {
-					size_type t = _size;
-					elem<Key, T> *tmp = _xnode;
-
-					_size = x._size;
-					_xnode = x._xnode;
-
-					x._size = t;
-					x._xnode = tmp;
-				}
-
-				iterator					erase(iterator pos) {
-					ft::map<Key,T, Alloc>::iterator it = begin();
-					elem<Key, T> * cur = _xnode->next;
-					while (it != pos)
+				//erase
+				void					erase(iterator position) {
+					typename ft::map<Key,T, Alloc>::iterator it = begin();
+					struct_type * cur = _xnode->next;
+					while (it != position)
 					{
 						it++;
 						cur = cur->next;
+						if(cur == _xnode)
+							return;
 					}
 					cur->prev->next = cur->next;
 					cur->next->prev = cur->prev;
 					it = iterator(cur->next);
 					delete cur;
 					_size--;
-					return (it);
 				}
 
-				iterator					erase(iterator first, iterator last) {
-					ft::map<Key,T, Alloc>::iterator it = begin();
-					elem<Key, T> * efirst = _xnode->next;
+				size_type erase(const key_type& k) {
+					typename ft::map<Key,T, Alloc>::iterator it = begin();
+					struct_type * cur = _xnode->next;
+					while ((*it).first != k)
+					{
+						it++;
+						cur = cur->next;
+						if (cur == _xnode)
+							return 0;
+					}
+					cur->prev->next = cur->next;
+					cur->next->prev = cur->prev;
+					it = iterator(cur->next);
+					delete cur;
+					_size--;
+					return 1;
+				}
+
+
+				void					erase(iterator first, iterator last) {
+					typename ft::map<Key,T, Alloc>::iterator it = begin();
+					struct_type * efirst = _xnode->next;
 					while (it != first)
 					{
 						it++;
 						efirst = efirst->next;
 					}
-					elem<Key, T> * elast = efirst;
+					struct_type * elast = efirst;
 					while (it != last)
 					{
 						it++;
@@ -231,7 +264,7 @@ namespace ft
 					efirst->prev->next = elast;
 					elast->prev = efirst->prev;
 					it = iterator(efirst);
-					elem<Key, T> * tmp;
+					struct_type * tmp;
 					while (efirst != elast)
 					{
 						tmp = efirst;
@@ -239,384 +272,122 @@ namespace ft
 						delete tmp;
 						_size--;
 					}
-					return (it);
 				}
 
-				iterator					insert (iterator pos, const_reference val) {
-					elem<Key, T> *cur = _xnode->next;
+				//swap
+				void				swap (map& x) {
+					size_type t = _size;
+					struct_type *tmp = _xnode;
+
+					_size = x._size;
+					_xnode = x._xnode;
+
+					x._size = t;
+					x._xnode = tmp;
+				}
+				//clear
+				void				clear() {
+					struct_type *cur = _xnode->next;
+					struct_type *tmp;
+					while (cur != _xnode)
+					{
+						tmp = cur;
+						cur = cur->next;
+						delete (tmp);
+					}
+					_xnode->prev = _xnode;
+					_xnode->next = _xnode;
+					_size = 0;
+				}
+
+				//find
+				iterator find (const key_type& k) {
 					iterator it = begin();
-					while (it != pos)
-					{
+					while (it != end() && (*it).first != k)
 						it++;
-						cur = cur->next;
-					}
-					if (cur->next = _xnode)
-						cur = cur->next;
-					while (Compare(val.first , cur->key)) {
-						if (val.first == cur->next->key)
-							return iterator(cur->next);
-						if (!Compare(val.first, cur->next->key)) {
-							elem newNode = new elem(val);
-							cur->next->prec = newNode;
-							newNode->next = cur->next;
-							newNode->prec = cur;
-							cur->next = newNode;
-							return iterator(newNode);
-						}
-						cur = cur->next;
-					}
+					return it;
 				}
 
-
-				pair<iterator,bool>			insert(const value_type& val) {
-					elem<Key, T> *cur = _xnode->next;
-					while (Compare(val.first , cur->key)) {
-						if (val.first == cur->next->key)
-							return cur->next;
-						if (!Compare(val.first, cur->next->key)) {
-							elem newNode = new elem(val);
-							cur->next->prec = newNode;
-							newNode->next = cur->next;
-							newNode->prec = cur;
-							cur->next = newNode;
-							return newNode;
-						}
-						cur = cur->next;
-					}
-				}
-
-				template <class InputIterator>
-					void insert (InputIterator first, InputIterator last) {
-						while (first != last && first != end())
-						{
-							insert(*first);
-							first++;
-						}
-					}
-
-				void splice (iterator pos, map& x) {
-					if (x.empty())
-						return;
-					elem<Key, T> * c = _xnode->next;
+				const_iterator find (const key_type& k) const {
 					iterator it = begin();
-					while (it != pos)
-					{
+					while (it != end() && (*it).first != k)
 						it++;
-						c = c->next;
+					const_iterator ite = it;
+					return ite;
+				}
+				//count
+				size_type count (const key_type& k) const {
+					struct_type * cur = _xnode->next;
+					while (cur != _xnode)
+					{
+						if (cur->key == k)
+							return 1;
+						cur = cur->next;
 					}
-					c->prev->next = x._xnode->next;
-					c->prev = x._xnode->prev;
-					x._xnode->next->prev = c;
-					x._xnode->prev->next = c;
-					x._xnode->prev = x._xnode;
-					x._xnode->next = x._xnode;
-					x._update_size();
-					_update_size();
+					return 0;
+
+				}
+				//lower_bound
+				iterator lower_bound (const key_type& k) {
+					struct_type *cur = _xnode->next;
+					if (_size == 0)
+						return iterator(_xnode);
+					if (Compare()(cur->key, k)) {
+					while (Compare()(cur->key, k))
+						cur = cur->next;
+					}
+					return iterator(cur);
+				}
+				const_iterator lower_bound (const key_type& k) const {
+					struct_type *cur = _xnode->next;
+					if (_size == 0)
+						return iterator(_xnode);
+					if (Compare()(cur->key, k)) {
+					while (Compare()(cur->next->key, k))
+						cur = cur->next;
+					}
+					const_iterator curr = iterator(cur);
+					return cur;
 				}
 
-				void splice (iterator pos, map& x, iterator i) {
-					if (x.empty())
-						return;
-					elem<Key, T> * c = _xnode->next;
-					iterator it = begin();
-					while (it != pos)
-					{
-						it++;
-						c = c->next;
-					}
-					elem<Key, T> * c2 = x._xnode->next;
-					iterator it2 = x.begin();
-					while (it2 != i)
-					{
-						it2++;
-						c2 = c2->next;
-					}
-					c2->prev->next = c2->next;
-					c2->next->prev = c2->prev;
-					c2->prev = c->prev;
-					c2->next = c;
-					c->prev->next = c2;
-					c->prev = c2;
-					x._update_size();
-					_update_size();
+				//upper_bound
+				iterator upper_bound(const key_type& k) {
+					struct_type *cur = _xnode->next;
+					if (_size == 0)
+						return iterator(_xnode);
+					while (Compare()(cur->key, k))
+						cur = cur->next;
+					return iterator(cur);
+				}
+				const_iterator upper_bound (const key_type& k) const {
+					struct_type *cur = _xnode->next;
+					if (_size == 0)
+						return iterator(_xnode);
+					while (Compare()(cur->key, k))
+						cur = cur->next;
+					const_iterator curr = iterator(cur);
+					return cur;
 				}
 
-				void splice (iterator pos, map& x, iterator first, iterator last) {
-					elem<Key, T> * epos = _xnode->next;
-					iterator itpos= begin();
-					while (itpos!= pos)
-					{
-						itpos++;
-						epos = epos->next;
-					}
-					elem<Key, T> * efirst = x._xnode->next;
-					iterator itfirst = x.begin();
-					while (itfirst != first)
-					{
-						itfirst++;
-						efirst = efirst->next;
-					}
-					elem<Key, T> * elast = x._xnode->next;
-					iterator itlast = x.begin();
-					while (itlast != last)
-					{
-						itlast++;
-						elast = elast->next;
-					}
-					efirst->prev->next = elast;
-					elast->next->prev = efirst->prev;
-					efirst->prev = epos->prev;
-					elast->prev->next = epos;
-					epos->prev->next = efirst;
-					epos->prev = elast;
-					x._update_size();
-					_update_size();
-				}
 
-				void unique() {
-					ft::map<Key,T, Alloc>::iterator it = begin();
-					while (it != end() && (it + 1) != end())
-					{
-						if (*it == *(it + 1))
-						{
-							erase(it);
-							it = begin();
-						}
-						else
-							it++;
-					}
-				}
-				template <class BinaryPredicate>
-					void unique (BinaryPredicate binary_pred) {
-						ft::map<Key,T, Alloc>::iterator it = begin();
-						while (it != end() && (it + 1) != end())
-						{
-							if (binary_pred(*it, *(it + 1)))
-							{
-								erase(it + 1);
-								it = begin();
-							}
-							else
-								it++;
-						}
-					}
-
-				void merge (map& x) {
-					elem<Key, T> * dst = _xnode->next;
-					elem<Key, T> * src = x._xnode->next;
-					elem<Key, T> * tmp;
-					if (src == x._xnode)
-						return;
-					while (dst != _xnode)
-					{
-						while (src != x._xnode && src->content < dst->content)
-						{
-							tmp = src->next;
-							src->prev = dst->prev;
-							dst->prev->next = src;
-							dst->prev = src;
-							src->next = dst;
-							src = tmp;
-						}
-						dst = dst->next;
-					}
-					while(src != x._xnode)
-					{
-						tmp = src->next;
-						src->prev = dst->prev;
-						dst->prev->next = src;
-						dst->prev = src;
-						src->next = dst;
-						src = tmp;
-					}
-					x._xnode->next = x._xnode;
-					x._xnode->prev = x._xnode;
-				}
-
-				template <class Compare>
-					void merge (map& x, Compare comp) {
-						elem<Key, T> * dst = _xnode->next;
-						elem<Key, T> * src = x._xnode->next;
-						elem<Key, T> * tmp;
-						if (src == x._xnode)
-							return;
-						while (dst != _xnode)
-						{
-							while (src != x._xnode && comp(src->content, dst->content))
-							{
-								tmp = src->next;
-								src->prev = dst->prev;
-								c = c->next;
-							}
-						}
-					}
-
-				template <class Predicate>
-					void remove_if (Predicate pred) {
-						elem<Key, T> * c = _xnode->next;
-						elem<Key, T> * t = NULL;
-						while (c != _xnode)
-						{
-							if (pred(c->content))
-							{
-								c->prev->next = c->next;
-								c->next->prev = c->prev;
-								t = c;
-								c = c->next;
-								_size--;
-								delete (t);
-							}
-							else
-								c = c->next;
-						}
-					}
-
-				void sort() {
-					elem<Key, T> * c = _xnode->next;
-					elem<Key, T> * d = _xnode->next->next;
-					elem<Key, T> * next;
-					elem<Key, T> * prev;
-					elem<Key, T> * tmp;
-					while (d != _xnode)
-					{
-						c = _xnode->next;
-						while (c != d)
-						{
-							if (d->content < c->content)
-							{
-								if (c->next == d)
-								{
-									prev = c->prev;
-									next = d->next;
-
-									prev->next = d;
-									next->prev = c;
-
-									d->next = c;
-									c->prev = d;
-
-									d->prev = prev;
-									c->next = next;
-
-									c = _xnode;
-									d = _xnode->next;
-
-								}
-								else
-								{
-									prev = c->prev;
-									next = d->next;
-
-									prev->next = d;
-									next->prev = c;
-
-									c->next->prev = d;
-									d->prev->next = c;
-
-									d->next = c->next;
-									c->prev = d->prev;
-
-									d->prev = prev;
-									c->next = next;
-
-									c = _xnode;
-									d = _xnode->next;
-								}
-							}
-							c = c->next;
-						}
-						d = d->next;
-					}
-				}
-
-				template <class Compare>
-					void sort(Compare compare) {
-						elem<Key, T> * c = _xnode->next;
-						elem<Key, T> * d = _xnode->next->next;
-						elem<Key, T> * next;
-						elem<Key, T> * prev;
-						elem<Key, T> * tmp;
-						while (d != _xnode)
-						{
-							c = _xnode->next;
-							while (c != d)
-							{
-								if (compare(d->content, c->content))
-								{
-									if (c->next == d)
-									{
-										prev = c->prev;
-										next = d->next;
-
-										prev->next = d;
-										next->prev = c;
-
-										d->next = c;
-										c->prev = d;
-
-										d->prev = prev;
-										c->next = next;
-
-										c = _xnode;
-										d = _xnode->next;
-
-									}
-									else
-									{
-										prev = c->prev;
-										next = d->next;
-
-										prev->next = d;
-										next->prev = c;
-
-										c->next->prev = d;
-										d->prev->next = c;
-
-										d->next = c->next;
-										c->prev = d->prev;
-
-										d->prev = prev;
-										c->next = next;
-
-										c = _xnode;
-										d = _xnode->next;
-									}
-								}
-								c = c->next;
-							}
-							d = d->next;
-						}
-					}
-
-				void reverse() {
-					elem<Key, T> * cur = _xnode;
-					elem<Key, T> * nex = cur->next;
-					elem<Key, T> * tmp;
-					do
-					{
-						nex = cur->next;
-						tmp = cur->prev;
-						cur->prev = cur->next;
-						cur->next = tmp;
-						cur = nex;
-					}
-					while (cur != _xnode);
-				}
+				//equal range
 
 			private:
-				elem<Key, T>	*_xnode;
+
+				typedef	elem<Key, T>							struct_type;
+				struct_type		*_xnode;
 				size_type		_size;
 
 				template <class InputIterator>
 					void _constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
-						_xnode = new elem<Key, T>();	
-						elem<Key, T> *cur = _xnode;
-						elem<Key, T> *tmp = _xnode;
+						_xnode = new struct_type();	
+						struct_type *cur = _xnode;
+						struct_type *tmp = _xnode;
 						int i = 0;
 
 						while (first != last)
 						{
-							cur = new elem<Key, T>(*first);
+							cur = new struct_type(*first);
 							if (!tmp)
 								_xnode->next = cur;
 							else
@@ -632,14 +403,14 @@ namespace ft
 					}
 
 				void _constructor(size_type n, const T & val, struct ft::__true_type) {
-					elem<Key, T> *cur;
-					_xnode = new elem<Key, T>;	
-					elem<Key, T> *tmp = _xnode;
+					struct_type *cur;
+					_xnode = new struct_type;	
+					struct_type *tmp = _xnode;
 					cur = _xnode;
 
 					for (int i = 0; i < n; i++)
 					{
-						cur = new elem<Key, T>(val);
+						cur = new struct_type(val);
 						if (!tmp)
 							_xnode->next = cur;
 						else
@@ -654,7 +425,7 @@ namespace ft
 
 				void _update_size() {
 					size_type i = 0;
-					elem<Key, T> * c = _xnode;
+					struct_type * c = _xnode;
 					while (c->next != _xnode)
 					{
 						i++;
@@ -662,127 +433,17 @@ namespace ft
 					}
 					_size = i;					
 				}
+
+
 		};
-
-	template <typename Key,typename T, class Alloc>
-		bool operator== (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			if (lhs.size() != rhs.size())
-				return (false);
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a != *b)
-					return (false);
-				a++;
-				b++;
-			}
-			return (true);
-		}
-
-	template <typename Key,typename T, class Alloc>
-		bool operator!= (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			if (lhs.size() != rhs.size())
-				return (true);
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a != *b)
-					return (true);
-				a++;
-				b++;
-			}
-			return (false);
-		}
-
-	template <typename Key,typename T, class Alloc>
-		bool operator>  (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a > *b)
-					return (true);
-				if (*a < *b)
-					return (false);
-				a++;
-				b++;
-			}
-			if (lhs.size() > rhs.size())
-				return (true);
-			return (false);
-		}
-
-	template <typename Key,typename T, class Alloc>
-		bool operator<  (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a < *b)
-					return (true);
-				if (*a > *b)
-					return (false);
-				a++;
-				b++;
-			}
-			if (lhs.size() < rhs.size())
-				return (true);
-			return (false);
-		}
-
-	template <typename Key,typename T, class Alloc>
-		bool operator>= (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a > *b)
-					return (true);
-				if (*a < *b)
-					return (false);
-				a++;
-				b++;
-			}
-			if (lhs.size() >= rhs.size())
-				return (true);
-			return (false);
-		}
-
-	template <typename Key,typename T, class Alloc>
-		bool operator<= (const map<Key,T,Alloc>& lhs, const map<Key,T,Alloc>& rhs) {
-			typename ft::map<Key,T, Alloc>::iterator a = lhs.begin();
-			typename ft::map<Key,T, Alloc>::iterator b = rhs.begin();
-			while (a != lhs.end() && b != rhs.end())
-			{
-				if (*a < *b)
-					return (true);
-				if (*a > *b)
-					return (false);
-				a++;
-				b++;
-			}
-			if (lhs.size() <= rhs.size())
-				return (true);
-			return (false);
-		}
 
 	template <typename Key,typename T, class Alloc>
 		void swap(ft::map<Key,T, Alloc> & x, ft::map<Key,T, Alloc> & y) {
 			x.swap(y);
 		}
 
-	mapped_type& operator[] (const key_type& k) {
-		while (_xnode != end) { 
-			if (_xnode->key == k)
-				return iterator(_xnode);
-			_xnode = _xnode->next;
-		}
-		pair<Key, T> x(k, T());
-		return (insert(x).first;
-				}
 
 
-				};
+
+};
 #endif

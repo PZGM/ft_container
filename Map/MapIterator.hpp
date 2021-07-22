@@ -75,7 +75,6 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, T>
 		}
 		
 		ft::pair<Key, T> & operator*() {
-			ft::pair<Key, T> x;
 			x.first = p->key;
 			x.second = p->val;
 			return x;
@@ -84,6 +83,7 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, T>
 	private:
 
 		ft::elem<Key, T> * p;
+		ft::pair<Key, T> x;
 };
 
 template <typename Key, typename T>
