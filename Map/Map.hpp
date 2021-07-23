@@ -332,8 +332,8 @@ namespace ft
 					struct_type *cur = _xnode->next;
 					if (_size == 0)
 						return iterator(_xnode);
-					if (Compare()(cur->key, k)) {
-					while (Compare()(cur->key, k))
+					if (Compare()(k, cur->key)) {
+					while (Compare()(k, cur->key))
 						cur = cur->next;
 					}
 					return iterator(cur);
@@ -342,8 +342,8 @@ namespace ft
 					struct_type *cur = _xnode->next;
 					if (_size == 0)
 						return iterator(_xnode);
-					if (Compare()(cur->key, k)) {
-					while (Compare()(cur->next->key, k))
+					if (!Compare()(cur->key, k)) {
+					while (!Compare()(cur->next->key, k))
 						cur = cur->next;
 					}
 					const_iterator curr = iterator(cur);
@@ -355,7 +355,7 @@ namespace ft
 					struct_type *cur = _xnode->next;
 					if (_size == 0)
 						return iterator(_xnode);
-					while (Compare()(cur->key, k))
+					while (!Compare()(cur->key, k))
 						cur = cur->next;
 					return iterator(cur);
 				}
@@ -363,7 +363,7 @@ namespace ft
 					struct_type *cur = _xnode->next;
 					if (_size == 0)
 						return iterator(_xnode);
-					while (Compare()(cur->key, k))
+					while (!Compare()(cur->key, k))
 						cur = cur->next;
 					const_iterator curr = iterator(cur);
 					return cur;

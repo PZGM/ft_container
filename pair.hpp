@@ -15,15 +15,12 @@ namespace ft
 					second = Y();
 				}
 
-				pair(const T & a, const Y & b) {
-					first = a;
-					second = b;
+				pair(const T & a, const Y & b) : first(a), second(b) {
+				}
 
+				pair(const pair & src) : first(src.first), second(src.second){
 				}
-				pair(const pair & src) {
-					first = src.first;
-					second = src.second;
-				}
+
 				virtual	~pair() {}
 
 				pair &	operator=(const pair & rhs) {
