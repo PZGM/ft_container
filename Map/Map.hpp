@@ -153,6 +153,10 @@ namespace ft
 				}
 				//operator[]
 				mapped_type & operator[] (const key_type& k) {
+					if (count(k) == 0) {
+						const pair<const Key, T> x(k, T());
+						insert(x);
+					}
 					struct_type * cur = new struct_type();
 					cur = _xnode->next;
 					while (cur != _xnode) { 
@@ -160,8 +164,6 @@ namespace ft
 							return cur->val;
 						cur = cur->next;
 					}
-					const pair<const Key, T> x(k, T());
-					return ((*(insert(x).first)).second);
 				}
 				//insert
 				iterator insert(iterator position, const value_type& val){
@@ -371,6 +373,16 @@ namespace ft
 
 
 				//equal range
+				
+				pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+					pair<const_iterator, const_iterator> pair(lower_bound(k), upper_bound(k));
+					return pair;
+				}
+
+				pair<iterator,iterator>             equal_range (const key_type& k) {
+					pair<iterator, iterator> pair(lower_bound(k), upper_bound(k));
+					return pair;
+				}
 
 			private:
 

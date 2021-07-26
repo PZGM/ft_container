@@ -13,62 +13,42 @@ int main()
 {
     map<char,int> mp;
 
-    pair<const char, int> x('e', 42);
-    mp.insert(x);
+	//insert
 
-    pair<const char, int> y('a', 40);
-    auto bate = mp.insert(y).first;
+    pair<const char, int> a('e', 42);
+    mp.insert(a);
 
-    pair<const char, int> z('b', 451);
-    mp.insert(z);
+    pair<const char, int> b('a', 40);
+    mp.insert(b);
 
-    pair<const char, int> t('d', 5678);
-    mp.insert(t);
+    pair<const char, int> c('b', 451);
+    auto hint = mp.insert(c).first;
 
-    pair<const char, int> u('a', 5678);
-    mp.insert(u);
+    pair<const char, int> d('d', 5678);
+    mp.insert(hint, d);
 
-    pair<const char, int> v('z', 5678);
-    auto chibre = mp.insert(v).first;
+    pair<const char, int> e('a', 58);
+    mp.insert(e);
 
-    mp.erase(chibre);
-    mp.erase('e');
+    pair<const char, int> f('z', 46);
+     mp.insert(hint, f);
 
-    pair<const char, int> w('Z', 5678);
-    mp.insert(w);
+	std::cout << "Size: " << mp.size() << " Empty: " << mp.empty() << std::cout;
 
-    map<char, int> pm;
-    pm.insert(mp.begin(), mp.end());
+	map<char, int> mp2;
+	mp2['a'] = 10;
+	mp2['v'] = 11;
+	mp2['z'] = 12;
 
-    std::cout << mp.count('a') << std::endl;
-    std::cout << "|||||||"  << std::endl;
-    std::cout << mp.count('j') << std::endl;
-    std::cout << "|||||||"  << std::endl;
+	mp.insert(mp2.begin(), mp2.end());
+	
+	std::cout << "Size: " << mp.size() << " Empty: " << mp.empty() << std::cout;
 
-    std::cout << (*mp.lower_bound('a')).first << std::endl;
-    std::cout << "-----"  << std::endl;
-    std::cout <<(*mp.lower_bound('c')).first << std::endl;
-    std::cout << "-----"  << std::endl;
-    std::cout << (*mp.lower_bound('X')).first << std::endl;
-    std::cout << "-----"  << std::endl;
-
-    std::cout << (*mp.upper_bound('a')).first << std::endl;
-    std::cout << "++++++"  << std::endl;
-    std::cout << (*mp.upper_bound('c')).first << std::endl;
-    std::cout << "++++++"  << std::endl;
-    std::cout << (*mp.upper_bound('X')).first << std::endl;
-    std::cout << "++++++"  << std::endl;
-
-
-    //mp['d'] = 34567;
-
-    std::cout << mp.size() << std::endl;
-
-    auto it = pm.begin();
-    while (it != pm.end())
-    {
-        std::cout << (*it).first << " | " << (*it).second << std::endl;
-        it++;
-    }
+	auto it = mp.begin();
+	while (it != mp.end())
+	{
+		std::cout << (*it).first << " | " << (*it).second << std::endl;
+		it++;
+	}
 
 }
