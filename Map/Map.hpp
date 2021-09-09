@@ -50,27 +50,12 @@ namespace ft
 				//range constructor
 
 				template <class InputIterator>
-					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()) {	
-						_xnode = new struct_type();	
-						struct_type *cur = _xnode;
-						struct_type *tmp = _xnode;
-						int i = 0;
-
-						while (first != last)
-						{
-							cur = new struct_type(*(first).first, *(first).second);
-							if (!tmp)
-								_xnode->next = cur;
-							else
-								tmp->next = cur;
-							cur->prev = tmp;
-							tmp = cur;
-							first++;;
-							i++;
-						}
-						cur->next = _xnode;
-						_xnode->prev = cur;
-						_size = i;
+					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){	
+						_size = 0;
+						_xnode = new struct_type;
+						_xnode->next = _xnode;
+						_xnode->prev = _xnode;
+						insert(first, last);
 					}
 				//  copy constructoor
 				map(const map& src) {
@@ -149,7 +134,7 @@ namespace ft
 				}
 				//max_size
 				size_type			max_size() const {
-					return allocator_type().max_size;
+					return allocator_type().max_size();
 				}
 				//operator[]
 				mapped_type & operator[] (const key_type& k) {
@@ -164,6 +149,7 @@ namespace ft
 							return cur->val;
 						cur = cur->next;
 					}
+					return cur->val;
 				}
 				//insert
 				iterator insert(iterator position, const value_type& val){
@@ -204,7 +190,7 @@ namespace ft
 				template <class InputIterator>
 					void insert (InputIterator first, InputIterator last) {
 						pair<Key, T> tmp;
-						while (first != last && first != end())
+						while (first != last)
 						{
 							value_type val = value_type((*first).first, (*first).second);
 							insert(val);
