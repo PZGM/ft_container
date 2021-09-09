@@ -19,7 +19,7 @@ namespace ft
 			}
 		};
 
-	template <typename Key, typename T, class Compare = less<Key>, class Alloc = std::allocator<pair<Key, T> > >
+	template <typename Key, typename T, class Compare = less<Key>, class Alloc = std::allocator<std::pair<Key, T> > >
 		class map
 		{
 			public:
@@ -134,7 +134,7 @@ namespace ft
 				}
 				//max_size
 				size_type			max_size() const {
-					return allocator_type().max_size();
+					return (allocator_type().max_size()/5);
 				}
 				//operator[]
 				mapped_type & operator[] (const key_type& k) {
