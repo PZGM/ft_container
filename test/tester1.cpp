@@ -1,8 +1,7 @@
 #include <vector>
-#include <set>
+#include <map>
 #include <iostream>
-#include "../Set/Set.hpp"
-#include "../Vector/Vector.hpp"
+#include "../Map/Map.hpp"
 
 #ifdef STD
 using namespace std;
@@ -12,129 +11,368 @@ using namespace ft;
 
 int main()
 {
-	std::cout << "===Default constructor===" << std::endl;
-	set<int> st1;
-	std::cout << st1.size() << std::endl;
-	for (auto it = st1.begin(); it != st1.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st1.rbegin(); it != st1.rend(); it++)
-		std::cout << "^" << *it << std::endl;
+    map<char,int> map1;
 
-	//create a vector with incremental values
-	vector<int> vec(6, 8);
-	int i = 0;
-	for (auto it = vec.begin(); it != vec.end(); it++)
-		*it = i++;
+	std::cout << "===Map===" << std::endl;
+	std::cout << "===Constructors===" << std::endl;
+	std::cout << "___default constructor___" << std::endl;
 
-	std::cout << "===Range constructor===" << std::endl;
-	set<int> st3(vec.begin(), vec.end());
-	std::cout << st3.size() << std::endl;
-	for (auto it = st3.begin(); it != st3.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st3.rbegin(); it != st3.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
+	std::cout << "size : " << map1.size() << std::endl;
+	std::cout << "empty ? : " << map1.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	auto it = map1.begin();
+	while (it != map1.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	auto ite = map1.rbegin();
+	while (ite != map1.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+	std::cout << "___manual fill___" << std::endl;
+
+	map1['a'] = 75;
+	map1['z'] = 32;
+	map1['e'] = 42;
+
+	std::cout << "size : " << map1.size() << std::endl;
+	std::cout << "empty ? : " << map1.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map1.begin();
+	while (it != map1.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	ite = map1.rbegin();
+	while (ite != map1.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+	std::cout << "___range constructor___" << std::endl;
+
+	map<char,int> map2(map1.begin(), map1.begin());
+
+	std::cout << "size : " << map2.size() << std::endl;
+	std::cout << "empty ? : " << map2.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map2.begin();
+	while (it != map2.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	ite = map2.rbegin();
+	while (ite != map2.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+	std::cout << "___copy constructor___" << std::endl;
+
+	map<char,int> map3(map1);
+
+	std::cout << "size : " << map3.size() << std::endl;
+	std::cout << "empty ? : " << map3.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map3.begin();
+	while (it != map3.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	ite = map3.rbegin();
+	while (ite != map3.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+
+	std::cout << "___empty copy constructor___" << std::endl;
+
+	map<char,int> map4;
+	map<char,int> map5(map4);
+
+	std::cout << "size : " << map5.size() << std::endl;
+	std::cout << "empty ? : " << map5.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	ite = map5.rbegin();
+	while (ite != map5.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+	std::cout << "===MAX SIZE = " << map5.max_size() << " ===" << std::endl;
+
+	std::cout << "===Acces Read===" << std::endl;
+
+	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
+	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
+	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
+
+	std::cout << "===Acces Read/Write===" << std::endl;
+
+	std::cout << "size = " << map1.size() << std::endl;
 	
-	std::cout << "===Range constructor with reverse iterator===" << std::endl;
-	set<int> st4(vec.rbegin(), vec.rend());
-	std::cout << st4.size() << std::endl;
-	for (auto it = st4.begin(); it != st4.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st4.rbegin(); it != st4.rend(); it++)
-		std::cout << "^" << *it << std::endl;
+	map1['c'] = 46;
+	map1['g'] = 451;
+	map1['A'] = 421;
 
-	std::cout << "===Range constructor with partial vector iterators===" << std::endl;
-	set<int> st5(vec.begin() + 2, vec.end() - 1);
-	std::cout << st5.size() << std::endl;
+	std::cout << "size = " << map1.size() << std::endl;
 	
-	st5.insert(vec.begin(), vec.end());
+	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
+	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
+	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
+	std::cout << "map1['g'] = "<< map1['g'] << std::endl;
+	std::cout << "map1['A'] = "<< map1['A'] << std::endl;
 
-	for (auto it = st5.begin(); it != st5.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st5.rbegin(); it != st5.rend(); it++)
-		std::cout << "^" << *it << std::endl;
-
-	std::cout << "===Range constructor with set iterators===" << std::endl;
-	set<int> st6(vec.begin(), vec.end());
-	std::cout << st6.size() << std::endl;
-	for (auto it = st6.begin(); it != st6.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st6.rbegin(); it != st6.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
-
-	std::cout << "===Copy constructor===" << std::endl;
-	set<int> st7(st5);
-	std::cout << st7.size() << std::endl;
-	for (auto it = st7.begin(); it != st7.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st7.rbegin(); it != st7.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
+	std::cout << "===Inserts===" << std::endl;
 	
-	std::cout << "===Copy constructor with empty set===" << std::endl;
-	set<int> st8(st1);
-	std::cout << st8.size() << std::endl;
-	for (auto it = st8.begin(); it != st8.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st8.rbegin(); it != st8.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
-
-	set<int> st9;
-
-	std::cout << "===Assign operator with empty set===" << std::endl;
-	st9 = st1;
-	std::cout << st9.size() << std::endl;
-	st9.insert(5);
-	for (auto it = st9.begin(); it != st9.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st9.rbegin(); it != st9.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
+	std::cout << "size : " << map5.size() << std::endl;
 	
-	std::cout << "===Assign operator===" << std::endl;
+    pair<const char, int> a('e', 42);
+    map5.insert(a);
 
-	set<int> st10;
-	st10 = st5;
-	std::cout << st10.size() << std::endl;
-	for (auto it = st10.begin(); it != st10.end(); it++)
-		std::cout << "_" << *it << std::endl;
-	for (auto it = st10.rbegin(); it != st10.rend(); it++)
-		std::cout << "^" << *it << std::endl;	
+    pair<const char, int> b('c', 41);
+    map5.insert(b);
 
-	std::cout<< "===empty===" << std::endl;
-	std::cout << st1.empty() << std::endl;
-	std::cout << st3.empty() << std::endl;
-	std::cout << st4.empty() << std::endl;
-	std::cout << st5.empty() << std::endl;
-	std::cout << st6.empty() << std::endl;
-	std::cout << st7.empty() << std::endl;
-	std::cout << st8.empty() << std::endl;
-	std::cout << st9.empty() << std::endl;
-	std::cout << st10.empty() << std::endl;
+    pair<const char, int> c('e', 40);
+    map5.insert(c);
 
-	std::cout<< "===size===" << std::endl;
-	std::cout << st1.size() << std::endl;
-	std::cout << st3.size() << std::endl;
-	std::cout << st4.size() << std::endl;
-	std::cout << st5.size() << std::endl;
-	std::cout << st6.size() << std::endl;
-	std::cout << st7.size() << std::endl;
-	std::cout << st8.size() << std::endl;
-	std::cout << st9.size() << std::endl;
-	std::cout << st10.size() << std::endl;
-
-	std::cout << "===max size===" << std::endl;
-	std::cout << st1.max_size() << std::endl;
-
-
-	std::cout << "===swap===" << std::endl;
-	for (auto it = st1.begin(); it != st1.end(); it++)
-		std::cout << "1 : " << *it << std::endl;
-	for (auto it = st3.begin(); it != st3.end(); it++)
-		std::cout << "3 : " << *it << std::endl;
+    pair<const char, int> d('f', 451);
+    auto hint = map5.insert(c).first;
+	map5.insert(hint, d);
 	
-	st1.swap(st3);
+	std::cout << "size : " << map5.size() << std::endl;
 
-	for (auto it = st1.begin(); it != st1.end(); it++)
-		std::cout << "1 : " << *it << std::endl;
-	for (auto it = st3.begin(); it != st3.end(); it++)
-		std::cout << "3 : " << *it << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
+
+	ite = map5.rbegin();
+	while (ite != map5.rend())
+	{
+		auto pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
+
+	std::cout << "===Erase===" << std::endl;
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+
+	std::cout << "___erase with it___" << std::endl;
+	it = map5.find('c');
+	map5.erase(it);
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+
+	std::cout << "___erase with key___" << std::endl;
+	map5.erase('f');
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	
+	std::cout << "___erase everything with range___" << std::endl;
+	map5.erase(map5.begin(), map5.end());
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+
+	std::cout << "===Swap===" << std::endl;
+
+	map5['a'] = 1;
+	map5['b'] = 2;
+	map5['c'] = 3;
+	map5['d'] = 4;
+
+	std::cout << "A:";
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl<< "B:";
+	it = map4.begin();
+	while (it != map4.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl;
+	
+	std::cout << "+++SWAP !+++" << std::endl;
+	map4.swap(map5);
+
+	std::cout << "A:";
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl<< "B:";
+	it = map4.begin();
+	while (it != map4.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << "sizeA : " << map5.size() << " | sizeB : " << map4.size() << std::endl;
+
+	std::cout << "______________" << std::endl;
+	map5['z'] = 5;
+	map5['b'] = 6;
+	map5['h'] = 7;
+	map5['i'] = 8;
+
+	std::cout << "A:";
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl<< "B:";
+	it = map4.begin();
+	while (it != map4.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl;
+	std::cout << "sizeA : " << map5.size() << " | sizeB : " << map4.size() << std::endl;
+	
+	std::cout << "+++SWAP !+++" << std::endl;
+	swap(map4,map5);
+
+	std::cout << "A:";
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl<< "B:";
+	it = map4.begin();
+	while (it != map4.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << " : ";
+		it++;
+	}
+	std::cout << std::endl;
+
+	std::cout << "===Clear===" << std::endl;
+
+	map5.clear();
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	
+	std::cout << "___reclear the same map___" << std::endl;
+
+	map5.clear();
+
+	std::cout << "size : " << map5.size() << std::endl;
+
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		auto pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	
+	std::cout << "===Find===" << std::endl;
+
+
 
 }

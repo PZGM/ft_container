@@ -1,37 +1,95 @@
-Size: 5 Empty: 0
-1
-|||||||
-0
-|||||||
-a
------
-d
------
-a
------
-b
-++++++
-d
-++++++
-a
-++++++
-Size: 6 Empty: 0
-a | 40
-b | 451
-d | 5678
+===Map===
+===Constructors===
+___default constructor___
+size : 0
+empty ? : 1
+normal :
+reverse :
+___manual fill___
+size : 3
+empty ? : 0
+normal :
+a | 75
 e | 42
-v | 11
-z | 46
-a | 40
-b | 451
-d | 5678
+z | 32
+reverse :
+z | 32
 e | 42
-v | 11
-z | 46
-z | 46
-v | 11
+a | 75
+___range constructor___
+size : 0
+empty ? : 1
+normal :
+reverse :
+___copy constructor___
+size : 3
+empty ? : 0
+normal :
+a | 75
 e | 42
-d | 5678
-b | 451
-a | 40
-1152921504606846975
+z | 32
+reverse :
+z | 32
+e | 42
+a | 75
+___empty copy constructor___
+size : 0
+empty ? : 1
+normal :
+reverse :
+===MAX SIZE = 1152921504606846975 ===
+===Acces Read===
+map1['a'] = 75
+map1['b'] = 0
+map1['c'] = 0
+===Acces Read/Write===
+size = 5
+size = 7
+map1['a'] = 75
+map1['b'] = 0
+map1['c'] = 46
+map1['g'] = 451
+map1['A'] = 421
+===Inserts===
+size : 0
+size : 3
+normal :
+c | 41
+e | 42
+f | 451
+reverse :
+f | 451
+e | 42
+c | 41
+===Erase===
+size : 3
+c | 41
+e | 42
+f | 451
+___erase with it___
+size : 2
+e | 42
+f | 451
+___erase with key___
+size : 1
+e | 42
+___erase everything with range___
+size : 0
+===Swap===
+A:a | 1 : b | 2 : c | 3 : d | 4 : 
+B:
++++SWAP !+++
+A:
+B:a | 1 : b | 2 : c | 3 : d | 4 : 
+sizeA : 0 | sizeB : 4
+______________
+A:b | 6 : h | 7 : i | 8 : z | 5 : 
+B:a | 1 : b | 2 : c | 3 : d | 4 : 
+sizeA : 4 | sizeB : 4
++++SWAP !+++
+A:a | 1 : b | 2 : c | 3 : d | 4 : 
+B:b | 6 : h | 7 : i | 8 : z | 5 : 
+===Clear===
+size : 0
+___reclear the same map___
+size : 0
