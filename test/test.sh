@@ -21,7 +21,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 01 Set test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 01 Map test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -41,7 +41,7 @@ then
 	fi
 
 
-	echo "vvvvvvvv DIFFF 02 Set test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 02 Map test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -61,75 +61,10 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 03 Set test 3  vvvvvvvv"
+	echo "vvvvvvvv DIFF 03 Map test 3  vvvvvvvv"
 	diff ft std
 
 fi
-
-if [ $# = 0 ] || [ $1 = "4" ] || [[ $# = 1  &&  $1 = "san" ]]
-
-then
-	rm -f a.out ft.bin std.bin
-	c++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	c++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
-
-	if [[ $2 = "ft" || $2 = "all" ]];then
-		cat ft
-	fi
-	if [[ $2 = "std" || $2 = "all" ]];then
-		cat std
-	fi
-
-	echo "vvvvvvvv DIFFF 04 Deque test 3 vvvvvvvv"
-	diff ft std > diff.out
-
-fi
-
-#test 5 stack
-
-if [ $# = 0 ] || [ $1 = "5" ] || [[ $# = 1  &&  $1 = "san" ]]
-
-then
-
-	rm -f a.out ft.bin std.bin
-	c++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	c++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
-
-	if [[ $2 = "ft" || $2 = "all" ]];then
-		cat ft
-	fi
-	if [[ $2 = "std" || $2 = "all" ]];then
-		cat std
-	fi
-
-	echo "vvvvvvvv DIFFF 05 Stack test 2 vvvvvvvv"
-	diff ft std
-
-fi
-
-#test 6 set
-
-if [ $# = 0 ] || [ $1 = "6" ] || [[ $# = 1  &&  $1 = "san" ]]
-
-then
-
-	rm -f a.out ft.bin std.bin
-	c++ tester6.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	c++ tester6.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
-
-	if [[ $2 = "ft" || $2 = "all" ]];then
-		cat ft
-	fi
-	if [[ $2 = "std" || $2 = "all" ]];then
-		cat std
-	fi
-
-	echo "vvvvvvvv DIFFF 06 Set test 1 vvvvvvvv"
-	diff ft std
-
-fi
-
-#test 7 set
 
 if [ $# = 0 ] || [ $1 = "7" ] || [ $1 = "list" ] || [[ $# = 1  &&  $1 = "san" ]]
 
@@ -146,7 +81,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 07 List test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 07 List test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -169,7 +104,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 08 List test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 08 List test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -191,7 +126,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 09 List test 3 vvvvvvvv"
+	echo "vvvvvvvv DIFF 09 List test 3 vvvvvvvv"
 	diff ft std
 
 fi
@@ -213,7 +148,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 10 List test 4 vvvvvvvv"
+	echo "vvvvvvvv DIFF 10 List test 4 vvvvvvvv"
 	diff ft std
 
 fi
@@ -235,7 +170,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 11 List test 5 vvvvvvvv"
+	echo "vvvvvvvv DIFF 11 List test 5 vvvvvvvv"
 	diff ft std
 
 fi
@@ -257,7 +192,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 12 List test 6 vvvvvvvv"
+	echo "vvvvvvvv DIFF 12 List test 6 vvvvvvvv"
 	diff ft std
 
 fi
@@ -279,7 +214,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 13 List test 7 vvvvvvvv"
+	echo "vvvvvvvv DIFF 13 List test 7 vvvvvvvv"
 	diff ft std
 
 fi
@@ -301,7 +236,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 14 Vector test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 14 Vector test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -323,7 +258,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 15 Vector test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 15 Vector test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -345,7 +280,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 16 Vector test 3 vvvvvvvv"
+	echo "vvvvvvvv DIFF 16 Vector test 3 vvvvvvvv"
 	diff ft std
 
 fi
@@ -367,7 +302,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 17 Vector test 4 vvvvvvvv"
+	echo "vvvvvvvv DIFF 17 Vector test 4 vvvvvvvv"
 	diff ft std
 
 fi
@@ -389,7 +324,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 18 Stack test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 18 Stack test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -411,7 +346,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 19 Stack test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 19 Stack test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -433,7 +368,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 20 Queue test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 20 Queue test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -455,7 +390,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 21 Queue test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 21 Queue test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -477,7 +412,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 22 DeQue test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 22 DeQue test 1 vvvvvvvv"
 	diff ft std
 
 fi
@@ -499,7 +434,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 23 DeQue test 2 vvvvvvvv"
+	echo "vvvvvvvv DIFF 23 DeQue test 2 vvvvvvvv"
 	diff ft std
 
 fi
@@ -521,7 +456,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 24 DeQue test 3 vvvvvvvv"
+	echo "vvvvvvvv DIFF 24 DeQue test 3 vvvvvvvv"
 	diff ft std
 
 fi
@@ -543,7 +478,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 25 DeQue test 4 vvvvvvvv"
+	echo "vvvvvvvv DIFF 25 DeQue test 4 vvvvvvvv"
 	diff ft std
 
 fi
@@ -565,7 +500,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFFF 26 DeQue test 5 vvvvvvvv"
+	echo "vvvvvvvv DIFF 26 DeQue test 5 vvvvvvvv"
 	diff ft std
 
 fi
