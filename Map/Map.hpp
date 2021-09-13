@@ -142,7 +142,7 @@ namespace ft
 						const pair<const Key, T> x(k, T());
 						insert(x);
 					}
-					struct_type * cur = new struct_type();
+					struct_type * cur;
 					cur = _xnode->next;
 					while (cur != _xnode) { 
 						if (cur->key == k)

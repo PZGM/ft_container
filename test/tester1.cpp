@@ -20,19 +20,19 @@ int main()
 	std::cout << "size : " << map1.size() << std::endl;
 	std::cout << "empty ? : " << map1.empty() << std::endl;
 	std::cout << "normal :" << std::endl;
-	auto it = map1.begin();
+	map<char, int>::iterator it = map1.begin();
 	while (it != map1.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
 	std::cout << "reverse :" << std::endl;
 
-	auto ite = map1.rbegin();
+	map<char, int>::reverse_iterator ite = map1.rbegin();
 	while (ite != map1.rend())
 	{
-		auto pr = *ite;
+		pair<char, int> pr = *ite;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		ite++;
 	}
@@ -49,7 +49,7 @@ int main()
 	it = map1.begin();
 	while (it != map1.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -58,7 +58,7 @@ int main()
 	ite = map1.rbegin();
 	while (ite != map1.rend())
 	{
-		auto pr = *ite;
+		pair<char, int> pr = *ite;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		ite++;
 	}
@@ -73,7 +73,7 @@ int main()
 	it = map2.begin();
 	while (it != map2.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -82,7 +82,7 @@ int main()
 	ite = map2.rbegin();
 	while (ite != map2.rend())
 	{
-		auto pr = *ite;
+		pair<char, int> pr = *ite;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		ite++;
 	}
@@ -97,7 +97,7 @@ int main()
 	it = map3.begin();
 	while (it != map3.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -123,7 +123,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -184,7 +184,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -205,7 +205,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -219,7 +219,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -232,7 +232,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -245,7 +245,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -261,7 +261,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -269,7 +269,7 @@ int main()
 	it = map4.begin();
 	while (it != map4.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -282,7 +282,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -290,7 +290,7 @@ int main()
 	it = map4.begin();
 	while (it != map4.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -307,7 +307,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -315,7 +315,7 @@ int main()
 	it = map4.begin();
 	while (it != map4.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -329,7 +329,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -337,7 +337,7 @@ int main()
 	it = map4.begin();
 	while (it != map4.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << " : ";
 		it++;
 	}
@@ -352,7 +352,7 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
@@ -366,13 +366,37 @@ int main()
 	it = map5.begin();
 	while (it != map5.end())
 	{
-		auto pr = *it;
+		pair<char, int> pr = *it;
 		std::cout << pr.first << " | " << pr.second << std::endl;
 		it++;
 	}
 	
 	std::cout << "===Find===" << std::endl;
+	map5['a'] = 10;
+	map5['b'] = 20;
+	map5['c'] = 30;
 
+	auto pr = map5.find('a');
+	if (pr == map5.end())
+		std::cout << "Not found" << std::endl;
+	else
+		std::cout << (*pr).first << " : " << (*pr).second << std::endl;
 
+	pr = map5.find('d');
+	if (pr == map5.end())
+		std::cout << "Not found" << std::endl;
+	else
+		std::cout << (*pr).first << " : " << (*pr).second << std::endl;
 
+	pr = map5.find(98);
+	if (pr == map5.end())
+		std::cout << "Not found" << std::endl;
+	else
+		std::cout << (*pr).first << " : " << (*pr).second << std::endl;
+
+	pr = map5.find(42);
+	if (pr == map5.end())
+		std::cout << "Not found" << std::endl;
+	else
+		std::cout << (*pr).first << " : " << (*pr).second << std::endl;
 }

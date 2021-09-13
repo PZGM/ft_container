@@ -93,3 +93,8 @@ B:b | 6 : h | 7 : i | 8 : z | 5 :
 size : 0
 ___reclear the same map___
 size : 0
+===Find===
+a : 10
+Not found
+b : 20
+Not found
