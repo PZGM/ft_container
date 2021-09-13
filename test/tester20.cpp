@@ -15,14 +15,14 @@ int main()
 {
 	list<int> lst(10);
 	int i = 0;
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 	{
 		*it = i;
 		i++;
 	}
 	deque<int> dek(10, 42);
 	i = 10;
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 	{
 		*it = i;
 		i++;

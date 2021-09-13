@@ -30,9 +30,9 @@ int main()
 	
 	lst.merge(lst2);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 	lst.clear();
@@ -49,9 +49,9 @@ int main()
 	
 	lst2.merge(lst);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 	lst.clear();
@@ -68,9 +68,9 @@ int main()
 	
 	lst2.merge(lst);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 	lst.clear();
@@ -83,9 +83,9 @@ int main()
 	
 	lst2.merge(lst);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	lst.clear();
@@ -98,9 +98,9 @@ int main()
 	
 	lst.merge(lst2);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 
@@ -120,9 +120,9 @@ int main()
 
 	lst2.merge(lst);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 	lst.clear();
@@ -140,9 +140,9 @@ int main()
 	
 	lst.merge(lst2, mycomparison);
 	
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 }

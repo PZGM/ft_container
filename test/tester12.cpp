@@ -27,7 +27,7 @@ int main()
 
 	lst.unique();
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -46,7 +46,7 @@ int main()
 
 	lst.unique();
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -58,7 +58,7 @@ int main()
 
 	lst.unique();
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -68,7 +68,7 @@ int main()
 	
 	lst.unique();
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -83,7 +83,7 @@ int main()
 
 	lst.unique(cbp);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -111,7 +111,7 @@ int main()
 	
 	lst.unique(cbp);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << std::endl;
 
@@ -132,10 +132,10 @@ int main()
 	
 	lst.swap(lst2);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 
 	lst.clear();
@@ -152,10 +152,10 @@ int main()
 	
 	lst2.swap(lst);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	lst.clear();
@@ -170,10 +170,10 @@ int main()
 	
 	lst2.swap(lst);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	lst.clear();
@@ -193,10 +193,10 @@ int main()
 	
 	swap(lst, lst2);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	lst.clear();
@@ -206,9 +206,9 @@ int main()
 
 	swap(lst, lst2);
 
-	for (auto it = lst.begin(); it != lst.end(); it++)
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (auto it = lst2.begin(); it != lst2.end(); it++)
+	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
 		std::cout << *it << std::endl;
 }

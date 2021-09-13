@@ -21,7 +21,7 @@ int main()
 	vector<int> vec(20);
 
 	int i = 1;
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 	{
 		*it = i;
 		i *=2;
@@ -187,10 +187,10 @@ int main()
 	
 	vec.swap(vec2);
 
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
-	for (auto it = vec2.begin(); it != vec2.end(); it++)
+	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
 
 	vec.clear();
@@ -207,10 +207,10 @@ int main()
 	
 	vec2.swap(vec);
 
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
-	for (auto it = vec2.begin(); it != vec2.end(); it++)
+	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	vec.clear();
@@ -225,10 +225,10 @@ int main()
 	
 	vec2.swap(vec);
 
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
-	for (auto it = vec2.begin(); it != vec2.end(); it++)
+	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	vec.clear();
@@ -248,10 +248,10 @@ int main()
 	
 	swap(vec, vec2);
 
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
-	for (auto it = vec2.begin(); it != vec2.end(); it++)
+	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	vec.clear();
@@ -261,9 +261,9 @@ int main()
 
 	swap(vec, vec2);
 
-	for (auto it = vec.begin(); it != vec.end(); it++)
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
-	for (auto it = vec2.begin(); it != vec2.end(); it++)
+	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
 }

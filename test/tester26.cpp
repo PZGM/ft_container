@@ -33,10 +33,10 @@ int main()
 	
 	dek.swap(dek2);
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << dek.size() << "|" << dek2.size() << std::endl;
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
+	for (deque<int>::iterator it = dek2.begin(); it != dek2.end(); it++)
 		std::cout << *it << std::endl;
 
 	dek.clear();
@@ -53,10 +53,10 @@ int main()
 	
 	dek2.swap(dek);
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << dek.size() << "|" << dek2.size() << std::endl;
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
+	for (deque<int>::iterator it = dek2.begin(); it != dek2.end(); it++)
 		std::cout << *it << std::endl;
 
 	dek.clear();
@@ -71,10 +71,10 @@ int main()
 	
 	dek2.swap(dek);
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << dek.size() << "|" << dek2.size() << std::endl;
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
+	for (deque<int>::iterator it = dek2.begin(); it != dek2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	dek.clear();
@@ -94,10 +94,10 @@ int main()
 	
 	swap(dek, dek2);
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << dek.size() << "|" << dek2.size() << std::endl;
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
+	for (deque<int>::iterator it = dek2.begin(); it != dek2.end(); it++)
 		std::cout << *it << std::endl;
 	
 	dek.clear();
@@ -107,9 +107,9 @@ int main()
 
 	swap(dek, dek2);
 
-	for (auto it = dek.begin(); it != dek.end(); it++)
+	for (deque<int>::iterator it = dek.begin(); it != dek.end(); it++)
 		std::cout << *it << std::endl;
 	std::cout << "____________________" << dek.size() << "|" << dek2.size() << std::endl;
-	for (auto it = dek2.begin(); it != dek2.end(); it++)
+	for (deque<int>::iterator it = dek2.begin(); it != dek2.end(); it++)
 		std::cout << *it << std::endl;
 }
