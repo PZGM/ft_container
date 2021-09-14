@@ -56,7 +56,7 @@ class VectorIterator : public std::iterator<std::input_iterator_tag, T>
 						return *p;
 				}
 
-		private:
+		//private:
 
 				T* p;
 };

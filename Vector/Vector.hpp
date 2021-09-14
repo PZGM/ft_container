@@ -13,53 +13,73 @@ namespace ft
 	template <typename T, class Alloc = std::allocator<T> >
 		class vector
 		{
+			//  les com c'est l'ancien container
 			public:
 				typedef T											value_type;
+				typedef Alloc										allocator_type;
 				typedef value_type&									reference;
 				typedef const value_type&							const_reference;
-				typedef value_type*									pointer;
-				typedef VectorIterator<value_type>					iterator;
-				typedef typename Alloc::size_type					size_type;
+				// typedef value_type*								pointer;
+				typedef typename Alloc::pointer						pointer;
+				typedef typename Alloc::const_pointer				const_pointer;
+				typedef VectorIterator<value_type>				iterator;
+				// typedef VectorIterator<pointer>						iterator;
+				// typedef typename Alloc::size_type				size_type;
+				typedef std::size_t									size_type;
 				typedef const VectorIterator<value_type>			const_iterator;
 				typedef VectorReverseIterator<value_type>			reverse_iterator;
 				typedef const VectorReverseIterator<value_type>		const_reverse_iterator;
+				// typedef VectorIterator<const_pointer>			const_iterator;
+				// typedef VectorReverseIterator<pointer>			reverse_iterator;
+				// typedef VectorReverseIterator<const_pointer>	const_reverse_iterator;
 				typedef std::ptrdiff_t								difference_type;
 
-				explicit	vector() : _storage(NULL), _size(0), _capacity(0) {}
+				explicit	vector(const allocator_type& alloc = allocator_type()) : _storage(NULL), _size(0), _capacity(0), _alloc(alloc) {}
 				
-				explicit	vector(size_type n, const value_type& val = value_type()) : _size(n), _capacity(n) {
+				explicit	vector(size_type n, const value_type& val = value_type(), const allocator_type& alloc = allocator_type()) : _size(n), _capacity(n), _alloc(alloc) {
                 	struct __true_type x;
 					_constructor(n, val, x);
             	}
 
 				template <class InputIterator>
-         			vector (InputIterator first, InputIterator last) {
+         			vector (InputIterator first, InputIterator last, const allocator_type& alloc = allocator_type()) {
 						_size = 0;
 						_capacity = 0;
 						_storage = NULL;
+						_alloc = alloc;
 						typedef typename ft::__is_integer<InputIterator>::__type isInt;
 						isInt vraiNom;
 						_constructor(first, last, vraiNom);
 					}
 
-				vector(const vector& src) : _size(0), _capacity(0), _storage(NULL) {
-					*this = src;
+				vector(const vector& src, const allocator_type& alloc = allocator_type()) : _size(src._size), _capacity(src._capacity), _storage(NULL), _alloc(alloc){
+					_storage = _alloc.allocate(src._capacity);
+					for (size_type i = 0; i < _size; i++)
+						_alloc.construct(&_storage[i], src._storage[i]);
 				}
 
 				~vector() {
 					if (_capacity > 0)
-						delete [] _storage;
+					{
+						for (size_type i = 0; i < _size; i++)
+							_alloc.destroy(&_storage[i]);
+						_alloc.deallocate(_storage, _capacity);
+					}
 				}
 
 				vector<value_type, Alloc>		&operator=(const vector<T, Alloc> &src) {
 					if (_capacity > 0)
-						delete [] _storage;
+					{
+						for (size_type i = 0; i < _size; i++)
+							_alloc.destroy(&_storage[i]);
+						_alloc.deallocate(_storage, _capacity);
+					}
 					_capacity = src._capacity;
 					_size = src._size;
 					if (_capacity > 0)
-						_storage = new T[_capacity];
+						_storage = _alloc.allocate(_capacity);
 					for (size_type i = 0; i < _size; i++)
-						_storage[i] = src._storage[i];
+						_alloc.construct(&_storage[i], src._storage[i]);
 					return *this;
 				}
 
@@ -103,18 +123,21 @@ namespace ft
 				}
 
 				size_type			max_size() const {
-					return (Alloc().max_size());
+					return (_alloc.max_size());
 				}
 
 				void				resize(size_type n, value_type val = value_type()) {
-					T *tmp = new T(n);
+					T *tmp = _alloc.allocate(n);
 					int i = 0;
 					for (; i < _size && i < n; i++)
-						tmp[i] = _storage[i];
+						_alloc.construct(&tmp[i], _storage[i]);
 					for (; i < n; i++)
-						tmp[i] = val;
-					if (_capacity > 0)
-						delete [] _storage;
+						_alloc.construct(&tmp[i], val);
+					if (_capacity > 0) {
+						for (size_type i = 0; i < _size; i++)
+							_alloc.destroy(&_storage[i]);
+						_alloc.deallocate(_storage, _capacity);
+					}
 					_storage = tmp;
 					_capacity = n;
 					_size = n;
@@ -130,11 +153,14 @@ namespace ft
 
 				void				reserve(size_type n) {
 					if (n > _capacity) {
-						value_type *tmp = new T[n];
+						value_type *tmp = _alloc.allocate(n);
 						for (size_type i = 0; i < _size; i++)
-							tmp[i] = _storage[i];
-						if (_capacity > 0)
-							delete [] _storage;
+						_alloc.construct(&tmp[i], _storage[i]);
+						if (_capacity > 0) {
+							for (size_type i = 0; i < _size; i++)
+								_alloc.destroy(&_storage[i]);
+							_alloc.deallocate(_storage, _capacity);
+						}
 						_storage = tmp;
 						_capacity = n;
 					}
@@ -186,11 +212,12 @@ namespace ft
 
 				void				push_back(const value_type& val) {
 					reserve(_size + 1);
-					_storage[_size] = T(val);
+					_alloc.construct(&_storage[_size], val);
 					_size++;
 				}
 
 				void				pop_back() {
+					_alloc.destroy(&_storage[_size - 1]);//on tente on verra
 					_size--;
 				}
 
@@ -206,6 +233,10 @@ namespace ft
 					value_type* tmps = x._storage;
 					x._storage = _storage;
 					_storage = tmps;
+
+					Alloc tmpa = x._alloc;
+					x._alloc = _alloc;
+					_alloc = tmpa;
 				}
 
 				iterator					erase(iterator position) {
@@ -218,6 +249,7 @@ namespace ft
 					{
 						++first;
 						_size--;
+						_alloc.destroy(&_storage[_size]);
 					}
 					while (t != end())
 					{
@@ -238,10 +270,10 @@ namespace ft
 					size_type j = _size;
 					while (j > i)
 					{
-						_storage[j] = _storage[j - 1];
+						_alloc.construct(&_storage[j], _storage[j - 1]);
 						j--;
 					}
-					_storage[i] = val;
+					_alloc.construct(&_storage[i], val);
 					_size++;
 					return (ft::vector<T, Alloc>::iterator(&_storage[i]));
 				}
@@ -261,7 +293,7 @@ namespace ft
 				value_type*	_storage;
 				size_type	_size;
 				size_type	_capacity;
-
+				Alloc		_alloc;
 
 				template <class InputIterator>
 					void _insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last) {
@@ -310,9 +342,9 @@ namespace ft
 					if (n > ft::vector<T, Alloc>::max_size())
 						throw std::runtime_error("ft::vector error : desole, tu t'es trompe, prend pas toute ma ram stp, chrome en a besoin");
 					if (n > 0)
-						_storage = new T[n];
+						_storage = _alloc.allocate(n);
 					for (size_type i = 0; i < n; i++)
-						_storage[i] = v;
+						_alloc.construct(&_storage[i], v);
 					_capacity = n;
 					_size = n;
 				}

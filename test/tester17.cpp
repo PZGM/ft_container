@@ -266,4 +266,37 @@ int main()
 	std::cout << "____________________" << vec.size() << "|" << vec2.size() << std::endl;
 	for (vector<int>::iterator it = vec2.begin(); it != vec2.end(); it++)
 		std::cout << *it << std::endl;
+
+	std::cout << "===check iterators integrity after swap===" << std::endl;
+
+	vec2.clear();
+	vec.clear();
+
+	vec2.push_back(100);
+	vec2.push_back(200);
+	vec2.push_back(300);
+	vec2.push_back(400);
+
+	vec.push_back(1);
+	vec.push_back(2);
+	vec.push_back(3);
+	vec.push_back(4);
+
+
+
+	vector<int>::iterator it = vec.begin();
+	vector<int>::iterator it2 = vec2.begin();
+
+	vector<int>::iterator it4 = vec.begin();
+
+	 vec2.swap(vec);
+
+	for(;it!= vec2.end(); it++)
+		std::cout << *it << std::endl;
+
+	for(;it2!= vec.end(); it2++)
+		std::cout << *it2 << std::endl;
+	
+	// vec.clear();
+	// vec2.clear();
 }

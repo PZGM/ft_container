@@ -241,4 +241,23 @@ int main()
 	std::cout << vec5.capacity() << "|" << vec5.size() << std::endl;
 	vec5.reserve(40);
 	std::cout << vec5.capacity() << "|" << vec5.size() << std::endl;
+
+
+	std::cout<< "===iterator comparison===" << std::endl;
+
+	vector<int>::iterator iter = vec1.begin();
+	vector<int>::const_iterator const_iter = vec1.begin();
+
+	if (const_iter == iter)
+		std::cout << "Iterators equals" << std::endl;
+	else
+		std::cout << "Iterators not equals" << std::endl;
+
+	iter = vec1.begin() + 1;
+
+	if (const_iter == iter)
+		std::cout << "Iterators equals" << std::endl;
+	else
+		std::cout << "Iterators not equals" << std::endl;
+
 }
