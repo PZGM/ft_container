@@ -1,11 +1,11 @@
 #ifndef STACK_HPP
 # define STACK_HPP
 
-#include "../DeQue/Deque.hpp"
+#include "../Vector/Vector.hpp"
 
 namespace ft
 {
-	template <class T, class Container = deque<T, std:: allocator<T> > >
+	template <class T, class Container = vector<T, std:: allocator<T> > >
 		class stack
 		{
 			public:
@@ -40,9 +40,11 @@ namespace ft
 				void pop() {
 					container.pop_back();
 				}
-
-			private:
+			
+			protected :
 				container_type container;
+			
+			private:
 
 				friend bool operator== (const stack<T, Container> & lhs, const stack<T, Container> & rhs) {
 					return (operator==(lhs.container, rhs.container));

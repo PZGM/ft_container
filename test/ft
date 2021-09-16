@@ -1,12 +1,20 @@
-===default constructor with default underlying container===
-size = 0 _ empty = 1
-size = 1 _ empty = 0 _ top = 42
-size = 2 _ empty = 0 _ top = 21
-size = 1 _ empty = 0 _ top = 42
-===copy constructor with list as underlying container===
-size = 10 _ empty = 0 _ top = 9
-size = 11 _ empty = 0 _ top = 42
-size = 12 _ empty = 0 _ top = 21
-size = 11 _ empty = 0 _ top = 42
-size = 10 _ empty = 0 _ top = 9
-size = 9 _ empty = 0 _ top = 8
++++Stack relational operators+++
+-----|----------|----------|---------|---------|----------|----------|
+  1  | == True  | != FALSE | < FALSE | > FALSE | <= True  | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  2  | == FALSE | != True  | < FALSE | > True  | <= FALSE | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  3  | == True  | != FALSE | < FALSE | > FALSE | <= True  | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  4  | == FALSE | != True  | < FALSE | > True  | <= FALSE | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  5  | == FALSE | != True  | < FALSE | > True  | <= FALSE | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  6  | == FALSE | != True  | < True  | > FALSE | <= True  | >= FALSE |
+-----|----------|----------|---------|---------|----------|----------|
+  7  | == FALSE | != True  | < True  | > FALSE | <= True  | >= FALSE |
+-----|----------|----------|---------|---------|----------|----------|
+  8  | == FALSE | != True  | < FALSE | > True  | <= FALSE | >= True  |
+-----|----------|----------|---------|---------|----------|----------|
+  9  | == FALSE | != True  | < True  | > FALSE | <= True  | >= FALSE |
+-----|----------|----------|---------|---------|----------|----------|
