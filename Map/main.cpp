@@ -39,7 +39,7 @@ class AVL
 		{
 			if (parent->left == NULL)
 			{
-				parent->left =newNode;
+				parent->left = newNode;
 				newNode->parent = parent;
 				size++;
 			} else 
@@ -49,7 +49,6 @@ class AVL
 	}
 
 	void print_set(int floor, int index, int height, Node<T> * node) {
-		//	std::cout << node->data;
 		//  std::cout << "floor = " << floor << " index = " << index << " height = " << height << std::endl;
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
@@ -85,7 +84,6 @@ class AVL
 		std::cout << std::endl;
 
 		print(node, floor + 1, height);
-		// std::cout << std::endl;
 	}
 
 
@@ -93,17 +91,18 @@ class AVL
 
 int main() {
 	AVL<int> tree;
-tree.add(3);
-tree.add(1);
-tree.add(2);
-tree.add(6);
-tree.add(5);
-tree.add(4);
 tree.add(9);
-tree.add(8);
+tree.add(4);
+tree.add(1);
+tree.add(0);
 tree.add(7);
+tree.add(5);
+tree.add(3);
+tree.add(6);
+tree.add(8);
+tree.add(2);
 tree.print(tree.root, 0, tree.root->height(tree.root));
-		std::cout << std::endl;
+std::cout << std::endl;
 // std::cout << tree.root->height(tree.root) << std::endl;
 }
 

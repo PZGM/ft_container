@@ -41,28 +41,33 @@ class Node
 			rebalance(node, root);
 		if (node->parent == NULL)
 			return;
-		// checkBalance(node->parent, root);
+		checkBalance(node->parent, root);
 	}
 
 	void rebalance(Node<T> * node, Node<T> **root) {
+		std::cout << "atta jte rebalance ca bro" << node->data << std::endl;
 		// std::cout << "r = " << node->data << std::endl;
 		// std::cout << "r = " << height(node->right->left) << std::endl;
 		// std::cout << "l = " << height(node->right->right) << std::endl;
 		if (height(node->right) - height(node->left) > 1) {
-			if (height(node->right->left) < height(node->right->right))
+			if (height(node->right->left) < height(node->right->right)) {
 				node = left_rotate(node);
-				// std::cout << "left" << std::endl;
-			else
+				std::cout << "left" << std::endl;
+			}
+			else {
 				node = right_left_rotate(node);
-				// std::cout << "right left" << std::endl;
+				std::cout << "right left" << std::endl;
+			}
 		}
 		else {
-			if (height(node->left->left) > height(node->left->right))
+			if (height(node->left->left) > height(node->left->right)) {
 				node = right_rotate(node);
-				// std::cout << "right" << std::endl;
-			else
+				std::cout << "right" << std::endl;
+			}
+			else {
 				node = left_right_rotate(node);
-				// std::cout << "left right" << std::endl;
+				std::cout << "left right" << std::endl;
+			}
 		}
 		// 		std::cout << "tmp" << std::endl;
 		// std::cout << node->parent << std::endl;
@@ -72,13 +77,17 @@ class Node
 
 		if (node->parent == NULL)
 			*root = node;
+		else
+			node->parent->right = node;
 	}
 
 	Node<T> *left_rotate(Node<T> * node) {
 		Node<T> * tmp = node->right;
+		Node<T> * tmparent = node->parent;
 		node->right = tmp->left;
 		tmp->left = node;
-		tmp->parent = NULL;
+		tmp->parent = tmparent;
+		node->parent = tmp;
 		// std::cout << "tmp" << std::endl;
 		// std::cout << tmp->data << std::endl;
 		// std::cout << tmp->left->data << std::endl;
@@ -88,9 +97,12 @@ class Node
 
 	Node<T> *right_rotate(Node<T> * node) {
 		Node<T> * tmp = node->left;
+		Node<T> * tmparent = node->parent;
 		node->left = tmp->right;
 		tmp->right = node;
-		tmp->parent = NULL;
+		tmp->parent = tmparent;
+		node->parent = tmp;
+
 		return tmp; 
 	}
 
