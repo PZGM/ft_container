@@ -1,10 +1,10 @@
 #include "Node.hpp"
 
-template<class T>
+template<class Key, class Value>
 class AVL
 {
 	public:
-		Node<T> *root;
+		Node<Key, Value> *root;
 		int size;
 
 	AVL() //contructeur avl class AVLTREE
@@ -13,10 +13,23 @@ class AVL
 		size = 0;
 	}
 
-	void 	add(T obj) //add normal
+	~AVL() {
+		if (root)
+			destroy(root);
+
+	}
+
+	void destroy(Node<Key, Value> * node) {
+		if (node->right)
+			destroy(node->right);
+		if (node->left)
+			destroy(node->left);
+		delete node;
+	}
+
+	void 	add(Key sec, Value obj) //add normal
 	{
-		std::cout << "-> add " << obj << std::endl;
-		Node<T> * node = new Node<T>(obj);
+		Node<Key, Value> * node = new Node<Key, Value>(sec, obj);
 		if (root == NULL)
 		{
 			root = node;
@@ -26,14 +39,38 @@ class AVL
 		add(root, node);
 	}
 
-	Node<T> * find(T val) {
+	void	add(Node<Key, Value> * parent, Node<Key, Value> * newNode) //add recurcif
+	{
+		if (newNode->key > parent->key)
+		{
+			if (parent->right == NULL)
+			{
+				parent->right = newNode;
+				newNode->parent = parent;
+				size++;
+			} else 
+				add(parent->right, newNode);
+		} else
+		{
+			if (parent->left == NULL)
+			{
+				parent->left = newNode;
+				newNode->parent = parent;
+				size++;
+			} else 
+				add(parent->left, newNode);
+		}
+		root->checkBalance(parent, &root);
+	}
+
+	Node<Key, Value> * find(Key val) {
 		return find_r(root, val);		
 	}
 
-	Node<T> * find_r(Node<T> * root, T val) {
-		if (root->data == val)
+	Node<Key, Value> * find_r(Node<Key, Value> * root, Key val) {
+		if (root->key == val)
 			return root;
-		if (root->data > val) {
+		if (root->key > val) {
 			if (root->left)
 				return find_r(root->left, val);
 			return NULL;
@@ -45,8 +82,8 @@ class AVL
 		}
 	}
 
-	void remove(Node<T> * node) {
-		Node<T> * parent = node->parent;
+	void remove(Node<Key, Value> * node) {
+		Node<Key, Value> * parent = node->parent;
 		if (node->right == NULL && node->left == NULL) {
 			if (parent->right == node)
 				parent->right = NULL;
@@ -84,45 +121,23 @@ class AVL
 			parent->checkBalance(parent, &root);
 			return;
 		}
-		Node<T> * succ = in_order_succ(node);
+		Node<Key, Value> * succ = in_order_succ(node);
 		std::cout << succ->data << std::endl;
 		//delete proprement la data de node
 		node->data = succ->data;
+		node->key = succ->key;
 		remove(succ);
 	}
 
-	Node<T> * in_order_succ(Node<T> * node) {
+	Node<Key, Value> * in_order_succ(Node<Key, Value> * node) {
 		node = node->left;
 		while (node->right)
 			node = node->right;
 		return node;
 	}
 
-	void	add(Node<T> * parent, Node<T> * newNode) //add recurcif
-	{
-		if (newNode->data > parent->data)
-		{
-			if (parent->right == NULL)
-			{
-				parent->right = newNode;
-				newNode->parent = parent;
-				size++;
-			} else 
-				add(parent->right, newNode);
-		} else
-		{
-			if (parent->left == NULL)
-			{
-				parent->left = newNode;
-				newNode->parent = parent;
-				size++;
-			} else 
-				add(parent->left, newNode);
-		}
-		root->checkBalance(parent, &root);
-	}
 
-	void print_set(int floor, int index, int height, Node<T> * node) {
+	void print_set(int floor, int index, int height, Node<Key, Value> * node) {
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
 		int v = 2;
@@ -138,12 +153,12 @@ class AVL
 		if (node != NULL)
 			std::cout << node->data;
 		else
-			std::cout << "X";
+			std::cout << "_";
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
 	}
 
-	void print_r(Node<T> *node, int floor, int height) {
+	void print_r(Node<Key, Value> *node, int floor, int height) {
 		for (int x = 0; x < pow(2, floor); x++) {
 			print_set(floor, x, height, node);
 			if (x != pow(2, floor) - 1)

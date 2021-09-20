@@ -11,29 +11,31 @@
 # include <memory>
 # include <stdexcept>
 
-template<class T>
+template<class Key, class Value>
 class Node;
 
-template<class T>
+template<class Key, class Value>
 class Node
 {
 	public:
 	
-		T data;
+		Key		key;
+		Value	data;
+		
+		Node<Key, Value> * left;
+		Node<Key, Value> * right;
+		Node<Key, Value> * parent;
 
-		Node<T> * left;
-		Node<T> * right;
-		Node<T> * parent;
-
-	Node(T obj) //constructeur
+	Node(Key sec, Value obj) //constructeur
 	{
-		data=obj;
-		parent =NULL;
+		key = sec;
+		data = obj;
+		parent = NULL;
 		left = NULL;
 		right = NULL;
 	}
 	
-	void	checkBalance(Node<T> * node, Node<T> **root)
+	void	checkBalance(Node<Key, Value> * node, Node<Key, Value> **root)
 	{
 		if (height(node->left) - height(node->right) > 1 || height(node->left) - height(node->right) < -1) { 
 			rebalance(node, root);
@@ -44,13 +46,9 @@ class Node
 		checkBalance(node->parent, root);
 	}
 
-	void rebalance(Node<T> * node, Node<T> **root) {
-		if (node->parent)
-			std::cout << "Parent of " << node->data << " is " << node->parent->data << std::endl;
-		else
-			std::cout << node->data << " has no parent" << std::endl;
+	void rebalance(Node<Key, Value> * node, Node<Key, Value> **root) {
 		bool is_right;
-		Node<T> * tmparent = node->parent;
+		Node<Key, Value> * tmparent = node->parent;
 		if (node->parent != NULL) {
 			is_right = node->parent->right == node;
 		}
@@ -82,9 +80,8 @@ class Node
 		node->parent = tmparent;
 	}
 
-	Node<T> *left_rotate(Node<T> * node) {
-		std::cout << "___left rotate " << node->data << std::endl;
-		Node<T> * tmp = node->right;
+	Node<Key, Value> *left_rotate(Node<Key, Value> * node) {
+		Node<Key, Value> * tmp = node->right;
 		node->right = tmp->left;
 		tmp->left = node;
 		node->parent = tmp;
@@ -93,9 +90,8 @@ class Node
 		return tmp; 
 	}
 
-	Node<T> *right_rotate(Node<T> * node) {
-		std::cout << "___right rotate " << node->data << std::endl;
-		Node<T> * tmp = node->left;
+	Node<Key, Value> *right_rotate(Node<Key, Value> * node) {
+		Node<Key, Value> * tmp = node->left;
 		node->left = tmp->right;
 		tmp->right = node;
 		node->parent = tmp;
@@ -104,17 +100,17 @@ class Node
 		return tmp; 
 	}
 
-	Node<T> *right_left_rotate(Node<T> * node) {
+	Node<Key, Value> *right_left_rotate(Node<Key, Value> * node) {
 		node->right = right_rotate(node->right);
 		return left_rotate(node);
 	}
 
-	Node<T> *left_right_rotate(Node<T> * node) {
+	Node<Key, Value> *left_right_rotate(Node<Key, Value> * node) {
 		node->left = left_rotate(node->left);
 		return right_rotate(node);
 	}
 
-	int height(Node<T> * node) {
+	int height(Node<Key, Value> * node) {
 		if (node == NULL)
 			return 0;
 		int right = height(node->right);
