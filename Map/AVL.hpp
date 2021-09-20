@@ -15,7 +15,6 @@ class AVL
 
 	void 	add(T obj) //add normal
 	{
-		std::cout << "-> add " << obj << std::endl;
 		Node<T> * node = new Node<T>(obj);
 		if (root == NULL)
 		{
@@ -46,6 +45,7 @@ class AVL
 				size++;
 			} else 
 				add(parent->left, newNode);
+		}
 		root->checkBalance(parent, &root);
 	}
 
