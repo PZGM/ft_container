@@ -1,129 +1,97 @@
-#include <cmath>
-# include <string>
-# include <iostream>
-# include <istream>
-# include <iomanip>
-# include <ctype.h>
-# include <ios>
-# include <fstream>
-# include <stdlib.h>
-# include <sstream>
-# include <memory>
-# include <stdexcept>
+#include "Node.hpp"
 
 template<class T>
-class Node;
-
-template<class T>
-class Node
+class AVL
 {
 	public:
-	
-		T data;
+		Node<T> *root;
+		int size;
 
-		Node<T> * left;
-		Node<T> * right;
-		Node<T> * parent;
-
-	Node(T obj) //constructeur
+	AVL() //contructeur avl class AVLTREE
 	{
-		data=obj;
-		parent =NULL;
-		left = NULL;
-		right = NULL;
+		root = NULL;
+		size = 0;
 	}
-	
-	void	checkBalance(Node<T> * node, Node<T> **root)
+
+	void 	add(T obj) //add normal
 	{
-		// std::cout << height(node->left) << std::endl;
-		// std::cout << height(node->right) << std::endl;
-		if (height(node->left) - height(node->right) > 1 || height(node->left) - height(node->right) < -1)
-			rebalance(node, root);
-		if (node->parent == NULL)
+		Node<T> * node = new Node<T>(obj);
+		if (root == NULL)
+		{
+			root = node;
+			size++;
 			return;
-		checkBalance(node->parent, root);
+		}
+		add(root, node);
 	}
 
-	void rebalance(Node<T> * node, Node<T> **root) {
-		std::cout << "atta jte rebalance ca bro" << node->data << std::endl;
-		// std::cout << "r = " << node->data << std::endl;
-		// std::cout << "r = " << height(node->right->left) << std::endl;
-		// std::cout << "l = " << height(node->right->right) << std::endl;
-		if (height(node->right) - height(node->left) > 1) {
-			if (height(node->right->left) < height(node->right->right)) {
-				node = left_rotate(node);
-				std::cout << "left" << std::endl;
-			}
-			else {
-				node = right_left_rotate(node);
-				std::cout << "right left" << std::endl;
-			}
+	void	add(Node<T> * parent, Node<T> * newNode) //add recurcif
+	{
+		if (newNode->data > parent->data)
+		{
+			if (parent->right == NULL)
+			{
+				parent->right = newNode;
+				newNode->parent = parent;
+				size++;
+			} else 
+				add(parent->right, newNode);
+		} else
+		{
+			if (parent->left == NULL)
+			{
+				parent->left = newNode;
+				newNode->parent = parent;
+				size++;
+			} else 
+				add(parent->left, newNode);
 		}
-		else {
-			if (height(node->left->left) > height(node->left->right)) {
-				node = right_rotate(node);
-				std::cout << "right" << std::endl;
-			}
-			else {
-				node = left_right_rotate(node);
-				std::cout << "left right" << std::endl;
-			}
-		}
-		// 		std::cout << "tmp" << std::endl;
-		// std::cout << node->parent << std::endl;
-		// std::cout << node->data << std::endl;
-		// std::cout << node->left->data << std::endl;
-		// std::cout << node->right->data << std::endl;
+		// std::cout <<"papa = "<< parent->data << std::endl;
+		// std::cout << "rrrrr = " <<parent->right << std::endl;
+		// if (parent->right)
+		// 	std::cout << "right = " << parent->right->data << std::endl;
+		// std::cout << "lllll = " <<parent->left << std::endl;
+		// if (parent->left)
+		// 	std::cout << "left = " << parent->left->data << std::endl;
+		root->checkBalance(parent, &root);
+	}
 
-		if (node->parent == NULL)
-			*root = node;
+	void print_set(int floor, int index, int height, Node<T> * node) {
+		//  std::cout << "floor = " << floor << " index = " << index << " height = " << height << std::endl;
+		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
+			std::cout << " ";
+		int v = 2;
+		for (int x = pow(2, floor - 1) ; x > 0; x/=2) {
+			// std::cout << "X = " << x << std::endl;
+			if (node != NULL && index / x == 0) {
+					node = node->left;
+				// std::cout << "GO left" << std::endl;
+			}
+			else if (node != NULL){
+				index -= x;
+				node = node->right;
+				// std::cout << "GO right" << std::endl;
+			}
+		}
+		if (node != NULL)
+			std::cout << node->data;
 		else
-			node->parent->right = node;
+			std::cout << "X";
+		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
+			std::cout << " ";
 	}
 
-	Node<T> *left_rotate(Node<T> * node) {
-		Node<T> * tmp = node->right;
-		Node<T> * tmparent = node->parent;
-		node->right = tmp->left;
-		tmp->left = node;
-		tmp->parent = tmparent;
-		node->parent = tmp;
-		// std::cout << "tmp" << std::endl;
-		// std::cout << tmp->data << std::endl;
-		// std::cout << tmp->left->data << std::endl;
-		// std::cout << tmp->right->data << std::endl;
-		return tmp; 
-	}
+	void print(Node<T> *node, int floor, int height) {
+		for (int x = 0; x < pow(2, floor); x++) {
+			print_set(floor, x, height, node);
+			if (x != pow(2, floor) - 1)
+			std::cout << ".";
+		}
+		if (floor == height - 1)
+			return;
+		std::cout << std::endl;
 
-	Node<T> *right_rotate(Node<T> * node) {
-		Node<T> * tmp = node->left;
-		Node<T> * tmparent = node->parent;
-		node->left = tmp->right;
-		tmp->right = node;
-		tmp->parent = tmparent;
-		node->parent = tmp;
-
-		return tmp; 
-	}
-
-	Node<T> *right_left_rotate(Node<T> * node) {
-		node->right = right_rotate(node->right);
-		return left_rotate(node);
-	}
-
-	Node<T> *left_right_rotate(Node<T> * node) {
-		node->left = left_rotate(node->left);
-		return right_rotate(node);
-	}
-
-	int height(Node<T> * node) {
-		if (node == NULL)
-			return 0;
-		int right = height(node->right);
-		int left = height(node->left);
-		if (left > right)
-			return left + 1;
-		return right + 1;
+		print(node, floor + 1, height);
 	}
 
 
