@@ -48,9 +48,12 @@ class Node
 
 	void rebalance(Node<T> * node, Node<T> **root) {
 		std::cout << "parent of " << node->data << " is " << node->parent << std::endl;
+		bool is_right;
 		Node<T> * tmparent = node->parent;
-		if (node->parent != NULL)
-			bool right = node->parent->right == parent;
+		if (node->parent != NULL) {
+			is_right = node->parent->right == node;
+			std::cout << "right = " << right << std::endl;
+		}
 		if (height(node->right) - height(node->left) > 1) {
 			if (height(node->right->left) < height(node->right->right)) {
 				std::cout << "left " << node->data << std::endl;
@@ -77,7 +80,7 @@ class Node
 					*root = node;
 				}
 				else {
-				if (right)
+				if (is_right == true)
 					tmparent->right  = node;
 				else
 					tmparent->left = node;

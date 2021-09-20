@@ -15,6 +15,7 @@ class AVL
 
 	void 	add(T obj) //add normal
 	{
+		std::cout << "-> add " << obj << std::endl;
 		Node<T> * node = new Node<T>(obj);
 		if (root == NULL)
 		{
@@ -81,7 +82,7 @@ class AVL
 			std::cout << " ";
 	}
 
-	void print(Node<T> *node, int floor, int height) {
+	void print_r(Node<T> *node, int floor, int height) {
 		for (int x = 0; x < pow(2, floor); x++) {
 			print_set(floor, x, height, node);
 			if (x != pow(2, floor) - 1)
@@ -91,7 +92,13 @@ class AVL
 			return;
 		std::cout << std::endl;
 
-		print(node, floor + 1, height);
+		print_r(node, floor + 1, height);
+	}
+
+	void print() {
+		std::cout << std::endl;
+		print_r(root, 0, root->height(root));
+		std::cout << std::endl;
 	}
 
 

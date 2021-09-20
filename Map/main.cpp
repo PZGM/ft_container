@@ -5,19 +5,25 @@ int main() {
 
 
 	tree.add(4);
+	tree.print();
 	tree.add(8);
+	tree.print();
 	tree.add(0);
+	tree.print();
 	tree.add(5);
+	tree.print();
 	tree.add(6);
+	tree.print();
 	tree.add(9);
+	tree.print();
 	tree.add(7);
+	tree.print();
 	tree.add(1);
+	tree.print();
 	tree.add(2);
-// 	tree.print(tree.root, 0, tree.root->height(tree.root));
-// std::cout << "\n" << std::endl;
- 	// tree.add(3);
-// 	tree.print(tree.root, 0, tree.root->height(tree.root));
-// std::cout << "\n" << std::endl;
+	tree.print();
+ 	tree.add(3);
+	tree.print();
 
 	// tree.add(1);
 	// tree.add(2);
@@ -91,7 +97,7 @@ int main() {
 // std::cout << "\n" << std::endl;
 // std::cout << "=>add p" << std::endl;
 // tree.add('p');
-tree.print(tree.root, 0, tree.root->height(tree.root));
+// tree.print();
 // std::cout << "\n" << std::endl;
 // std::cout << std::endl;
 // std::cout << tree.root->height(tree.root) << std::endl;
