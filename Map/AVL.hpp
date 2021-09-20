@@ -46,32 +46,20 @@ class AVL
 				size++;
 			} else 
 				add(parent->left, newNode);
-		}
-		// std::cout <<"papa = "<< parent->data << std::endl;
-		// std::cout << "rrrrr = " <<parent->right << std::endl;
-		// if (parent->right)
-		// 	std::cout << "right = " << parent->right->data << std::endl;
-		// std::cout << "lllll = " <<parent->left << std::endl;
-		// if (parent->left)
-		// 	std::cout << "left = " << parent->left->data << std::endl;
 		root->checkBalance(parent, &root);
 	}
 
 	void print_set(int floor, int index, int height, Node<T> * node) {
-		//  std::cout << "floor = " << floor << " index = " << index << " height = " << height << std::endl;
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
 		int v = 2;
 		for (int x = pow(2, floor - 1) ; x > 0; x/=2) {
-			// std::cout << "X = " << x << std::endl;
 			if (node != NULL && index / x == 0) {
 					node = node->left;
-				// std::cout << "GO left" << std::endl;
 			}
 			else if (node != NULL){
 				index -= x;
 				node = node->right;
-				// std::cout << "GO right" << std::endl;
 			}
 		}
 		if (node != NULL)
