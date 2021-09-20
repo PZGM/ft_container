@@ -45,6 +45,10 @@ class Node
 	}
 
 	void rebalance(Node<T> * node, Node<T> **root) {
+		if (node->parent)
+			std::cout << "Parent of " << node->data << " is " << node->parent->data << std::endl;
+		else
+			std::cout << node->data << " has no parent" << std::endl;
 		bool is_right;
 		Node<T> * tmparent = node->parent;
 		if (node->parent != NULL) {
@@ -79,28 +83,24 @@ class Node
 	}
 
 	Node<T> *left_rotate(Node<T> * node) {
+		std::cout << "___left rotate " << node->data << std::endl;
 		Node<T> * tmp = node->right;
 		node->right = tmp->left;
 		tmp->left = node;
 		node->parent = tmp;
+			if (node->right)
+		node->right->parent = node;
 		return tmp; 
 	}
 
 	Node<T> *right_rotate(Node<T> * node) {
+		std::cout << "___right rotate " << node->data << std::endl;
 		Node<T> * tmp = node->left;
 		node->left = tmp->right;
 		tmp->right = node;
 		node->parent = tmp;
-
-		return tmp; 
-	}
-
-	Node<T> *parent_right_rotate(Node<T> * node) {
-		Node<T> * tmp = node->left;
-		node->left = tmp->right;
-		tmp->right = node;
-		node->parent = tmp;
-
+		if (node->left)
+			node->left->parent = node;
 		return tmp; 
 	}
 
