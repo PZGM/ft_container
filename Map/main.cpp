@@ -42,20 +42,20 @@ int main() {
 	// tree.add(8);
 	// tree.add(9);
 	tree.add(9);
-	tree.print();
 	tree.add(2);
-	tree.print();
 	tree.add(7);
-	tree.print();
 	tree.add(6);
-	tree.print();
-	tree.add(3);
-	tree.print();
 	tree.add(1);
-	tree.print();
 	tree.add(5);
-	tree.print();
+	tree.add(3);
 	tree.add(4);
+	tree.add(0);
+	tree.print();
+	tree.remove(tree.find(7));
+	tree.remove(tree.find(9));
+		tree.remove(tree.find(5));
+	tree.print();
+
 	// tree.add('r');
 	// tree.add('g');
 	// tree.add('p');
@@ -74,7 +74,6 @@ int main() {
 	// tree.add('u');
 	// tree.add('b');
 	// tree.add('y');
-	tree.print();
 
 // tree.add('q');
 // tree.print(tree.root, 0, tree.root->height(tree.root));

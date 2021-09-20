@@ -26,6 +26,78 @@ class AVL
 		add(root, node);
 	}
 
+	Node<T> * find(T val) {
+		return find_r(root, val);		
+	}
+
+	Node<T> * find_r(Node<T> * root, T val) {
+		if (root->data == val)
+			return root;
+		if (root->data > val) {
+			if (root->left)
+				return find_r(root->left, val);
+			return NULL;
+		}
+		else {
+			if (root->right)
+				return find_r(root->right, val);
+			return NULL;
+		}
+	}
+
+	void remove(Node<T> * node) {
+		Node<T> * parent = node->parent;
+		if (node->right == NULL && node->left == NULL) {
+			if (parent->right == node)
+				parent->right = NULL;
+			else
+				parent->left = NULL;
+			delete node;
+			parent->checkBalance(parent, &root);
+			return;
+		}
+		else if (node->right == NULL) {
+			if (parent->right == node) {
+				parent->right = node->left;
+				node->left->parent = parent;
+			}
+			else
+			{
+				parent->left = node->left;
+				node->left->parent = parent;
+			}
+			delete node;
+			parent->checkBalance(parent, &root);
+			return;
+		}
+		else if (node->left == NULL) {
+			if (parent->right == node) {
+				parent->right = node->right;
+				node->right->parent = parent;
+			}
+			else
+			{
+				parent->left = node->right;
+				node->right->parent = parent;
+			}
+			delete node;
+			parent->checkBalance(parent, &root);
+			return;
+		}
+		Node<T> * succ = in_order_succ(node);
+		std::cout << succ->data << std::endl;
+		//delete proprement la data de node
+		node->data = succ->data;
+		remove(succ);
+	}
+
+	Node<T> * in_order_succ(Node<T> * node) {
+		node = node->left;
+		while (node->right)
+			node = node->right;
+		return node;
+	}
+
 	void	add(Node<T> * parent, Node<T> * newNode) //add recurcif
 	{
 		if (newNode->data > parent->data)
