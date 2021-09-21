@@ -10,12 +10,21 @@ class AVL
 {
 	public:
 		Node<ft::pair<Key, Value> > *root;
+		Node<ft::pair<Key, Value> > *end;
+		Node<ft::pair<Key, Value> > *rend;
 		int size;
 
 	AVL() //contructeur avl class AVLTREE
 	{
 		root = NULL;
 		size = 0;
+		ft::pair<Key, Value> pr('>', 0);
+		rend= new Node<ft::pair<Key, Value> >(pr);
+		root = rend;
+		ft::pair<Key, Value> pr2('<', 0);
+		end = new Node<ft::pair<Key, Value> >(pr2);
+		rend->right = end;
+		end->parent = rend;
 	}
 
 	~AVL() {
@@ -34,37 +43,35 @@ class AVL
 
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) //add normal
 	{
-		size++;
 		ft::pair<Key, Value> pr(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
-		if (root == NULL)
-		{
-			root = node;
-			size++;
-			return node;
-		}
+		// if (root == NULL)
+		// {
+		// 	root = node;
+		// 	size++;
+		// 	return node;
+		// } 		useless with rend/end
 		add(root, node);
 		return node;
 	}
 
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) //add with hint
 	{
-		size++;
 		ft::pair<Key, Value> pr(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
-		if (nd == NULL)
-		{
-			nd = node;
-			size++;
-			return node;
-		}
+		// if (nd == NULL)
+		// {
+		// 	nd = node;
+		// 	size++;
+		// 	return node;
+		// }
 		add(nd, node);
 		return node;
 	}
 
 	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) //add recurcif
 	{
-		if (newNode->data.first > parent->data.first)
+		if (parent == rend || (parent != end && newNode->data.first > parent->data.first))
 		{
 			if (parent->right == NULL)
 			{
@@ -91,11 +98,11 @@ class AVL
 	}
 
 	Node<ft::pair<Key, Value> > * find_r(Node<ft::pair<Key, Value> > * root, Key val) {
-		if (!root)
+		if (root == NULL)
 			return NULL;
 		if (root->data.first == val)
 			return root;
-		if (root->data.first > val) {
+		if (root == end || root->data.first > val) {
 			if (root->left)
 				return find_r(root->left, val);
 			return NULL;
@@ -202,6 +209,25 @@ class AVL
 		std::cout << std::endl;
 	}
 
+	bool is_null(Node<ft::pair<Key, Value> > *node) {
+		return (node == NULL || node == end || node == rend);
+	}
+
+	Node<ft::pair<Key, Value> > * get_begin() {
+		return rend->right;
+	}
+
+	Node<ft::pair<Key, Value> > * get_rbegin() {
+		return end->parent;
+	}
+
+	Node<ft::pair<Key, Value> > * get_end() {
+		return end;
+	}
+
+	Node<ft::pair<Key, Value> > * get_rend() {
+		return rend;
+	}
 
 };
 

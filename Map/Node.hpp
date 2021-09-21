@@ -37,6 +37,13 @@ class Node
 		left = NULL;
 		right = NULL;
 	}
+
+		Node() //default constructeur
+	{
+		parent = NULL;
+		left = NULL;
+		right = NULL;
+	}
 	
 	void	checkBalance(Node<T> * node, Node<T> **root)
 	{

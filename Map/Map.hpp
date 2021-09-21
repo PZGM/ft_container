@@ -46,12 +46,13 @@ namespace ft
 					_storage = new AVL<Key, T>();
 				}
 
-				//range constructor
+				// //range constructor
 
-				template <class InputIterator>
-					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){	
-					}
-				//  copy constructoor
+				// template <class InputIterator>
+				// 	map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){	
+				// 	}
+
+				// // copy constructoor
 				// map(const map& src) {
 				// }
 
@@ -73,65 +74,60 @@ namespace ft
 				// }
 
 
-				// //begin
+				//begin
 				iterator			begin() {
-					return (iterator(_storage));
+					return (iterator(_storage->get_begin));
 				}
 
 				const_iterator		begin() const {
-					return (iterator(_storage));
+					return (iterator(_storage->get_begin));
 				}
-				// //end
-				// iterator			end() {
-				// 	return (iterator(_xnode));
-				// }
 
-				// const_iterator		end() const {
-				// 	return (iterator(_xnode));
-				// }
-				// //rbegin
-				// reverse_iterator		rbegin() {
-				// 	return (reverse_iterator(_xnode->prev));
-				// }
+				//end
+				iterator			end() {
+					return (iterator(_storage->get_end));
+				}
 
-				// const_reverse_iterator	rbegin() const {
-				// 	return (reverse_iterator(_xnode->prev));
-				// }
-				// //rend
-				// reverse_iterator		rend() {
-				// 	return (reverse_iterator(_xnode));
-				// }
+				const_iterator		end() const {
+					return (iterator(_storage->get_end));
+				}
+				//rbegin
+				reverse_iterator		rbegin() {
+					return (reverse_iterator(_storage->get_rbegin));
+				}
 
-				// const_reverse_iterator	rend() const {
-				// 	return (reverse_iterator(_xnode));
-				// }
-				// //empty
-				// bool				empty() const {
-				// 	return (!_size);
-				// }
-				// //size
-				// size_type			size() const {
-				// 	return (_size);
-				// }
-				// //max_size
-				// size_type			max_size() const {
-				// 	return (allocator_type().max_size()/5);
-				// }
-				// //operator[]
-				// mapped_type & operator[] (const key_type& k) {
-				// 	if (count(k) == 0) {
-				// 		const pair<const Key, T> x(k, T());
-				// 		insert(x);
-				// 	}
-				// 	struct_type * cur;
-				// 	cur = _xnode->next;
-				// 	while (cur != _xnode) { 
-				// 		if (cur->key == k)
-				// 			return cur->val;
-				// 		cur = cur->next;
-				// 	}
-				// 	return cur->val;
-				// }
+				const_reverse_iterator	rbegin() const {
+					return (reverse_iterator(_storage->get_rbegin));
+				}
+				//rend
+				reverse_iterator		rend() {
+					return (reverse_iterator(_storage->get_rend));
+				}
+
+				const_reverse_iterator	rend() const {
+					return (reverse_iterator(_storage->get_rend));
+				}
+
+				//empty
+				bool				empty() const {
+					return (!_storage->size);
+				}
+				//size
+				size_type			size() const {
+					return (_storage->size);
+				}
+				//max_size
+				size_type			max_size() const {
+					return (allocator_type().max_size()/5);
+				}
+
+				//operator[]
+				mapped_type & operator[] (const key_type& k) {
+					if (count(k) == 0)
+						_storage->add(k, T());
+					Node<ft::pair<Key, T> > *node = _storage->find(k);
+					return node->data.second;
+				}
 
 				//insert
 				iterator insert(iterator position, const value_type& val){
@@ -206,32 +202,28 @@ namespace ft
 				}
 
 				//find
-				// iterator find (const key_type& k) {
-				// 	if (!_storage)
-				// 	Node<ft::pair<Key, Value> > *node = _storage->find()
-				// 	return it;
-				// }
+				iterator find (const key_type& k) {
+					Node<ft::pair<Key, T> > *node = _storage->find(k);
+					if (node == NULL)
+						return end();
+					return iterator(node);
+				}
 
-				// const_iterator find (const key_type& k) const {
-				// 	iterator it = begin();
-				// 	while (it != end() && (*it).first != k)
-				// 		it++;
-				// 	const_iterator ite = it;
-				// 	return ite;
-				// }
+				const_iterator find (const key_type& k) const {
+					Node<ft::pair<Key, T> > *node = _storage->find(k);
+					if (node == NULL)
+						return end();
+					return const_iterator(node);
+				}
 
 
-				// //count
-				// size_type count (const key_type& k) const {
-				// 	struct_type * cur = _xnode->next;
-				// 	while (cur != _xnode)
-				// 	{
-				// 		if (cur->key == k)
-				// 			return 1;
-				// 		cur = cur->next;
-				// 	}
-				// 	return 0;
-				// }
+				//count
+				size_type count (const key_type& k) const {
+					Node<ft::pair<Key, T> > *node = _storage->find(k);
+					if (node == NULL)
+						return 0;
+					return 1;
+				}
 
 
 				// // lower_bound
@@ -287,10 +279,51 @@ namespace ft
 			private:
 
 				AVL<Key, T> * _storage;
+				AVL<Key, T> * _end;
+				AVL<Key, T> * _rend;
 
 				Node<ft::pair<Key, T> > * get_node(iterator it) {
 					return (_storage->find((*it).first));
 				}
+
+				// Node<ft::pair<Key, T> > * get_first() {
+				// 	if (!root)
+				// 		return null;
+				// 	Node<ft::pair<Key, T> > * node = root;
+				// 	while (node->left)
+				// 		node = node->left;
+				// 	return node;
+				// }
+
+				// Node<ft::pair<Key, T> > * get_last() {
+				// 	if (!root)
+				// 		return null;
+				// 	Node<ft::pair<Key, T> > * node = root;
+				// 	while (node->right)
+				// 		node = node->right;
+				// 	return node;
+				// }
+
+				// void link_ends() {
+				// 	Node<ft::pair<Key, T> > * node = get_first;
+				// 	node->left = _rend;
+				// 	_rend->parent = node;
+
+				// 	node = get_last;
+				// 	node->right = _end;
+				// 	_end->parent = node;
+				// }
+
+				// void unlink_ends() {
+				// 	_rend->parent
+				// 	Node<ft::pair<Key, T> > * node = get_first;
+				// 	node->left = _rend;
+				// 	_rend->parent = node;
+
+				// 	node = get_last;
+				// 	node->right = _end;
+				// 	_end->parent = node;
+				// }
 
 	// 			template <class InputIterator>
 	// 				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
