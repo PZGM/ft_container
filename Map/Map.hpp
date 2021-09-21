@@ -46,32 +46,43 @@ namespace ft
 					_storage = new AVL<Key, T>();
 				}
 
-				// //range constructor
+				//range constructor
 
-				// template <class InputIterator>
-				// 	map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){	
-				// 	}
+				template <class InputIterator>
+					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
+						_storage = new AVL<Key, T>();
+						while(first != last) {
+							_storage->add((*first).first, (*first).second);
+							first++;
+						}
+					}
 
-				// // copy constructoor
-				// map(const map& src) {
-				// }
+				// copy constructoor
+				map(const map& src) {
+					map<char, int>::iterator it = src.begin();
+					_storage = new AVL<Key, T>();
+					while(it != src.end()) {
+						_storage->add((*it).first, (*it).second);
+						it++;
+					}
+				}
 
 
 				//destructor 
 				~map() {
-					delete _storage;
 				}
 
-				// //operator=
-				// map<value_type, Alloc>		&operator=(const map<Key,T, Alloc> &x) {
-				// 	clear();
-				// 	delete (_xnode);
-				// 	_xnode = new struct_type;
-				// 	_xnode->next = _xnode;
-				// 	_xnode->prev = _xnode;
-				// 	insert(begin(), x.begin(), x.end());
-				// 	return (*this);
-				// }
+				//operator=
+				map<value_type, Alloc>		&operator=(const map<Key,T, Alloc> &x) {
+					delete _storage;
+					_storage = new AVL<Key, T>();
+					map<char, int>::iterator it = x.begin();
+					while(it != x.end()) {
+						_storage->add((*it).first, (*it).second);
+						it++;
+					}
+					return (*this);
+				}
 
 
 				//begin
@@ -286,108 +297,12 @@ namespace ft
 					return (_storage->find((*it).first));
 				}
 
-				// Node<ft::pair<Key, T> > * get_first() {
-				// 	if (!root)
-				// 		return null;
-				// 	Node<ft::pair<Key, T> > * node = root;
-				// 	while (node->left)
-				// 		node = node->left;
-				// 	return node;
-				// }
-
-				// Node<ft::pair<Key, T> > * get_last() {
-				// 	if (!root)
-				// 		return null;
-				// 	Node<ft::pair<Key, T> > * node = root;
-				// 	while (node->right)
-				// 		node = node->right;
-				// 	return node;
-				// }
-
-				// void link_ends() {
-				// 	Node<ft::pair<Key, T> > * node = get_first;
-				// 	node->left = _rend;
-				// 	_rend->parent = node;
-
-				// 	node = get_last;
-				// 	node->right = _end;
-				// 	_end->parent = node;
-				// }
-
-				// void unlink_ends() {
-				// 	_rend->parent
-				// 	Node<ft::pair<Key, T> > * node = get_first;
-				// 	node->left = _rend;
-				// 	_rend->parent = node;
-
-				// 	node = get_last;
-				// 	node->right = _end;
-				// 	_end->parent = node;
-				// }
-
-	// 			template <class InputIterator>
-	// 				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
-	// 					_xnode = new struct_type();	
-	// 					struct_type *cur = _xnode;
-	// 					struct_type *tmp = _xnode;
-	// 					int i = 0;
-
-	// 					while (first != last)
-	// 					{
-	// 						cur = new struct_type(*first);
-	// 						if (!tmp)
-	// 							_xnode->next = cur;
-	// 						else
-	// 							tmp->next = cur;
-	// 						cur->prev = tmp;
-	// 						tmp = cur;
-	// 						first++;;
-	// 						i++;
-	// 					}
-	// 					cur->next = _xnode;
-	// 					_xnode->prev = cur;
-	// 					_size = i;
-	// 				}
-
-	// 			void _constructor(size_type n, const T & val, struct ft::__true_type) {
-	// 				struct_type *cur;
-	// 				_xnode = new struct_type;	
-	// 				struct_type *tmp = _xnode;
-	// 				cur = _xnode;
-
-	// 				for (int i = 0; i < n; i++)
-	// 				{
-	// 					cur = new struct_type(val);
-	// 					if (!tmp)
-	// 						_xnode->next = cur;
-	// 					else
-	// 						tmp->next = cur;
-	// 					cur->prev = tmp;
-	// 					tmp = cur;
-	// 				}
-	// 				cur->next = _xnode;
-	// 				_xnode->prev  = cur;
-	// 				_size = n;
-	// 			}
-
-	// 			void _update_size() {
-	// 				size_type i = 0;
-	// 				struct_type * c = _xnode;
-	// 				while (c->next != _xnode)
-	// 				{
-	// 					i++;
-	// 					c = c->next;
-	// 				}
-	// 				_size = i;					
-	// 			}
-
-
 		};
 
-	// template <typename Key,typename T, class Alloc>
-	// 	void swap(ft::map<Key,T, Alloc> & x, ft::map<Key,T, Alloc> & y) {
-	// 		x.swap(y);
-	// 	}
+	template <typename Key,typename T, class Alloc>
+		void swap(ft::map<Key,T, Alloc> & x, ft::map<Key,T, Alloc> & y) {
+			x.swap(y);
+		}
 
 
 

@@ -13,19 +13,28 @@ int main() {
 	pair<const char, int> pr4('d', 42);
 	mp['a'] = 666;
 	mp['z'] = 222;
-	mp.print();
-	std::cout << "___" << std::endl;
-	map<char, int>::iterator it = mp.begin();
-	while (it != mp.end()) {
-		std::cout << (*it).first << " | " << (*it).second << std::endl;
-		it++;
-	}
 
-	std::cout << "___" << std::endl;
+	std::cout << "mop" << std::endl;
 
-	map<char, int>::reverse_iterator ite = mp.rbegin();
-	while (ite != mp.rend()) {
-		std::cout << (*ite).first << " | " << (*ite).second << std::endl;
-		ite++;
-	}
+	map<char, int> mop(mp.begin() + 1, mp.end() - 1);
+	mop.print();
+
+	std::cout << "mip" << std::endl;
+
+	map<char, int> mip(mp);
+	mip.print();
+
+	std::cout << "= de la discorde" << std::endl;
+
+	mip = mop;
+
+	std::cout << "mip" << std::endl;
+
+	mip.print();
+
+	std::cout << "mop" << std::endl;
+
+	mop.print();
+
+
 }
