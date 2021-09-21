@@ -14,16 +14,28 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 		MapIterator(Node<ft::pair<Key, Value> > * e) : p(e) {}
 		MapIterator(const MapIterator & mit) : p(mit.p) {}
 		MapIterator & operator++() {
-			if (p)
-				p = p->next;
+			if (p) {
+				if (p->right) {
+					p = p->right;
+					while (p->left)
+						p = p->left;
+				}
+				else { 
+					while (p->parent && p == p->parent->right) //when root parent null
+						p = p->parent;
+					p = p->parent;
+				}
+			}
 			return *this;
 		}
+
 		template <class Y>
 			MapIterator operator++(Y) {
 				MapIterator ret(*this);
 				operator++();
 				return ret;
 			}
+
 		MapIterator operator+(size_type n)
 		{
 			MapIterator ret(*this);
@@ -40,18 +52,29 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 			return (ret);
 		}
 
-
 		MapIterator & operator--() {
-			if (p)
-				p = p->prev;
+			if (p) {
+				if (p->left) {
+					p = p->left;
+					while (p->right)
+						p = p->right;
+				}
+				else { 
+					while (p->parent && p == p->parent->left) //when root parent null
+						p = p->parent;
+					p = p->parent;
+				}
+			}
 			return *this;
 		}
+
 		template <class Y>
 			MapIterator operator--(Y) {
 				MapIterator ret(*this);
 				operator--();
 				return ret;
 			}
+
 		MapIterator operator-(size_type n)
 		{
 			MapIterator ret(*this);
@@ -81,7 +104,6 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 	private:
 
 		Node<ft::pair<Key, Value> > * p;
-		ft::pair<Key, Value> x;
 };
 
 template <typename Key, typename Value>
@@ -92,10 +114,21 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Va
 		MapReverseIterator(Node<ft::pair<Key, Value> > * e) : p(e) {}
 		MapReverseIterator(const MapReverseIterator & mit) : p(mit.p) {}
 		MapReverseIterator & operator++() {
-			if (p)
-				p = p->prev;;
+			if (p) {
+				if (p->left) {
+					p = p->left;
+					while (p->right)
+						p = p->right;
+				}
+				else { 
+					while (p->parent && p == p->parent->left) //when root parent null
+						p = p->parent;
+					p = p->parent;
+				}
+			}
 			return *this;
 		}
+
 		template <class Y>
 			MapReverseIterator operator++(Y) {
 				MapReverseIterator ret(*this);
@@ -121,10 +154,21 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Va
 
 
 		MapReverseIterator & operator--() {
-			if (p)
-				p = p->prev;
+			if (p) {
+				if (p->right) {
+					p = p->right;
+					while (p->left)
+						p = p->left;
+				}
+				else { 
+					while (p->parent && p == p->parent->right) //when root parent null
+						p = p->parent;
+					p = p->parent;
+				}
+			}
 			return *this;
 		}
+
 		template <class Y>
 			MapReverseIterator operator--(Y) {
 				MapReverseIterator ret(*this);
@@ -160,6 +204,5 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Va
 	private:
 
 		Node<ft::pair<Key, Value> > * p;
-		ft::pair<Key, Value> x;
 };
 #endif

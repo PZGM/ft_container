@@ -214,10 +214,14 @@ class AVL
 	}
 
 	Node<ft::pair<Key, Value> > * get_begin() {
-		return rend->right;
+		if (rend->right)
+			return rend->right;
+		return rend->parent;
 	}
 
 	Node<ft::pair<Key, Value> > * get_rbegin() {
+		if (end->left)
+			return end->left;
 		return end->parent;
 	}
 

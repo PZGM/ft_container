@@ -76,36 +76,36 @@ namespace ft
 
 				//begin
 				iterator			begin() {
-					return (iterator(_storage->get_begin));
+					return (iterator(_storage->get_begin()));
 				}
 
 				const_iterator		begin() const {
-					return (iterator(_storage->get_begin));
+					return (iterator(_storage->get_begin()));
 				}
 
 				//end
 				iterator			end() {
-					return (iterator(_storage->get_end));
+					return (iterator(_storage->get_end()));
 				}
 
 				const_iterator		end() const {
-					return (iterator(_storage->get_end));
+					return (iterator(_storage->get_end()));
 				}
 				//rbegin
 				reverse_iterator		rbegin() {
-					return (reverse_iterator(_storage->get_rbegin));
+					return (reverse_iterator(_storage->get_rbegin()));
 				}
 
 				const_reverse_iterator	rbegin() const {
-					return (reverse_iterator(_storage->get_rbegin));
+					return (reverse_iterator(_storage->get_rbegin()));
 				}
 				//rend
 				reverse_iterator		rend() {
-					return (reverse_iterator(_storage->get_rend));
+					return (reverse_iterator(_storage->get_rend()));
 				}
 
 				const_reverse_iterator	rend() const {
-					return (reverse_iterator(_storage->get_rend));
+					return (reverse_iterator(_storage->get_rend()));
 				}
 
 				//empty

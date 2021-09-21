@@ -3,19 +3,29 @@
 using namespace ft;
 
 int main() {
-	map<char, int> map;
+	map<char, int> mp;
 	pair<const char, int> pr('a', 42);
-	map.insert(pr);
+	mp.insert(pr);
 	pair<const char, int> pr2('b', 42);
-	map.insert(pr2);
+	mp.insert(pr2);
 	pair<const char, int> pr3('c', 42);
-	map.insert(pr3);
+	mp.insert(pr3);
 	pair<const char, int> pr4('d', 42);
-	//map.print();
-	map['a'] = 666;
-	map['z'] = 222;
-	std::cout << map['a'] << std::endl;
-	std::cout << map['z'] << std::endl;
-	std::cout << map.size() << std::endl;
-	map.print();
+	mp['a'] = 666;
+	mp['z'] = 222;
+	mp.print();
+	std::cout << "___" << std::endl;
+	map<char, int>::iterator it = mp.begin();
+	while (it != mp.end()) {
+		std::cout << (*it).first << " | " << (*it).second << std::endl;
+		it++;
+	}
+
+	std::cout << "___" << std::endl;
+
+	map<char, int>::reverse_iterator ite = mp.rbegin();
+	while (ite != mp.rend()) {
+		std::cout << (*ite).first << " | " << (*ite).second << std::endl;
+		ite++;
+	}
 }
