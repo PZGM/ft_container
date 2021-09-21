@@ -1,10 +1,15 @@
-#include "Node.hpp"
+#ifndef AVL_HPP
+# define AVL_HPP
+
+
+# include "Node.hpp"
+# include "../pair.hpp"
 
 template<class Key, class Value>
 class AVL
 {
 	public:
-		Node<Key, Value> *root;
+		Node<ft::pair<Key, Value> > *root;
 		int size;
 
 	AVL() //contructeur avl class AVLTREE
@@ -16,10 +21,10 @@ class AVL
 	~AVL() {
 		if (root)
 			destroy(root);
-
+		size = 0;
 	}
 
-	void destroy(Node<Key, Value> * node) {
+	void destroy(Node<ft::pair<Key, Value> > * node) {
 		if (node->right)
 			destroy(node->right);
 		if (node->left)
@@ -27,21 +32,39 @@ class AVL
 		delete node;
 	}
 
-	void 	add(Key sec, Value obj) //add normal
+	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) //add normal
 	{
-		Node<Key, Value> * node = new Node<Key, Value>(sec, obj);
+		size++;
+		ft::pair<Key, Value> pr(sec, obj);
+		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		if (root == NULL)
 		{
 			root = node;
 			size++;
-			return;
+			return node;
 		}
 		add(root, node);
+		return node;
 	}
 
-	void	add(Node<Key, Value> * parent, Node<Key, Value> * newNode) //add recurcif
+	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) //add with hint
 	{
-		if (newNode->key > parent->key)
+		size++;
+		ft::pair<Key, Value> pr(sec, obj);
+		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
+		if (nd == NULL)
+		{
+			nd = node;
+			size++;
+			return node;
+		}
+		add(nd, node);
+		return node;
+	}
+
+	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) //add recurcif
+	{
+		if (newNode->data.first > parent->data.first)
 		{
 			if (parent->right == NULL)
 			{
@@ -63,27 +86,30 @@ class AVL
 		root->checkBalance(parent, &root);
 	}
 
-	Node<Key, Value> * find(Key val) {
+	Node<ft::pair<Key, Value> > * find(Key val) {
 		return find_r(root, val);		
 	}
 
-	Node<Key, Value> * find_r(Node<Key, Value> * root, Key val) {
-		if (root->key == val)
+	Node<ft::pair<Key, Value> > * find_r(Node<ft::pair<Key, Value> > * root, Key val) {
+		if (!root)
+			return NULL;
+		if (root->data.first == val)
 			return root;
-		if (root->key > val) {
+		if (root->data.first > val) {
 			if (root->left)
 				return find_r(root->left, val);
 			return NULL;
 		}
-		else {
+		else{
 			if (root->right)
 				return find_r(root->right, val);
 			return NULL;
 		}
 	}
 
-	void remove(Node<Key, Value> * node) {
-		Node<Key, Value> * parent = node->parent;
+	void remove(Node<ft::pair<Key, Value> > * node) {
+		size--;
+		Node<ft::pair<Key, Value> > * parent = node->parent;
 		if (node->right == NULL && node->left == NULL) {
 			if (parent->right == node)
 				parent->right = NULL;
@@ -121,15 +147,14 @@ class AVL
 			parent->checkBalance(parent, &root);
 			return;
 		}
-		Node<Key, Value> * succ = in_order_succ(node);
-		std::cout << succ->data << std::endl;
+		Node<ft::pair<Key, Value> > * succ = in_order_succ(node);
+		std::cout << succ->data.first << std::endl;
 		//delete proprement la data de node
 		node->data = succ->data;
-		node->key = succ->key;
 		remove(succ);
 	}
 
-	Node<Key, Value> * in_order_succ(Node<Key, Value> * node) {
+	Node<ft::pair<Key, Value> > * in_order_succ(Node<ft::pair<Key, Value> > * node) {
 		node = node->left;
 		while (node->right)
 			node = node->right;
@@ -137,7 +162,7 @@ class AVL
 	}
 
 
-	void print_set(int floor, int index, int height, Node<Key, Value> * node) {
+	void print_set(int floor, int index, int height, Node<ft::pair<Key, Value> > * node) {
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
 		int v = 2;
@@ -151,14 +176,14 @@ class AVL
 			}
 		}
 		if (node != NULL)
-			std::cout << node->data;
+			std::cout << node->data.first;
 		else
 			std::cout << "_";
 		for(int x = 0; x < pow(2, height - floor - 1) - 1; x++)
 			std::cout << " ";
 	}
 
-	void print_r(Node<Key, Value> *node, int floor, int height) {
+	void print_r(Node<ft::pair<Key, Value> > *node, int floor, int height) {
 		for (int x = 0; x < pow(2, floor); x++) {
 			print_set(floor, x, height, node);
 			if (x != pow(2, floor) - 1)
@@ -179,3 +204,5 @@ class AVL
 
 
 };
+
+#endif

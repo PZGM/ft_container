@@ -2,16 +2,16 @@
 # define MAP_ITERATOR_HPP
 
 #include <iterator>
-#include "ElemStruct.hpp"
+#include "Node.hpp"
 
 typedef size_t size_type;
 
-template <typename Key, typename T>
-class MapIterator : public std::iterator<std::input_iterator_tag, Key, T>
+template <typename Key, typename Value>
+class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 {
 	public:
 
-		MapIterator(ft::elem<Key, T> * e) : p(e) {}
+		MapIterator(Node<ft::pair<Key, Value> > * e) : p(e) {}
 		MapIterator(const MapIterator & mit) : p(mit.p) {}
 		MapIterator & operator++() {
 			if (p)
@@ -74,24 +74,22 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, T>
 			return p!=rhs.p;
 		}
 		
-		ft::pair<Key, T> & operator*() {
-			x.first = p->key;
-			x.second = p->val;
-			return x;
+		ft::pair<Key, Value> & operator*() {
+			return p->data;
 		}
 
 	private:
 
-		ft::elem<Key, T> * p;
-		ft::pair<Key, T> x;
+		Node<ft::pair<Key, Value> > * p;
+		ft::pair<Key, Value> x;
 };
 
-template <typename Key, typename T>
-class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, T>
+template <typename Key, typename Value>
+class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 {
 	public:
 
-		MapReverseIterator(ft::elem<Key,T> * e) : p(e) {}
+		MapReverseIterator(Node<ft::pair<Key, Value> > * e) : p(e) {}
 		MapReverseIterator(const MapReverseIterator & mit) : p(mit.p) {}
 		MapReverseIterator & operator++() {
 			if (p)
@@ -155,15 +153,13 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, T>
 		bool operator!=(const MapReverseIterator & rhs) const {
 			return p!=rhs.p;
 		}
-		ft::pair<Key, T> & operator*() {
-			x.first = p->key;
-			x.second = p->val;
-			return x;
+		ft::pair<Key, Value> & operator*() {
+			return p->data;
 		}
 
 	private:
 
-		ft::elem<Key, T> * p;
-		ft::pair<Key, T> x;
+		Node<ft::pair<Key, Value> > * p;
+		ft::pair<Key, Value> x;
 };
 #endif

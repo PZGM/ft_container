@@ -43,7 +43,7 @@ namespace ft
 				//default constructor
 
 				explicit	map(const key_compare & comp = key_compare()) {
-					_storage = new AVL<key_compare, T>();
+					_storage = new AVL<Key, T>();
 				}
 
 				//range constructor
@@ -132,16 +132,24 @@ namespace ft
 				// 	}
 				// 	return cur->val;
 				// }
+
 				//insert
 				iterator insert(iterator position, const value_type& val){
-					_storage->add(position, val);
-					_storage->print();
+					_storage->add(val.first, val.second, get_node(position));
 					return insert(val).first;		
 				}
 
 
 				pair<iterator,bool>			insert(const value_type& val) {
-					_storage->add(val->first,val->second);
+					Node<ft::pair<Key, T> > * nd = _storage->find(val.first);
+					if (nd != NULL) {
+						pair<iterator,bool> pr(nd, false);
+						return pr;
+					}
+					nd = _storage->add(val.first, val.second);
+					iterator it = iterator(nd);
+					pair<iterator,bool> pr(it, true);
+					return pr;
 				}
 
 				template <class InputIterator>
@@ -155,90 +163,52 @@ namespace ft
 						}
 					}
 
-				// //erase
-				void					erase(iterator position) {
-					typename ft::map<Key,T, Alloc>::iterator it = begin();
-					_storage->remove(position);
-					_storage->size--;
+				void					print() {
+					if (_storage)
+						_storage->print();
 				}
 
-				// size_type erase(const key_type& k) {
-				// 	typename ft::map<Key,T, Alloc>::iterator it = begin();
-				// 	struct_type * cur = _xnode->next;
-				// 	while ((*it).first != k)
-				// 	{
-				// 		it++;
-				// 		cur = cur->next;
-				// 		if (cur == _xnode)
-				// 			return 0;
-				// 	}
-				// 	cur->prev->next = cur->next;
-				// 	cur->next->prev = cur->prev;
-				// 	it = iterator(cur->next);
-				// 	delete cur;
-				// 	_size--;
-				// 	return 1;
-				// }
+				//erase
+				void					erase(iterator position) {
+					_storage->remove(get_node(position));
+				}
 
 
-				// void					erase(iterator first, iterator last) {
-				// 	typename ft::map<Key,T, Alloc>::iterator it = begin();
-				// 	struct_type * efirst = _xnode->next;
-				// 	while (it != first)
-				// 	{
-				// 		it++;
-				// 		efirst = efirst->next;
-				// 	}
-				// 	struct_type * elast = efirst;
-				// 	while (it != last)
-				// 	{
-				// 		it++;
-				// 		elast = elast->next;
-				// 	}
-				// 	efirst->prev->next = elast;
-				// 	elast->prev = efirst->prev;
-				// 	it = iterator(efirst);
-				// 	struct_type * tmp;
-				// 	while (efirst != elast)
-				// 	{
-				// 		tmp = efirst;
-				// 		efirst = efirst->next;
-				// 		delete tmp;
-				// 		_size--;
-				// 	}
-				// }
+				size_type erase(const key_type& k) {
+					Node<ft::pair<Key, T> > node = _storage->find(k);
+					if (!node)
+						return 0;
+					_storage->remove(node);
+					return 1;
+				}
 
-				// //swap
-				// void				swap (map& x) {
-				// 	size_type t = _size;
-				// 	struct_type *tmp = _xnode;
 
-				// 	_size = x._size;
-				// 	_xnode = x._xnode;
+				void					erase(iterator first, iterator last) {
+					while (first != last) {
+						erase (first);
+						first++;
+					}
+				}
 
-				// 	x._size = t;
-				// 	x._xnode = tmp;
-				// }
-				// //clear
-				// void				clear() {
-				// 	struct_type *cur = _xnode->next;
-				// 	struct_type *tmp;
-				// 	while (cur != _xnode)
-				// 	{
-				// 		tmp = cur;
-				// 		cur = cur->next;
-				// 		delete (tmp);
-				// 	}
-				// 	_xnode->prev = _xnode;
-				// 	_xnode->next = _xnode;
-				// 	_size = 0;
-				// }
+				//swap
+				void				swap (map& x) {
+					AVL<Key, T> * tmp = _storage;
 
-				// //find
+					_storage = x._storage;
+
+					x._storage = tmp;
+				}
+
+				//clear
+				void				clear() {
+					delete _storage;
+					_storage = NULL;
+				}
+
+				//find
 				// iterator find (const key_type& k) {
-				// 	iterator it = begin();
-				// 	while (it != end() && (*it).first != k)
-				// 		it++;
+				// 	if (!_storage)
+				// 	Node<ft::pair<Key, Value> > *node = _storage->find()
 				// 	return it;
 				// }
 
@@ -249,6 +219,8 @@ namespace ft
 				// 	const_iterator ite = it;
 				// 	return ite;
 				// }
+
+
 				// //count
 				// size_type count (const key_type& k) const {
 				// 	struct_type * cur = _xnode->next;
@@ -259,19 +231,14 @@ namespace ft
 				// 		cur = cur->next;
 				// 	}
 				// 	return 0;
+				// }
 
-				// }
-				// //lower_bound
+
+				// // lower_bound
 				// iterator lower_bound (const key_type& k) {
-				// 	struct_type *cur = _xnode->next;
-				// 	if (_size == 0)
-				// 		return iterator(_xnode);
-				// 	if (Compare()(k, cur->key)) {
-				// 	while (Compare()(k, cur->key))
-				// 		cur = cur->next;
-				// 	}
-				// 	return iterator(cur);
+				// 	return _storage->find(k);
 				// }
+
 				// const_iterator lower_bound (const key_type& k) const {
 				// 	struct_type *cur = _xnode->next;
 				// 	if (_size == 0)
@@ -283,6 +250,7 @@ namespace ft
 				// 	const_iterator curr = iterator(cur);
 				// 	return cur;
 				// }
+
 
 				// //upper_bound
 				// iterator upper_bound(const key_type& k) {
@@ -318,7 +286,11 @@ namespace ft
 
 			private:
 
-				AVL<key_compare, T> * _storage;
+				AVL<Key, T> * _storage;
+
+				Node<ft::pair<Key, T> > * get_node(iterator it) {
+					return (_storage->find((*it).first));
+				}
 
 	// 			template <class InputIterator>
 	// 				void _constructor(InputIterator first, InputIterator last, struct ft::__false_type) {
