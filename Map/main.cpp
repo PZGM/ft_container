@@ -36,5 +36,15 @@ int main() {
 
 	mop.print();
 
+	mop.clear();
+	mop.clear();
+	mop.clear();
+	mop.clear();
 
+	mop.print();
+
+	mop.insert(pr);
+	mop.insert(pr2);
+
+	mop.print();
 }

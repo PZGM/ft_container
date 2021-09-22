@@ -57,7 +57,7 @@ namespace ft
 						}
 					}
 
-				// copy constructoor
+				// copy constructor
 				map(const map& src) {
 					map<char, int>::iterator it = src.begin();
 					_storage = new AVL<Key, T>();
@@ -70,14 +70,15 @@ namespace ft
 
 				//destructor 
 				~map() {
+					delete _storage;
 				}
 
 				//operator=
-				map<value_type, Alloc>		&operator=(const map<Key,T, Alloc> &x) {
+				map		&operator=(const map &x) {
 					delete _storage;
 					_storage = new AVL<Key, T>();
-					map<char, int>::iterator it = x.begin();
-					while(it != x.end()) {
+					map::iterator it = x.begin();
+					while (it != x.end()) {
 						_storage->add((*it).first, (*it).second);
 						it++;
 					}
@@ -182,7 +183,7 @@ namespace ft
 
 
 				size_type erase(const key_type& k) {
-					Node<ft::pair<Key, T> > node = _storage->find(k);
+					Node<ft::pair<Key, T> > * node = _storage->find(k);
 					if (!node)
 						return 0;
 					_storage->remove(node);
@@ -192,7 +193,7 @@ namespace ft
 
 				void					erase(iterator first, iterator last) {
 					while (first != last) {
-						erase (first);
+						_storage->remove(get_node(first));
 						first++;
 					}
 				}
@@ -208,8 +209,11 @@ namespace ft
 
 				//clear
 				void				clear() {
-					delete _storage;
-					_storage = NULL;
+					map::iterator it = begin();
+					while (it != end()) {
+						_storage->remove(get_node(it));
+						it++;
+					}
 				}
 
 				//find
@@ -290,8 +294,6 @@ namespace ft
 			private:
 
 				AVL<Key, T> * _storage;
-				AVL<Key, T> * _end;
-				AVL<Key, T> * _rend;
 
 				Node<ft::pair<Key, T> > * get_node(iterator it) {
 					return (_storage->find((*it).first));

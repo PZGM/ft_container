@@ -30,7 +30,6 @@ class AVL
 	~AVL() {
 		if (root)
 			destroy(root);
-		size = 0;
 	}
 
 	void destroy(Node<ft::pair<Key, Value> > * node) {
@@ -115,7 +114,6 @@ class AVL
 	}
 
 	void remove(Node<ft::pair<Key, Value> > * node) {
-		size--;
 		Node<ft::pair<Key, Value> > * parent = node->parent;
 		if (node->right == NULL && node->left == NULL) {
 			if (parent->right == node)
@@ -124,6 +122,7 @@ class AVL
 				parent->left = NULL;
 			delete node;
 			parent->checkBalance(parent, &root);
+			size--;
 			return;
 		}
 		else if (node->right == NULL) {
@@ -138,6 +137,7 @@ class AVL
 			}
 			delete node;
 			parent->checkBalance(parent, &root);
+			size--;
 			return;
 		}
 		else if (node->left == NULL) {
@@ -152,10 +152,10 @@ class AVL
 			}
 			delete node;
 			parent->checkBalance(parent, &root);
+			size--;
 			return;
 		}
 		Node<ft::pair<Key, Value> > * succ = in_order_succ(node);
-		std::cout << succ->data.first << std::endl;
 		//delete proprement la data de node
 		node->data = succ->data;
 		remove(succ);
@@ -214,12 +214,16 @@ class AVL
 	}
 
 	Node<ft::pair<Key, Value> > * get_begin() {
+		if (size == 0)
+			return end;
 		if (rend->right)
 			return rend->right;
 		return rend->parent;
 	}
 
 	Node<ft::pair<Key, Value> > * get_rbegin() {
+		if (size == 0)
+			return rend;
 		if (end->left)
 			return end->left;
 		return end->parent;
@@ -232,6 +236,7 @@ class AVL
 	Node<ft::pair<Key, Value> > * get_rend() {
 		return rend;
 	}
+
 
 };
 
