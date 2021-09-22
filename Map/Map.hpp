@@ -244,12 +244,13 @@ namespace ft
 
 
 				// lower_bound
-				iterator lower_bound (const key_type& k) {
-					iterator lower = this->begin();
+				iterator upper_bound(const key_type& k) {
+					iterator upper = this->begin();
 					iterator end = this->end();
-					while (lower != end && key_compare()((*lower).first, k))
-						lower++;
-					return (lower);
+					while (upper != end && key_compare()(k, (*upper).first))
+						upper++;
+					upper++;
+					return (upper);
 				}
 
 				// const_iterator lower_bound (const key_type& k) const {
@@ -266,13 +267,15 @@ namespace ft
 
 
 				//upper_bound
-				iterator upper_bound(const key_type& k) {
-					iterator upper = this->begin();
+				iterator lower_bound (const key_type& k) {
+					iterator lower = this->begin();
 					iterator end = this->end();
-					while (upper != end && !key_compare()(k, (*upper).first))
-						upper++;
-					return (upper);
+					while (lower != end && !key_compare()((*lower).first, k))
+						lower++;
+					lower--;
+					return (lower);
 				}
+
 
 				// const_iterator upper_bound (const key_type& k) const {
 				// 	struct_type *cur = _xnode->next;
