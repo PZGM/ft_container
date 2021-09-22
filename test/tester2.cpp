@@ -1,7 +1,8 @@
 #include <vector>
-#include <map>
+#include <list>
 #include <iostream>
-#include "../Map/Map.hpp"
+#include "../LisT/List.hpp"
+#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;
@@ -11,122 +12,225 @@ using namespace ft;
 
 int main()
 {
-	map<char,int> map1;
-	map<char, int>::iterator it = map1.begin();
-	map<char, int>::reverse_iterator ite = map1.rbegin();
-	map<char,int> map4;
-	map<char,int> map5(map4);
+	std::cout << "+++Vector constructor and basics with char+++" << std::endl;
+	std::cout << "===Default constructor===" << std::endl;
+	vector<char> vec1;
+	std::cout << vec1.size() << std::endl;
+	for (vector<char>::iterator it = vec1.begin(); it != vec1.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec1.rbegin(); it != vec1.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "===MAX SIZE = " << map5.max_size() << " ===" << std::endl;
+	std::cout << "===Fill constructor===" << std::endl;
+	vector<char> vec2(10,'a');
+	std::cout << vec2.size() << std::endl;
+	for (vector<char>::iterator it = vec2.begin(); it != vec2.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec2.rbegin(); it != vec2.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "===Acces Read===" << std::endl;
+	std::cout << "===Fill constructor to empty===" << std::endl;
+	vector<char> vec3(0,'b');
+	std::cout << vec3.size() << std::endl;
+	for (vector<char>::iterator it = vec3.begin(); it != vec3.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec3.rbegin(); it != vec3.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
-	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
-	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
+	std::cout << "===Fill constructor with default values===" << std::endl;
+	vector<char> vec4(15);
+	std::cout << vec4.size() << std::endl;
+	for (vector<char>::iterator it = vec4.begin(); it != vec4.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec4.rbegin(); it != vec4.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "===Acces Read/Write===" << std::endl;
+	std::cout << "===Fill constructor with implicit cast===" << std::endl;
+	vector<char> vec5(8,77);
+	std::cout << vec5.size() << std::endl;
+	for (vector<char>::iterator it = vec5.begin(); it != vec5.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec5.rbegin(); it != vec5.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "size = " << map1.size() << std::endl;
+	std::cout << "===Range constructor with empty vector===" << std::endl;
+	vector<char> vec6(vec3.begin(), vec3.end());
+	std::cout << vec6.size() << std::endl;
+	for (vector<char>::iterator it = vec6.begin(); it != vec6.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec6.rbegin(); it != vec6.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	map1['c'] = 46;
-	map1['g'] = 451;
-	map1['A'] = 421;
+	//change values of vec5 for incremental values
+	
+	char i = 48;
+	for (vector<char>::iterator it = vec5.begin(); it!= vec5.end(); it++)
+		*it = i++;
 
-	std::cout << "size = " << map1.size() << std::endl;
+	std::cout << "===Range constructor===" << std::endl;
+	vector<char> vec7(vec5.begin(), vec5.end());
+	std::cout << vec7.size() << std::endl;
+	for (vector<char>::iterator it = vec7.begin(); it != vec7.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec7.rbegin(); it != vec7.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
+	
+	std::cout << "===Range constructor with reverse iterator===" << std::endl;
+	vector<char> vec8(vec5.rbegin(), vec5.rend());
+	std::cout << vec8.size() << std::endl;
+	for (vector<char>::iterator it = vec8.begin(); it != vec8.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec8.rbegin(); it != vec8.rend(); it++)
+		std::cout << "^" << *it << std::endl;
 
-	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
-	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
-	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
-	std::cout << "map1['g'] = "<< map1['g'] << std::endl;
-	std::cout << "map1['A'] = "<< map1['A'] << std::endl;
+	//initialize a list
+	list<char> lst(6, 'z');
+	i = 0;
+	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
+		*it = i++;
 
-	std::cout << "===Inserts===" << std::endl;
+	std::cout << "===Range constructor with list iterators===" << std::endl;
+	vector<char> vec9(lst.begin(), lst.end());
+	std::cout << vec9.size() << std::endl;
+	for (vector<char>::iterator it = vec9.begin(); it != vec9.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec9.rbegin(); it != vec9.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
 
-	std::cout << "size : " << map5.size() << std::endl;
 
-	pair<const char, int> a('e', 42);
-	map5.insert(a);
+	std::cout << "===Range constructor with partial list iterators===" << std::endl;
+	
+	list<char>::iterator ite = lst.begin();
+	ite++;
+	ite++;
 
-	pair<const char, int> b('c', 41);
-	map5.insert(b);
+	list<char>::iterator itee = lst.end();
+	itee--;
 
-	pair<const char, int> c('e', 40);
-	map5.insert(c);
+	vector<char> vec10(ite, itee);
+	std::cout << vec10.size() << std::endl;
+	
+	vec10.insert(vec10.begin(), lst.begin(), lst.end());
 
-	pair<const char, int> d('f', 451);
-	map<char, int>::iterator  hint = map5.insert(c).first;
-	map5.insert(hint, d);
+	for (vector<char>::iterator it = vec10.begin(); it != vec10.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec10.rbegin(); it != vec10.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
+	
+	std::cout << "===Copy constructor===" << std::endl;
+	vector<char> vec11(vec5);
+	std::cout << vec11.size() << std::endl;
+	for (vector<char>::iterator it = vec11.begin(); it != vec11.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec11.rbegin(); it != vec11.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
+	
+	std::cout << "===Copy constructor with empty vector===" << std::endl;
+	vector<char> vec12(vec3);
+	std::cout << vec12.size() << std::endl;
+	for (vector<char>::iterator it = vec12.begin(); it != vec12.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec12.rbegin(); it != vec12.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
 
-	std::cout << "size : " << map5.size() << std::endl;
+	std::cout << "===Assign operator with empty vector===" << std::endl;
+	vec11 = vec3;
+	std::cout << vec11.size() << std::endl;
+	for (vector<char>::iterator it = vec11.begin(); it != vec11.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec11.rbegin(); it != vec11.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
+	
+	std::cout << "===Assign operator===" << std::endl;
+	vec12 = vec5;
+	std::cout << vec12.size() << std::endl;
+	for (vector<char>::iterator it = vec12.begin(); it != vec12.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	for (vector<char>::reverse_iterator it = vec12.rbegin(); it != vec12.rend(); it++)
+		std::cout << "^" << *it << std::endl;	
 
-	std::cout << "normal :" << std::endl;
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
-	std::cout << "reverse :" << std::endl;
+	std::cout<< "===empty===" << std::endl;
+	std::cout << vec1.empty() << std::endl;
+	std::cout << vec2.empty() << std::endl;
+	std::cout << vec3.empty() << std::endl;
+	std::cout << vec4.empty() << std::endl;
+	std::cout << vec5.empty() << std::endl;
+	std::cout << vec6.empty() << std::endl;
+	std::cout << vec7.empty() << std::endl;
+	std::cout << vec8.empty() << std::endl;
+	std::cout << vec9.empty() << std::endl;
+	std::cout << vec10.empty() << std::endl;
+	std::cout << vec11.empty() << std::endl;
+	std::cout << vec12.empty() << std::endl;
 
-	ite = map5.rbegin();
-	while (ite != map5.rend())
-	{
-		pair<char, int> pr = *ite;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		ite++;
-	}
+	std::cout<< "===size===" << std::endl;
+	std::cout << vec1.size() << std::endl;
+	std::cout << vec2.size() << std::endl;
+	std::cout << vec3.size() << std::endl;
+	std::cout << vec4.size() << std::endl;
+	std::cout << vec5.size() << std::endl;
+	std::cout << vec6.size() << std::endl;
+	std::cout << vec7.size() << std::endl;
+	std::cout << vec8.size() << std::endl;
+	std::cout << vec9.size() << std::endl;
+	std::cout << vec10.size() << std::endl;
+	std::cout << vec11.size() << std::endl;
+	std::cout << vec12.size() << std::endl;
 
-	std::cout << "===Erase===" << std::endl;
+	std::cout << "===max size===" << std::endl;
+	std::cout << vec1.max_size() << std::endl;
 
-	std::cout << "size : " << map5.size() << std::endl;
+	
+	std::cout<< "===front===" << std::endl;
+	if (!vec1.empty())
+	std::cout << vec1.front() << std::endl;
+	if (!vec2.empty())
+	std::cout << vec2.front() << std::endl;
+	if (!vec3.empty())
+	std::cout << vec3.front() << std::endl;
+	if (!vec4.empty())
+	std::cout << vec4.front() << std::endl;
+	if (!vec5.empty())
+	std::cout << vec5.front() << std::endl;
+	if (!vec6.empty())
+	std::cout << vec6.front() << std::endl;
+	if (!vec7.empty())
+	std::cout << vec7.front() << std::endl;
+	if (!vec8.empty())
+	std::cout << vec8.front() << std::endl;
+	if (!vec9.empty())
+	std::cout << vec9.front() << std::endl;
+	if (!vec10.empty())
+	std::cout << vec10.front() << std::endl;
+	if (!vec11.empty())
+	std::cout << vec11.front() << std::endl;
+	if (!vec12.empty())
+	std::cout << vec12.front() << std::endl;
+	
+	std::cout<< "===back===" << std::endl;
+	if (!vec1.empty())
+	std::cout << vec1.back() << std::endl;
+	if (!vec2.empty())
+	std::cout << vec2.back() << std::endl;
+	if (!vec3.empty())
+	std::cout << vec3.back() << std::endl;
+	if (!vec4.empty())
+	std::cout << vec4.back() << std::endl;
+	if (!vec5.empty())
+	std::cout << vec5.back() << std::endl;
+	if (!vec6.empty())
+	std::cout << vec6.back() << std::endl;
+	if (!vec7.empty())
+	std::cout << vec7.back() << std::endl;
+	if (!vec8.empty())
+	std::cout << vec8.back() << std::endl;
+	if (!vec9.empty())
+	std::cout << vec9.back() << std::endl;
+	if (!vec10.empty())
+	std::cout << vec10.back() << std::endl;
+	if (!vec11.empty())
+	std::cout << vec11.back() << std::endl;
+	if (!vec12.empty())
+	std::cout << vec12.back() << std::endl;
 
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
-
-	std::cout << "___erase with it___" << std::endl;
-	it = map5.find('c');
-	map5.erase(it);
-
-	std::cout << "size : " << map5.size() << std::endl;
-
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
-
-	std::cout << "___erase with key___" << std::endl;
-	map5.erase('f');
-
-	std::cout << "size : " << map5.size() << std::endl;
-
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
-
-	std::cout << "___erase everything with range___" << std::endl;
-	map5.erase(map5.begin(), map5.end());
-
-	std::cout << "size : " << map5.size() << std::endl;
-
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
 }

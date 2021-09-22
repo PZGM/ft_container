@@ -297,6 +297,4 @@ int main()
 	for(;it2!= vec.end(); it2++)
 		std::cout << *it2 << std::endl;
 	
-	// vec.clear();
-	// vec2.clear();
 }

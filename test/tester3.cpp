@@ -1,7 +1,8 @@
 #include <vector>
-#include <map>
+#include <list>
 #include <iostream>
-#include "../Map/Map.hpp"
+#include "../LisT/List.hpp"
+#include "../Vector/Vector.hpp"
 
 #ifdef STD
 using namespace std;
@@ -11,157 +12,97 @@ using namespace ft;
 
 int main()
 {
-	map<char,int> map1;
-	map<char, int>::iterator it = map1.begin();
-	map<char, int>::reverse_iterator ite = map1.rbegin();
-	map<char,int> map4;
-	map<char,int> map5(map4);	std::cout << "===Swap===" << std::endl;
-
-	map5['a'] = 1;
-	map5['b'] = 2;
-	map5['c'] = 3;
-	map5['d'] = 4;
-
-	std::cout << "A:";
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl<< "B:";
-	it = map4.begin();
-	while (it != map4.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl;
+	std::cout << "+++vector modifiers+++" << std::endl;
+	vector<int> vec;
 	
-	std::cout << "+++SWAP !+++" << std::endl;
-	map4.swap(map5);
-
-	std::cout << "A:";
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl<< "B:";
-	it = map4.begin();
-	while (it != map4.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << "sizeA : " << map5.size() << " | sizeB : " << map4.size() << std::endl;
-
-	std::cout << "______________" << std::endl;
-	map5['z'] = 5;
-	map5['b'] = 6;
-	map5['h'] = 7;
-	map5['i'] = 8;
-
-	std::cout << "A:";
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl<< "B:";
-	it = map4.begin();
-	while (it != map4.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl;
-	std::cout << "sizeA : " << map5.size() << " | sizeB : " << map4.size() << std::endl;
+	std::cout << "===insert begin===" << std::endl;
+	for (int i = 0; i < 15; i++)
+		vec.insert(vec.begin(), i);
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
 	
-	std::cout << "+++SWAP !+++" << std::endl;
-	swap(map4,map5);
-
-	std::cout << "A:";
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl<< "B:";
-	it = map4.begin();
-	while (it != map4.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << " : ";
-		it++;
-	}
-	std::cout << std::endl;
-
-	std::cout << "===Clear===" << std::endl;
-
-	map5.clear();
-
-	std::cout << "size : " << map5.size() << std::endl;
-
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
+	vec.clear();
 	
-	std::cout << "___reclear the same map___" << std::endl;
-
-	map5.clear();
-
-	std::cout << "size : " << map5.size() << std::endl;
-
-	it = map5.begin();
-	while (it != map5.end())
-	{
-		pair<char, int> pr = *it;
-		std::cout << pr.first << " | " << pr.second << std::endl;
-		it++;
-	}
+	std::cout << "===insert end===" << std::endl;
+	for (int i = 0; i < 15; i++)
+		vec.insert(vec.end(), i);
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
 	
-	std::cout << "===Find===" << std::endl;
-	map5['a'] = 10;
-	map5['b'] = 20;
-	map5['c'] = 30;
+	vec.clear();
 
-	it = map5.find('a');
-	if (it == map5.end())
-		std::cout << "Not found" << std::endl;
-	else
-		std::cout << (*it).first << " : " << (*it).second << std::endl;
+	std::cout << "===insert returns===" << std::endl;
+	for (int i = 0; i < 15; i++)
+	{
+		vector<int>::iterator r = vec.insert(vec.begin(), i);
+		std::cout << "_" << *r << std::endl;
+	}
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	
+	//create incremental vector and list
+	vector<int> vek(10);
+	for (int i = 0; i < 10; i++)
+		vek[i] = i;
+	
+	int i = 0;
+	list<int> lst(10);
+	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	{
+		*it = i;
+		i++;
+	}
 
-	it = map5.find('d');
-	if (it == map5.end())
-		std::cout << "Not found" << std::endl;
-	else
-		std::cout << (*it).first << " : " << (*it).second << std::endl;
+	vec.clear();
 
-	it = map5.find(98);
-	if (it == map5.end())
-		std::cout << "Not found" << std::endl;
-	else
-		std::cout << (*it).first << " : " << (*it).second << std::endl;
+	std::cout << "===insert with interval==" << std::endl;
+	vec.insert(vec.begin(), vek.begin(), vek.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
 
-	it = map5.find(42);
-	if (it == map5.end())
-		std::cout << "Not found" << std::endl;
-	else
-		std::cout << (*it).first << " : " << (*it).second << std::endl;
+	vec.clear();
+
+	std::cout << "===insert with list interval==" << std::endl;
+	vec.insert(vec.begin(), lst.begin(), lst.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+
+	std::cout << "===insert itself==" << std::endl;
+	vector<int>::iterator it = vec.begin();
+	it++;
+	it++;
+	vec.insert(it, vec.begin(), vec.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	
+	std::cout << "===assign==" << std::endl;
+	vec.assign(vek.begin(), vek.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+
+	std::cout << "===assign itself==" << std::endl;
+	vec.assign(vec.begin(), vec.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+
+	std::cout << "===assign with list==" << std::endl;
+	vec.assign(lst.begin(), lst.end());
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+
+	std::cout << "===assign with values==" << std::endl;
+	vec.assign(13,14);
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+
+	std::cout << "===push back==" << std::endl;
+	vec.push_back(0);
+	vec.push_back(1);
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
+	
+	std::cout << "===pop back==" << std::endl;
+	vec.pop_back();
+	for (vector<int>::iterator it = vec.begin(); it != vec.end(); it++)
+		std::cout << "_" << *it << std::endl;
 }

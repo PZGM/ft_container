@@ -84,7 +84,6 @@ namespace ft
 				}
 
 				iterator					begin() {
-										std::cout << &_storage[0] << std::endl;
 					return (ft::vector<T, Alloc>::iterator(&_storage[0]));
 				}
 

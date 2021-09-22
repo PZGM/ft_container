@@ -1,8 +1,8 @@
 #include <list>
 #include <iostream>
-#include <queue>
+#include <stack>
 #include <vector>
-#include "../Queue/Queue.hpp"
+#include "../Stack/Stack.hpp"
 #include "../LisT/List.hpp"
 
 #ifdef STD
@@ -17,150 +17,150 @@ std::ostream& PrintBool(std::ostream& os, bool rhs)
 	return os;
 }
 
-void clear(queue<int> & ke)
+void clear(stack<int> & stk)
 {
-	while (ke.size())
-		ke.pop();
+	while (stk.size())
+		stk.pop();
 }
 
 int main()
 {
 				
-	std::cout << "+++Queue relational operators+++" << std::endl;
+	std::cout << "+++Stack relational operators+++" << std::endl;
 	
-	queue<int> ke;
-	queue<int> ke2;
+	stack<int> stk;
+	stack<int> stk2;
 
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	std::cout << "  1  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 
-	ke.push(4);
+	stk.push(4);
 
 	std::cout << "  2  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 
-	ke2.push(4);
+	stk2.push(4);
 
 	std::cout << "  3  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	ke.push(0);
-	ke2.push(-42);
+	stk.push(0);
+	stk2.push(-42);
 
 	std::cout << "  4  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	clear(ke);
-	clear(ke2);
-	ke.push(2);
-	ke.push(13);
-	ke2.push(1);
-	ke2.push(13);
+	clear(stk);
+	clear(stk2);
+	stk.push(2);
+	stk.push(13);
+	stk2.push(1);
+	stk2.push(13);
 
 	std::cout << "  5  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	clear(ke);
-	clear(ke2);
-	ke.push(1);
-	ke.push(13);
-	ke2.push(2);
-	ke2.push(13);
+	clear(stk);
+	clear(stk2);
+	stk.push(1);
+	stk.push(13);
+	stk2.push(2);
+	stk2.push(13);
 
 	std::cout << "  6  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	clear(ke);
-	clear(ke2);
-	ke.push(0);
-	ke.push(1);
-	ke.push(2);
-	ke.push(3);
-	ke2.push(0);
-	ke2.push(1);
-	ke2.push(2);
-	ke2.push(3);
-	ke2.push(4);
+	clear(stk);
+	clear(stk2);
+	stk.push(0);
+	stk.push(1);
+	stk.push(2);
+	stk.push(3);
+	stk2.push(0);
+	stk2.push(1);
+	stk2.push(2);
+	stk2.push(3);
+	stk2.push(4);
 
 	std::cout << "  7  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	clear(ke);
-	clear(ke2);
-	ke.push(0);
-	ke.push(1);
-	ke.push(2);
-	ke.push(3);
-	ke2.push(0);
-	ke2.push(1);
-	ke2.push(2);
+	clear(stk);
+	clear(stk2);
+	stk.push(0);
+	stk.push(1);
+	stk.push(2);
+	stk.push(3);
+	stk2.push(0);
+	stk2.push(1);
+	stk2.push(2);
 	
 	std::cout << "  8  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 	
-	clear(ke);
-	clear(ke2);
-	ke.push(-42);
-	ke.push(-42);
-	ke2.push(-42);
-	ke2.push(-42);
-	ke2.push(-42);
+	clear(stk);
+	clear(stk2);
+	stk.push(-42);
+	stk.push(-42);
+	stk2.push(-42);
+	stk2.push(-42);
+	stk2.push(-42);
 	
 	std::cout << "  9  ";
-	PrintBool(std::cout << "| == ", ke == ke2);
-	PrintBool(std::cout << " | != ", ke != ke2);
-	PrintBool(std::cout << " | < ", ke < ke2);
-	PrintBool(std::cout << " | > ", ke > ke2);	
-	PrintBool(std::cout << " | <= ", ke <= ke2);
-	PrintBool(std::cout << " | >= ", ke >= ke2) << " |" << std::endl;;
+	PrintBool(std::cout << "| == ", stk == stk2);
+	PrintBool(std::cout << " | != ", stk != stk2);
+	PrintBool(std::cout << " | < ", stk < stk2);
+	PrintBool(std::cout << " | > ", stk > stk2);	
+	PrintBool(std::cout << " | <= ", stk <= stk2);
+	PrintBool(std::cout << " | >= ", stk >= stk2) << " |" << std::endl;;
 	std::cout << "-----|----------|----------|---------|---------|----------|----------|" << std::endl;
 }

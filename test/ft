@@ -1,38 +1,23 @@
-===MAX SIZE = 461168601842738790 ===
-===Acces Read===
-map1['a'] = 0
-map1['b'] = 0
-map1['c'] = 0
-===Acces Read/Write===
-size = 3
-size = 5
-map1['a'] = 0
-map1['b'] = 0
-map1['c'] = 46
-map1['g'] = 451
-map1['A'] = 421
-===Inserts===
+===Swap===
+A:a | 1 : b | 2 : c | 3 : d | 4 : 
+B:
++++SWAP !+++
+A:
+B:a | 1 : b | 2 : c | 3 : d | 4 : 
+sizeA : 0 | sizeB : 4
+______________
+A:b | 6 : h | 7 : i | 8 : z | 5 : 
+B:a | 1 : b | 2 : c | 3 : d | 4 : 
+sizeA : 4 | sizeB : 4
++++SWAP !+++
+A:a | 1 : b | 2 : c | 3 : d | 4 : 
+B:b | 6 : h | 7 : i | 8 : z | 5 : 
+===Clear===
 size : 0
-size : 3
-normal :
-c | 41
-e | 42
-f | 451
-reverse :
-f | 451
-e | 42
-c | 41
-===Erase===
-size : 3
-c | 41
-e | 42
-f | 451
-___erase with it___
-size : 2
-e | 42
-f | 451
-___erase with key___
-size : 1
-e | 42
-___erase everything with range___
+___reclear the same map___
 size : 0
+===Find===
+a : 10
+Not found
+b : 20
+Not found

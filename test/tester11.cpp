@@ -1,7 +1,7 @@
 #include <vector>
-#include <list>
+#include <map>
 #include <iostream>
-#include "../LisT/List.hpp"
+#include "../Map/Map.hpp"
 
 #ifdef STD
 using namespace std;
@@ -9,194 +9,132 @@ using namespace std;
 using namespace ft;
 #endif
 
-//custom comparison
-bool mycomparison (double first, double second)
-{ return ( int(first)>int(second) ); }
-
 int main()
 {
-	list<char> lst;
-	list<char> lst2;
+    map<char,int> map1;
 
-	std::cout << "===splice a entire list===" << std::endl;
+	std::cout << "===Map===" << std::endl;
+	std::cout << "===Constructors===" << std::endl;
+	std::cout << "___default constructor___" << std::endl;
 
-	for (int i = 0; i < 5; i++)
+	std::cout << "size : " << map1.size() << std::endl;
+	std::cout << "empty ? : " << map1.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	map<char, int>::iterator it = map1.begin();
+	while (it != map1.end())
 	{
-		lst.push_back('a' + i);
-		lst2.push_back('0' + i);
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
 	}
-	list<char>::iterator it = lst.begin();
-	it++;
-	lst.splice(it, lst2);
-	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
+	std::cout << "reverse :" << std::endl;
 
-	lst.clear();
-	lst2.clear();
-
-	std::cout << "===splice an empty list===" << std::endl;
-
-	for (int i = 0; i < 5; i++)
+	map<char, int>::reverse_iterator ite = map1.rbegin();
+	while (ite != map1.rend())
 	{
-		lst.push_back('a' + i);
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
 	}
-	it = lst.begin();
-	it++;
-	lst.splice(it, lst2);
-	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
 
-	lst.clear();
-	lst2.clear();
+	std::cout << "___manual fill___" << std::endl;
 
-	std::cout << "===splice one elem===" << std::endl;
+	map1['a'] = 75;
+	map1['z'] = 32;
+	map1['e'] = 42;
 
-	for (int i = 0; i < 5; i++)
+	std::cout << "size : " << map1.size() << std::endl;
+	std::cout << "empty ? : " << map1.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map1.begin();
+	while (it != map1.end())
 	{
-		lst.push_back('a' + i);
-		lst2.push_back('0' + i);
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
 	}
-	it = lst.begin();
-	it++;
-	list<char>::iterator ite = lst2.begin();
-	ite++;
-	ite++;
-	lst.splice(it, lst2, ite);
-	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
+	std::cout << "reverse :" << std::endl;
 
-	lst.clear();
-	lst2.clear();
-
-	std::cout << "===splice partial list===" << std::endl;
-
-	for (int i = 0; i < 5; i++)
+	ite = map1.rbegin();
+	while (ite != map1.rend())
 	{
-		lst.push_back('a' + i);
-		lst2.push_back('0' + i);
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
 	}
-	it = lst.begin();
-	it++;
-	ite = lst2.begin();
-	ite++;
-	list<char>::iterator itee = ite;
-	itee++;
-	itee++;
-	lst.splice(it, lst2, ite, itee);
-	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
 
-	lst.clear();
-	lst2.clear();
+	std::cout << "___range constructor___" << std::endl;
 
-	std::cout << "===remove===" << std::endl;
+	map<char,int> map2(map1.begin(), map1.begin());
 
-	for (int i = 0; i < 5; i++)
+	std::cout << "size : " << map2.size() << std::endl;
+	std::cout << "empty ? : " << map2.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map2.begin();
+	while (it != map2.end())
 	{
-		lst.push_back('a' + i);
-		lst2.push_back('0' + i);
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
 	}
-	lst.push_back('b');
-	lst.push_back('b');
-	lst.push_back('c');
-	lst.remove('b');
-	lst2.remove('4');
-	for (list<char>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
+	std::cout << "reverse :" << std::endl;
 
-
-	list<char> lst4;
-	list<char> lst5;
-	list<char> lst6;
-
-	std::cout << "===remove if===" << std::endl;
-
-	//is_odd
-	struct is_odd {
-		bool operator() (const int& value) { return (value%2)==1; }
-	};
-
-	for (int i = 0; i < 10; i++)
+	ite = map2.rbegin();
+	while (ite != map2.rend())
 	{
-		lst4.push_back(i);
-		lst5.push_back(i * 10);
-		lst6.push_back(i * 10 + 1);
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
 	}
-	
-	lst4.remove_if(is_odd());
-	lst5.remove_if(is_odd());
-	lst6.remove_if(is_odd());
-	
-	for (list<char>::iterator it = lst4.begin(); it != lst4.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst5.begin(); it != lst5.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<char>::iterator it = lst6.begin(); it != lst6.end(); it++)
-		std::cout << *it << std::endl;
 
-	std::cout << "===sort===" << std::endl;
+	std::cout << "___copy constructor___" << std::endl;
 
-	list<char> lst3;
+	map<char,int> map3(map1);
 
-	lst3.push_back(8);
-	lst3.push_back(1);
-	lst3.push_back(7);
-	lst3.push_back(3);
-	lst3.push_back(2);
-	lst3.push_back(4);
-	lst3.push_back(7);
-	lst3.push_back(9);
-	lst3.push_back(0);
+	std::cout << "size : " << map3.size() << std::endl;
+	std::cout << "empty ? : " << map3.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map3.begin();
+	while (it != map3.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
 
-	lst3.sort();
+	ite = map3.rbegin();
+	while (ite != map3.rend())
+	{
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
 
-	for (list<char>::iterator it = lst3.begin(); it != lst3.end(); it++)
-		std::cout << *it << std::endl;
 
-	std::cout << "===sort with custom comparison===" << std::endl;
+	std::cout << "___empty copy constructor___" << std::endl;
 
-	lst3.sort(mycomparison);
+	map<char,int> map4;
+	map<char,int> map5(map4);
 
-	for (list<char>::iterator it = lst3.begin(); it != lst3.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "===reverse===" << std::endl;
+	std::cout << "size : " << map5.size() << std::endl;
+	std::cout << "empty ? : " << map5.empty() << std::endl;
+	std::cout << "normal :" << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
 
-	lst3.reverse();
-	
-	for (list<char>::iterator it = lst3.begin(); it != lst3.end(); it++)
-		std::cout << *it << std::endl;
-
-	std::cout << "===reverse with one elem===" << std::endl;
-	
-	lst3.resize(1);
-	lst3.reverse();
-
-	for (list<char>::iterator it = lst3.begin(); it != lst3.end(); it++)
-		std::cout << *it << std::endl;
-
-	std::cout << "===reverse with no elem===" << std::endl;
-	
-	lst3.clear();
-	lst3.reverse();
-
-	for (list<char>::iterator it = lst3.begin(); it != lst3.end(); it++)
-		std::cout << *it << std::endl;
+	ite = map5.rbegin();
+	while (ite != map5.rend())
+	{
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
 
 }

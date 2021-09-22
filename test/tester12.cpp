@@ -1,7 +1,7 @@
 #include <vector>
-#include <list>
+#include <map>
 #include <iostream>
-#include "../LisT/List.hpp"
+#include "../Map/Map.hpp"
 
 #ifdef STD
 using namespace std;
@@ -9,206 +9,124 @@ using namespace std;
 using namespace ft;
 #endif
 
-
-//custom binary predict
-bool cbp (int first, int second)
-{ return ( second == first + 1); }
-
 int main()
 {
-	list<int> lst;
+	map<char,int> map1;
+	map<char, int>::iterator it = map1.begin();
+	map<char, int>::reverse_iterator ite = map1.rbegin();
+	map<char,int> map4;
+	map<char,int> map5(map4);
 
-	std::cout << "===unique with non consecutive equals values===" << std::endl;
-	
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(0);
-	lst.push_back(1);
+	std::cout << "===MAX SIZE = " << map5.max_size() << " ===" << std::endl;
 
-	lst.unique();
+	std::cout << "===Acces Read===" << std::endl;
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
+	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
+	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
 
-	lst.clear();
+	std::cout << "===Acces Read/Write===" << std::endl;
 
-	std::cout << "===unique with consecutive equals values===" << std::endl;
-	
-	lst.push_back(0);
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);	
-	lst.push_back(3);
+	std::cout << "size = " << map1.size() << std::endl;
 
-	lst.unique();
+	map1['c'] = 46;
+	map1['g'] = 451;
+	map1['A'] = 421;
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	std::cout << "size = " << map1.size() << std::endl;
 
-	lst.clear();
+	std::cout << "map1['a'] = "<< map1['a'] << std::endl;
+	std::cout << "map1['b'] = "<< map1['b'] << std::endl;
+	std::cout << "map1['c'] = "<< map1['c'] << std::endl;
+	std::cout << "map1['g'] = "<< map1['g'] << std::endl;
+	std::cout << "map1['A'] = "<< map1['A'] << std::endl;
 
-	std::cout << "===unique with one value===" << std::endl;
-	
-	lst.push_back(42);
+	std::cout << "===Inserts===" << std::endl;
 
-	lst.unique();
+	std::cout << "size : " << map5.size() << std::endl;
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	pair<const char, int> a('e', 42);
+	map5.insert(a);
 
-	lst.clear();
+	pair<const char, int> b('c', 41);
+	map5.insert(b);
 
-	std::cout << "===unique with no value===" << std::endl;
-	
-	lst.unique();
+	pair<const char, int> c('e', 40);
+	map5.insert(c);
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	pair<const char, int> d('f', 451);
+	map<char, int>::iterator  hint = map5.insert(c).first;
+	map5.insert(hint, d);
 
-	lst.clear();
+	std::cout << "size : " << map5.size() << std::endl;
 
-	std::cout << "===unique with non consecutive equals values and custom bp===" << std::endl;
-	
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(0);
-	lst.push_back(1);
+	std::cout << "normal :" << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
+	std::cout << "reverse :" << std::endl;
 
-	lst.unique(cbp);
+	ite = map5.rbegin();
+	while (ite != map5.rend())
+	{
+		pair<char, int> pr = *ite;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		ite++;
+	}
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	std::cout << "===Erase===" << std::endl;
 
-	lst.clear();
+	std::cout << "size : " << map5.size() << std::endl;
 
-	std::cout << "===unique with consecutive equals values and custom bp===" << std::endl;
-	
-	lst.push_back(0);
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);	
-	lst.push_back(3);
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
 
-	lst.push_back(0);
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);
-	lst.push_back(2);	
-	lst.push_back(3);
-	
-	lst.unique(cbp);
+	std::cout << "___erase with it___" << std::endl;
+	it = map5.find('c');
+	map5.erase(it);
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << std::endl;
+	std::cout << "size : " << map5.size() << std::endl;
 
-	lst.clear();
-	list<int> lst2;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
 
-	std::cout << "===swap two list of same size===" << std::endl;
-	
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(2);	
-	lst.push_back(3);
+	std::cout << "___erase with key___" << std::endl;
+	map5.erase('f');
 
-	lst2.push_back(100);
-	lst2.push_back(200);
-	lst2.push_back(300);
-	lst2.push_back(400);
-	
-	lst.swap(lst2);
+	std::cout << "size : " << map5.size() << std::endl;
 
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
 
-	lst.clear();
-	lst2.clear();
+	std::cout << "___erase everything with range___" << std::endl;
+	map5.erase(map5.begin(), map5.end());
 
-	std::cout << "===swap two list of different size===" << std::endl;
-	
-	lst.push_back(0);
+	std::cout << "size : " << map5.size() << std::endl;
 
-	lst2.push_back(100);
-	lst2.push_back(200);
-	lst2.push_back(300);
-	lst2.push_back(400);
-	
-	lst2.swap(lst);
-
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
-	
-	lst.clear();
-	lst2.clear();
-	
-	std::cout << "===swap two list with one empty===" << std::endl;
-
-	lst2.push_back(100);
-	lst2.push_back(200);
-	lst2.push_back(300);
-	lst2.push_back(400);
-	
-	lst2.swap(lst);
-
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
-	
-	lst.clear();
-	lst2.clear();
-	
-	std::cout << "===swap with non member function===" << std::endl;
-
-	lst.push_back(0);
-	lst.push_back(1);
-	lst.push_back(2);	
-	lst.push_back(3);
-	
-	lst2.push_back(100);
-	lst2.push_back(200);
-	lst2.push_back(300);
-	lst2.push_back(400);
-	
-	swap(lst, lst2);
-
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
-	
-	lst.clear();
-	lst2.clear();
-	
-	std::cout << "===swap two empty lists with non member function===" << std::endl;
-
-	swap(lst, lst2);
-
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
-		std::cout << *it << std::endl;
-	std::cout << "____________________" << lst.size() << "|" << lst2.size() << std::endl;
-	for (list<int>::iterator it = lst2.begin(); it != lst2.end(); it++)
-		std::cout << *it << std::endl;
+	it = map5.begin();
+	while (it != map5.end())
+	{
+		pair<char, int> pr = *it;
+		std::cout << pr.first << " | " << pr.second << std::endl;
+		it++;
+	}
 }

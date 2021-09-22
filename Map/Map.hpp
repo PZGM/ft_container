@@ -193,8 +193,9 @@ namespace ft
 
 				void					erase(iterator first, iterator last) {
 					while (first != last) {
-						_storage->remove(get_node(first));
+						Node<ft::pair<Key, T> > * node = get_node(first);
 						first++;
+						_storage->remove(node);
 					}
 				}
 
@@ -211,8 +212,9 @@ namespace ft
 				void				clear() {
 					map::iterator it = begin();
 					while (it != end()) {
-						_storage->remove(get_node(it));
+						Node<ft::pair<Key, T> > *node = get_node(it);
 						it++;
+						_storage->remove(node);
 					}
 				}
 
