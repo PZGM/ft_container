@@ -43,14 +43,14 @@ namespace ft
 				//default constructor
 
 				explicit	map(const key_compare & comp = key_compare()) {
-					_storage = new AVL<Key, T>();
+					_storage = new AVL<Key, T, Compare>();
 				}
 
 				//range constructor
 
 				template <class InputIterator>
 					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
-						_storage = new AVL<Key, T>();
+						_storage = new AVL<Key, T, Compare>();
 						while(first != last) {
 							_storage->add((*first).first, (*first).second);
 							first++;
@@ -60,7 +60,7 @@ namespace ft
 				// copy constructor
 				map(const map& src) {
 					map<char, int>::iterator it = src.begin();
-					_storage = new AVL<Key, T>();
+					_storage = new AVL<Key, T, Compare>();
 					while(it != src.end()) {
 						_storage->add((*it).first, (*it).second);
 						it++;
@@ -76,7 +76,7 @@ namespace ft
 				//operator=
 				map		&operator=(const map &x) {
 					delete _storage;
-					_storage = new AVL<Key, T>();
+					_storage = new AVL<Key, T,Compare>();
 					map::iterator it = x.begin();
 					while (it != x.end()) {
 						_storage->add((*it).first, (*it).second);
@@ -200,7 +200,7 @@ namespace ft
 
 				//swap
 				void				swap (map& x) {
-					AVL<Key, T> * tmp = _storage;
+					AVL<Key, T, Compare> * tmp = _storage;
 
 					_storage = x._storage;
 
@@ -245,7 +245,7 @@ namespace ft
 				iterator lower_bound (const key_type& k) {
 					iterator lower = this->begin();
 					iterator end = this->end();
-					while (lower != end && key_compare((*lower).first, k))
+					while (lower != end && key_compare()((*lower).first, k))
 						lower++;
 					return (lower);
 				}
@@ -267,7 +267,7 @@ namespace ft
 				iterator upper_bound(const key_type& k) {
 					iterator upper = this->begin();
 					iterator end = this->end();
-					while (upper != end && !key_compare(k, (*upper).first))
+					while (upper != end && !key_compare()(k, (*upper).first))
 						upper++;
 					return (upper);
 				}
@@ -297,7 +297,7 @@ namespace ft
 
 			private:
 
-				AVL<Key, T> * _storage;
+				AVL<Key, T, Compare> * _storage;
 
 				Node<ft::pair<Key, T> > * get_node(iterator it) {
 					return (_storage->find((*it).first));

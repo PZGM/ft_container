@@ -5,7 +5,7 @@
 # include "Node.hpp"
 # include "../pair.hpp"
 
-template<class Key, class Value>
+template<class Key, class Value, class Compare>
 class AVL
 {
 	public:
@@ -44,12 +44,6 @@ class AVL
 	{
 		ft::pair<Key, Value> pr(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
-		// if (root == NULL)
-		// {
-		// 	root = node;
-		// 	size++;
-		// 	return node;
-		// } 		useless with rend/end
 		add(root, node);
 		return node;
 	}
@@ -58,19 +52,13 @@ class AVL
 	{
 		ft::pair<Key, Value> pr(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
-		// if (nd == NULL)
-		// {
-		// 	nd = node;
-		// 	size++;
-		// 	return node;
-		// }
 		add(nd, node);
 		return node;
 	}
 
 	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) //add recurcif
 	{
-		if (parent == rend || (parent != end && newNode->data.first > parent->data.first))
+		if (parent == rend || (parent != end && Compare()(newNode->data.first,parent->data.first)))
 		{
 			if (parent->right == NULL)
 			{
@@ -99,9 +87,9 @@ class AVL
 	Node<ft::pair<Key, Value> > * find_r(Node<ft::pair<Key, Value> > * root, Key val) {
 		if (root == NULL)
 			return NULL;
-		if (root->data.first == val)
+		if (root != end && root != end && root->data.first == val)
 			return root;
-		if (root == end || root->data.first > val) {
+		if (root == end || Compare()(root->data.first, val)) {
 			if (root->left)
 				return find_r(root->left, val);
 			return NULL;

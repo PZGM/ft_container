@@ -14,37 +14,7 @@ int main() {
 	mp['a'] = 666;
 	mp['z'] = 222;
 
-	std::cout << "mop" << std::endl;
-
-	map<char, int> mop(mp.begin() + 1, mp.end() - 1);
-	mop.print();
-
-	std::cout << "mip" << std::endl;
-
-	map<char, int> mip(mp);
-	mip.print();
-
-	std::cout << "= de la discorde" << std::endl;
-
-	mip = mop;
-
-	std::cout << "mip" << std::endl;
-
-	mip.print();
-
-	std::cout << "mop" << std::endl;
-
-	mop.print();
-
-	mop.clear();
-	mop.clear();
-	mop.clear();
-	mop.clear();
-
-	mop.print();
-
-	mop.insert(pr);
-	mop.insert(pr2);
-
-	mop.print();
+	map<char, int>::iterator it = mp.begin();
+	map<char, int>::const_iterator cit = mp.begin() + 1;
+	mp.print();
 }
