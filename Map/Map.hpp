@@ -245,8 +245,8 @@ namespace ft
 
 				// lower_bound
 				iterator upper_bound(const key_type& k) {
-					iterator upper = this->begin();
-					iterator end = this->end();
+					map::iterator upper = this->begin();
+					map::iterator end = this->end();
 					while (upper != end && key_compare()(k, (*upper).first))
 						upper++;
 					upper++;

@@ -3,16 +3,6 @@
 #include <iostream>
 
 int main() {
-    // std::map<char, int> map;
-    // map['a'] = 14;
-    // auto it = map.begin();
-    // std::cout << "yo" << std::endl;
-    // std::cout << (*it).first << std::endl;
-    // it++;
-    // it++;
-    // std::cout << "ya" << std::endl;
-    // std::cout << (*it).first << std::endl;
-    // std::cout << "yi" << std::endl;
   std::map<char,int> mmap;
   std::map<char,int>::iterator itow,itp;
 
@@ -43,7 +33,7 @@ std::cout << "" << std::endl;
 
 	ft::pair<const char, int> pr('a', 20);
 	mymap.insert(pr);
-	ft::pair<const char, int> pr1('a', 40);
+	ft::pair<const char, int> pr1('b', 40);
 	mymap.insert(pr1);
 	ft::pair<const char, int> pr2('c', 60);
 	mymap.insert(pr2);

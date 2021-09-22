@@ -1,23 +1,2 @@
-===Swap===
-A:a | 1 : b | 2 : c | 3 : d | 4 : 
-B:
-+++SWAP !+++
-A:
-B:a | 1 : b | 2 : c | 3 : d | 4 : 
-sizeA : 0 | sizeB : 4
-______________
-A:b | 6 : h | 7 : i | 8 : z | 5 : 
-B:a | 1 : b | 2 : c | 3 : d | 4 : 
-sizeA : 4 | sizeB : 4
-+++SWAP !+++
-A:a | 1 : b | 2 : c | 3 : d | 4 : 
-B:b | 6 : h | 7 : i | 8 : z | 5 : 
-===Clear===
-size : 0
-___reclear the same map___
-size : 0
-===Find===
-a : 10
-Not found
-b : 20
-Not found
+a => 20
+e => 100
