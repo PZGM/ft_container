@@ -148,6 +148,26 @@ then
 
 fi
 
+if [ $# = 0 ] || [ $1 = "14" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
+
+then
+
+	rm -f a.out ft.bin std.bin
+	c++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	c++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+
+	if [[ $2 = "ft" || $2 = "all" ]];then
+		cat ft
+	fi
+	if [[ $2 = "std" || $2 = "all" ]];then
+		cat std
+	fi
+
+	echo "vvvvvvvv DIFF 14 Map test 4 vvvvvvvv"
+	diff ft std
+
+fi
+
 if [ $# = 0 ] || [ $1 = "21" ] || [ $1 = "stack" ] || [[ $# = 1  &&  $1 = "san" ]]
 
 then
