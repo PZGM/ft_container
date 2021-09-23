@@ -21,5 +21,15 @@ int main()
 	typedef iterator_traits<int *> traits;
   	if (typeid(traits::value_type)==typeid(*vec1.begin()))
     	std::cout << "vec(int) is a int INCROYABLE"<<std::endl;
+
+	std::cout << "++++const iterator and iterators comparability++++"<<std::endl;
+	
+	vector<int>::iterator it = vec1.begin();
+	vector<int>::const_iterator cit = vec1.begin();
+
+	std::cout << (cit == it) << std::endl;
+	it++;
+	std::cout << (cit == it) << std::endl;
+
   	return 0;
 }
