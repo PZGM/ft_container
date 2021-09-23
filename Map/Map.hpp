@@ -64,7 +64,7 @@ namespace ft
 				// copy constructor
 				map(const map& src) {
 					_tree_alloc = Tree_allocator_type();
-					map<char, int>::iterator it = src.begin();
+					iterator it = src.begin();
 					_storage = _tree_alloc.allocate(1);
 					_tree_alloc.construct(_storage);
 					while(it != src.end()) {
@@ -199,17 +199,11 @@ namespace ft
 
 
 				void					erase(iterator first, iterator last) {
-					// if (last == end())
-					// 	return ;
 					while (first != last) {
-						// if (iterator(get_node(first)) != end()){
 						Node<ft::pair<Key, T> > * node = get_node(first);
-					std::cout << "yo1" << std::endl;
-							_storage->remove(node);
-						// }
-					std::cout << "yo2" << std::endl;
+						first++;
+						_storage->remove(node);
 					}
-					std::cout << "mdr" << std::endl;
 				}
 
 				//swap
@@ -260,13 +254,14 @@ namespace ft
 				iterator lower_bound (const key_type& k) {
 					if (this->_storage == NULL)
 						return end();
-					iterator lower = this->begin();
-					iterator end = this->end();
-					while (lower != end && !key_compare()((*lower).first, k))
-						lower++;
-					if (lower + 1 != end)
-						lower--;
-					return (lower);
+					map::iterator upper = this->begin();
+					map::iterator end = this->end();
+					while (upper != end && key_compare()(k, (*upper).first))
+						upper++;
+					if (upper != end)
+						upper++;
+					return (upper);
+
 				}
 
 				const_iterator lower_bound (const key_type& k) const {
@@ -276,8 +271,10 @@ namespace ft
 					const_iterator end = this->end();
 					while (lower != end && !key_compare()((*lower).first, k))
 						lower++;
-					if (lower + 1 != end)
-					lower--;
+					// if (key_compare()((*lower).first, k))
+					// 	lower++;
+					if (lower +1!= end)
+						lower--;
 					return (lower);
 				}
 
@@ -286,13 +283,16 @@ namespace ft
 				iterator upper_bound(const key_type& k) {
 					if (this->_storage == NULL)
 						return end();
-					map::iterator upper = this->begin();
-					map::iterator end = this->end();
-					while (upper != end && key_compare()(k, (*upper).first))
-						upper++;
-					if (upper != end)
-					upper++;
-					return (upper);
+					iterator lower = this->begin();
+					iterator end = this->end();
+					while (lower != end && !key_compare()((*lower).first, k))
+						lower++;
+					// if (key_compare()((*lower).first, k))
+					// 	lower--;
+					if (lower != end)
+						lower++;
+					return (lower);
+
 				}
 
 
@@ -304,7 +304,7 @@ namespace ft
 					while (upper != end && key_compare()(k, (*upper).first))
 						upper++;
 					if (upper != end)
-					upper++;
+						upper++;
 					return (upper);
 				}
 

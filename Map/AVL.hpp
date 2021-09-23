@@ -29,7 +29,7 @@ class AVL
 		root = rend;
 		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
 		end = _node_alloc.allocate(1);
-		_node_alloc.construct(end, pr);
+		_node_alloc.construct(end, pr2);
 		// end = new Node<ft::pair<Key, Value> >(pr2);
 		rend->right = end;
 		end->parent = rend;
@@ -124,7 +124,6 @@ class AVL
 				parent->left = NULL;
 			_node_alloc.destroy(node);
 			_node_alloc.deallocate(node,1);
-			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
@@ -141,7 +140,6 @@ class AVL
 			}
 			_node_alloc.destroy(node);
 			_node_alloc.deallocate(node,1);
-			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
@@ -158,15 +156,23 @@ class AVL
 			}
 			_node_alloc.destroy(node);
 			_node_alloc.deallocate(node,1);
-			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
 		}
+
 		Node<ft::pair<Key, Value> > * succ = in_order_succ(node);
-		//delete proprement la data de node
+		int special = 0;
+		if (succ == end)
+			special = 1;
+		if (succ == rend)
+			special = 2;
 		node->data = succ->data;
 		remove(succ);
+		if (special == 1)
+			end = node;
+		if (special == 2)
+			rend = node;
 	}
 
 	Node<ft::pair<Key, Value> > * in_order_succ(Node<ft::pair<Key, Value> > * node) {
