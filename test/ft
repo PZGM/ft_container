@@ -1,4 +1,38 @@
-d => 80
-e => 100
-lower bound points to: > => 0
-upper bound points to: d => 80
+===MAX SIZE = 461168601842738790 ===
+===Acces Read===
+map1['a'] = 0
+map1['b'] = 0
+map1['c'] = 0
+===Acces Read/Write===
+size = 3
+size = 5
+map1['a'] = 0
+map1['b'] = 0
+map1['c'] = 46
+map1['g'] = 451
+map1['A'] = 421
+===Inserts===
+size : 0
+size : 3
+normal :
+99 | 41
+101 | 42
+102 | 451
+reverse :
+102 | 451
+101 | 42
+99 | 41
+===Erase===
+size : 3
+99 | 41
+101 | 42
+102 | 451
+___erase with it___
+size : 2
+101 | 42
+102 | 451
+___erase with key___
+size : 1
+101 | 42
+___erase everything with range___
+size : 0

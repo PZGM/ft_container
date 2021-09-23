@@ -22,14 +22,14 @@ class AVL
 		_node_alloc = Node_allocator_type();
 		root = NULL;
 		size = 0;
-		ft::pair<Key, Value> pr = ft::make_pair('>', 0);
+//		ft::pair<Key, Value> pr = ft::make_pair('>', 0);
 		rend = _node_alloc.allocate(1);
-		_node_alloc.construct(rend, pr);
+		_node_alloc.construct(rend);
 		// rend = new Node<ft::pair<Key, Value> >(pr);
 		root = rend;
-		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
+//		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
 		end = _node_alloc.allocate(1);
-		_node_alloc.construct(end, pr2);
+		_node_alloc.construct(end);
 		// end = new Node<ft::pair<Key, Value> >(pr2);
 		rend->right = end;
 		end->parent = rend;
