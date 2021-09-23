@@ -19,46 +19,25 @@ int main()
 	mmap['d']=80;
 	mmap['e']=100;
 
-	// std::cout << "begin = " << (mmap.begin())->first << std::endl;
+	map<char, int>::const_iterator	itow = mmap.lower_bound ('b');  // itlow points to b
+	map<char, int>::const_iterator	itp = mmap.upper_bound ('d');   // itup points to e (not d!)
 
-	map<char, int>::iterator	itow = mmap.lower_bound ('b');  // itlow points to b
-	map<char, int>::iterator	itp = mmap.upper_bound ('d');   // itup points to e (not d!)
-
-	// std::cout << "itow = " << itow->first << " = " << itow->second << std::endl;
-	// std::cout << "itp = " << itp->first << " = " << itp->second << std::endl;
 	mmap.erase(itow,itp);        // erases [itlow,itup)
 
-	for (map<char,int>::iterator it = mmap.begin(); it!=mmap.end(); ++it)
+	for (map<char,int>::iterator it = mmap.begin(); it != mmap.end(); ++it)
 		std::cout << (*it).first << " => " << (*it).second << '\n';
 
-    std::cout << "" << std::endl;
-    std::cout << "" << std::endl;
-    std::cout << "" << std::endl;
 
-	ft::map<char,int> mymap;
 
-	ft::pair<const char, int> pr('a', 20);
-	mymap.insert(pr);
-	ft::pair<const char, int> pr1('b', 40);
-	mymap.insert(pr1);
-	ft::pair<const char, int> pr2('c', 60);
-	mymap.insert(pr2);
-	ft::pair<const char, int> pr3('d', 80);
-	mymap.insert(pr3);
-	ft::pair<const char, int> pr4('e', 100);
-	mymap.insert(pr4);
+  pair<map<char,int>::iterator,map<char,int>::iterator> ret = mmap.equal_range('b');
 
-    std::cout << "my begin = " << (*mymap.begin()).first << std::endl;
+  std::cout << "lower bound points to: ";
+  std::cout << (*ret.first).first << " => " << (*ret.first).second << '\n';
 
-    ft::map<char, int>::iterator itlow = mymap.lower_bound('b');  // itlow points to b
-    ft::map<char, int>::iterator itup = mymap.upper_bound('d');   // itup points to e (not d!)
+  std::cout << "upper bound points to: ";
+  std::cout << (*ret.second).first << " => " << (*ret.second).second << '\n';
 
-    std::cout << "itlow = " << (*itlow).first << " = " << (*itlow).second << std::endl;
-    std::cout << "itup = " << (*itup).first << " = " << (*itup).second << std::endl;
-    mymap.erase(itlow,itup);        // erases [itlow,itup)
 
-    for (ft::map<char,int>::iterator it=mymap.begin(); it!=mymap.end(); ++it)
-        std::cout << (*it).first << " => " << (*it).second << '\n';
 
   return 0;
 }
