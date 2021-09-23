@@ -20,11 +20,11 @@ namespace ft
 				typedef const value_type&							const_reference;
 				typedef typename Alloc::pointer						pointer;
 				typedef typename Alloc::const_pointer				const_pointer;
-				typedef VectorIterator<value_type>				iterator;
+				typedef VectorIterator<value_type>					iterator;
 				typedef std::size_t									size_type;
-				typedef const VectorIterator<value_type>			const_iterator;
+				typedef const iterator								const_iterator;
 				typedef VectorReverseIterator<value_type>			reverse_iterator;
-				typedef const VectorReverseIterator<value_type>		const_reverse_iterator;
+				typedef const reverse_iterator						const_reverse_iterator;
 
 				typedef std::ptrdiff_t								difference_type;
 
@@ -82,7 +82,7 @@ namespace ft
 				}
 
 				const_iterator				begin() const {
-					return (ft::vector<T, Alloc>::iterator(&_storage[0]));
+					return (ft::vector<T, Alloc>::const_iterator(&_storage[0]));
 				}
 
 				iterator					end() {
@@ -90,7 +90,7 @@ namespace ft
 				}
 
 				const_iterator				end() const {
-					return (ft::vector<T, Alloc>::iterator(&_storage[_size]));
+					return (ft::vector<T, Alloc>::const_iterator(&_storage[_size]));
 				}
 
 				reverse_iterator			rbegin() {
@@ -98,14 +98,14 @@ namespace ft
 				}
 
 				const_reverse_iterator		rbegin() const {
-					return (ft::vector<T, Alloc>::reverse_iterator(&_storage[_size - 1]));
+					return (ft::vector<T, Alloc>::const_reverse_iterator(&_storage[_size - 1]));
 				}
 
 				reverse_iterator			rend() {
 					return (ft::vector<T, Alloc>::reverse_iterator(&_storage[-1]));
 				}
 				const_reverse_iterator		rend() const {
-					return (ft::vector<T, Alloc>::reverse_iterator(&_storage[-1]));
+					return (ft::vector<T, Alloc>::const_reverse_iterator(&_storage[-1]));
 				}
 
 				void				clear() {
