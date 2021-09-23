@@ -13,25 +13,19 @@ namespace ft
 	template <typename T, class Alloc = std::allocator<T> >
 		class vector
 		{
-			//  les com c'est l'ancien container
 			public:
 				typedef T											value_type;
 				typedef Alloc										allocator_type;
 				typedef value_type&									reference;
 				typedef const value_type&							const_reference;
-				// typedef value_type*								pointer;
 				typedef typename Alloc::pointer						pointer;
 				typedef typename Alloc::const_pointer				const_pointer;
 				typedef VectorIterator<value_type>				iterator;
-				// typedef VectorIterator<pointer>						iterator;
-				// typedef typename Alloc::size_type				size_type;
 				typedef std::size_t									size_type;
 				typedef const VectorIterator<value_type>			const_iterator;
 				typedef VectorReverseIterator<value_type>			reverse_iterator;
 				typedef const VectorReverseIterator<value_type>		const_reverse_iterator;
-				// typedef VectorIterator<const_pointer>			const_iterator;
-				// typedef VectorReverseIterator<pointer>			reverse_iterator;
-				// typedef VectorReverseIterator<const_pointer>	const_reverse_iterator;
+
 				typedef std::ptrdiff_t								difference_type;
 
 				explicit	vector(const allocator_type& alloc = allocator_type()) : _storage(NULL), _size(0), _capacity(0), _alloc(alloc) {}
@@ -294,6 +288,7 @@ namespace ft
 				size_type	_size;
 				size_type	_capacity;
 				Alloc		_alloc;
+				
 
 				template <class InputIterator>
 					void _insert(ft::vector<T, Alloc>::iterator position, InputIterator first, InputIterator last) {

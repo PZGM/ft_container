@@ -43,14 +43,18 @@ namespace ft
 				//default constructor
 
 				explicit	map(const key_compare & comp = key_compare()) {
-					_storage = new AVL<Key, T, Compare, Alloc>();
+					_node_alloc = Node_allocator_type();
+					_storage = _node_alloc.allocate(1);
+					_node_alloc.construct(_storage);
 				}
 
 				//range constructor
 
 				template <class InputIterator>
 					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
-						_storage = new AVL<Key, T, Compare, Alloc>();
+						_node_alloc = Node_allocator_type();
+						_storage = _node_alloc.allocate(1);
+						_node_alloc.construct(_storage);
 						while(first != last) {
 							_storage->add((*first).first, (*first).second);
 							first++;
@@ -59,8 +63,10 @@ namespace ft
 
 				// copy constructor
 				map(const map& src) {
+					_node_alloc = Node_allocator_type();
 					map<char, int>::iterator it = src.begin();
-					_storage = new AVL<Key, T, Compare, Alloc>();
+					_storage = _node_alloc.allocate(1);
+					_node_alloc.construct(_storage);
 					while(it != src.end()) {
 						_storage->add((*it).first, (*it).second);
 						it++;
@@ -70,13 +76,16 @@ namespace ft
 
 				//destructor 
 				~map() {
-					delete _storage;
+					_node_alloc.destroy(_storage);
+					_node_alloc.deallocate(_storage, 1);
 				}
 
 				//operator=
 				map		&operator=(const map &x) {
-					delete _storage;
-					_storage = new AVL<Key, T,Compare, Alloc>();
+					_node_alloc.destroy(_storage);
+					_node_alloc.deallocate(_storage, 1);
+					_storage = _node_alloc.allocate(1);
+					_node_alloc.construct(_storage);
 					map::iterator it = x.begin();
 					while (it != x.end()) {
 						_storage->add((*it).first, (*it).second);
@@ -300,8 +309,10 @@ namespace ft
 				// }
 
 			private:
+				typedef typename Alloc::template rebind<AVL<Key, T, Compare, Alloc> >::other Node_allocator_type;
 
 				AVL<Key, T, Compare, Alloc> * _storage;
+				Node_allocator_type	_node_alloc;
 
 				Node<ft::pair<Key, T> > * get_node(iterator it) {
 					return (_storage->find((*it).first));
