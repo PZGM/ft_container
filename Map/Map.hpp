@@ -200,11 +200,17 @@ namespace ft
 
 
 				void					erase(iterator first, iterator last) {
+					// if (last == end())
+					// 	return ;
 					while (first != last) {
+						// if (iterator(get_node(first)) != end()){
 						Node<ft::pair<Key, T> > * node = get_node(first);
-						first++;
-						_storage->remove(node);
+					std::cout << "yo1" << std::endl;
+							_storage->remove(node);
+						// }
+					std::cout << "yo2" << std::endl;
 					}
+					std::cout << "mdr" << std::endl;
 				}
 
 				//swap
@@ -253,6 +259,8 @@ namespace ft
 
 				// lower_bound
 				iterator lower_bound (const key_type& k) {
+					if (this->_storage == NULL)
+						return end();
 					iterator lower = this->begin();
 					iterator end = this->end();
 					while (lower != end && !key_compare()((*lower).first, k))
@@ -263,6 +271,8 @@ namespace ft
 				}
 
 				const_iterator lower_bound (const key_type& k) const {
+					if (this->_storage == NULL)
+						return end();
 					const_iterator lower = this->begin();
 					const_iterator end = this->end();
 					while (lower != end && !key_compare()((*lower).first, k))
@@ -275,22 +285,26 @@ namespace ft
 
 				//upper_bound
 				iterator upper_bound(const key_type& k) {
+					if (this->_storage == NULL)
+						return end();
 					map::iterator upper = this->begin();
 					map::iterator end = this->end();
 					while (upper != end && key_compare()(k, (*upper).first))
 						upper++;
-					if (upper + 1 != end)
+					if (upper != end)
 					upper++;
 					return (upper);
 				}
 
 
 				const_iterator upper_bound (const key_type& k) const {
+					if (this->_storage == NULL)
+						return end();
 					map::const_iterator upper = this->begin();
 					map::const_iterator end = this->end();
 					while (upper != end && key_compare()(k, (*upper).first))
 						upper++;
-					if (upper + 1 != end)
+					if (upper != end)
 					upper++;
 					return (upper);
 				}
