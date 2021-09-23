@@ -251,61 +251,61 @@ namespace ft
 
 
 				// lower_bound
-				iterator upper_bound(const key_type& k) {
-					map::iterator upper = this->begin();
-					map::iterator end = this->end();
-					while (upper != end && key_compare()(k, (*upper).first))
-						upper++;
-					upper++;
-					return (upper);
-				}
-
-				// const_iterator lower_bound (const key_type& k) const {
-				// 	struct_type *cur = _xnode->next;
-				// 	if (_size == 0)
-				// 		return iterator(_xnode);
-				// 	if (!Compare()(cur->key, k)) {
-				// 	while (!Compare()(cur->next->key, k))
-				// 		cur = cur->next;
-				// 	}
-				// 	const_iterator curr = iterator(cur);
-				// 	return cur;
-				// }
-
-
-				//upper_bound
 				iterator lower_bound (const key_type& k) {
 					iterator lower = this->begin();
 					iterator end = this->end();
 					while (lower != end && !key_compare()((*lower).first, k))
 						lower++;
+					if (lower + 1 != end)
+						lower--;
+					return (lower);
+				}
+
+				const_iterator lower_bound (const key_type& k) const {
+					const_iterator lower = this->begin();
+					const_iterator end = this->end();
+					while (lower != end && !key_compare()((*lower).first, k))
+						lower++;
+					if (lower + 1 != end)
 					lower--;
 					return (lower);
 				}
 
 
-				// const_iterator upper_bound (const key_type& k) const {
-				// 	struct_type *cur = _xnode->next;
-				// 	if (_size == 0)
-				// 		return iterator(_xnode);
-				// 	while (!Compare()(cur->key, k))
-				// 		cur = cur->next;
-				// 	const_iterator curr = iterator(cur);
-				// 	return cur;
-				// }
+				//upper_bound
+				iterator upper_bound(const key_type& k) {
+					map::iterator upper = this->begin();
+					map::iterator end = this->end();
+					while (upper != end && key_compare()(k, (*upper).first))
+						upper++;
+					if (upper + 1 != end)
+					upper++;
+					return (upper);
+				}
+
+
+				const_iterator upper_bound (const key_type& k) const {
+					map::const_iterator upper = this->begin();
+					map::const_iterator end = this->end();
+					while (upper != end && key_compare()(k, (*upper).first))
+						upper++;
+					if (upper + 1 != end)
+					upper++;
+					return (upper);
+				}
 
 
 				// //equal range
 				
-				// pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
-				// 	pair<const_iterator, const_iterator> pair(lower_bound(k), upper_bound(k));
-				// 	return pair;
-				// }
+				pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
+					pair<const_iterator, const_iterator> pair(lower_bound(k), upper_bound(k));
+					return pair;
+				}
 
-				// pair<iterator,iterator>             equal_range (const key_type& k) {
-				// 	pair<iterator, iterator> pair(lower_bound(k), upper_bound(k));
-				// 	return pair;
-				// }
+				pair<iterator,iterator>             equal_range (const key_type& k) {
+					pair<iterator, iterator> pair(lower_bound(k), upper_bound(k));
+					return pair;
+				}
 
 			private:
 				typedef typename Alloc::template rebind<AVL<Key, T, Compare, Alloc> >::other Tree_allocator_type;
