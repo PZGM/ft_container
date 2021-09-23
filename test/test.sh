@@ -81,7 +81,7 @@ then
 		cat std
 	fi
 
-	echo "vvvvvvvv DIFF 04 Vector test 1 vvvvvvvv"
+	echo "vvvvvvvv DIFF 04 Vector test 4 vvvvvvvv"
 	diff ft std
 
 fi

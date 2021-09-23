@@ -43,14 +43,14 @@ namespace ft
 				//default constructor
 
 				explicit	map(const key_compare & comp = key_compare()) {
-					_storage = new AVL<Key, T, Compare>();
+					_storage = new AVL<Key, T, Compare, Alloc>();
 				}
 
 				//range constructor
 
 				template <class InputIterator>
 					map (InputIterator first, InputIterator last, const key_compare& comp = key_compare(), const allocator_type& alloc = allocator_type()){
-						_storage = new AVL<Key, T, Compare>();
+						_storage = new AVL<Key, T, Compare, Alloc>();
 						while(first != last) {
 							_storage->add((*first).first, (*first).second);
 							first++;
@@ -60,7 +60,7 @@ namespace ft
 				// copy constructor
 				map(const map& src) {
 					map<char, int>::iterator it = src.begin();
-					_storage = new AVL<Key, T, Compare>();
+					_storage = new AVL<Key, T, Compare, Alloc>();
 					while(it != src.end()) {
 						_storage->add((*it).first, (*it).second);
 						it++;
@@ -76,7 +76,7 @@ namespace ft
 				//operator=
 				map		&operator=(const map &x) {
 					delete _storage;
-					_storage = new AVL<Key, T,Compare>();
+					_storage = new AVL<Key, T,Compare, Alloc>();
 					map::iterator it = x.begin();
 					while (it != x.end()) {
 						_storage->add((*it).first, (*it).second);
@@ -148,21 +148,20 @@ namespace ft
 				}
 
 
-				pair<iterator,bool>			insert(const value_type& val) {
+				ft::pair<iterator,bool>			insert(const value_type& val) {
 					Node<ft::pair<Key, T> > * nd = _storage->find(val.first);
 					if (nd != NULL) {
-						pair<iterator,bool> pr(nd, false);
+						pair<iterator,bool> pr = ft::make_pair(iterator(nd), false);
 						return pr;
 					}
 					nd = _storage->add(val.first, val.second);
 					iterator it = iterator(nd);
-					pair<iterator,bool> pr(it, true);
+					ft::pair<iterator,bool> pr = ft::make_pair(it, true);
 					return pr;
 				}
 
 				template <class InputIterator>
 					void insert (InputIterator first, InputIterator last) {
-						pair<Key, T> tmp;
 						while (first != last)
 						{
 							value_type val = value_type((*first).first, (*first).second);
@@ -201,7 +200,7 @@ namespace ft
 
 				//swap
 				void				swap (map& x) {
-					AVL<Key, T, Compare> * tmp = _storage;
+					AVL<Key, T, Compare, Alloc> * tmp = _storage;
 
 					_storage = x._storage;
 
@@ -302,7 +301,7 @@ namespace ft
 
 			private:
 
-				AVL<Key, T, Compare> * _storage;
+				AVL<Key, T, Compare, Alloc> * _storage;
 
 				Node<ft::pair<Key, T> > * get_node(iterator it) {
 					return (_storage->find((*it).first));

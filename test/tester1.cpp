@@ -1,7 +1,6 @@
 #include <list>
 #include <vector>
 #include <iostream>
-#include "../LisT/List.hpp"
 #include "../Vector/Vector.hpp"
 
 #ifdef STD
@@ -87,9 +86,9 @@ int main()
 		std::cout << "^" << *it << std::endl;
 
 	//initialize a list
-	list<int> lst(6, 8);
+	std::list<int> lst(6, 8);
 	i = 0;
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (std::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 		*it = i++;
 
 	std::cout << "===Range constructor with lst iterators===" << std::endl;
@@ -103,11 +102,11 @@ int main()
 
 	std::cout << "===Range constructor with partial vector iterators===" << std::endl;
 	
-	list<int>::iterator it = lst.begin();
+	std::list<int>::iterator it = lst.begin();
 	it++;
 	it++;
 
-	list<int>::iterator it2 = lst.end();
+	std::list<int>::iterator it2 = lst.end();
 	it2--;
 
 	vector<int> vec10(it, it2);

@@ -1,7 +1,6 @@
 #include <vector>
 #include <list>
 #include <iostream>
-#include "../LisT/List.hpp"
 #include "../Vector/Vector.hpp"
 
 #ifdef STD
@@ -46,8 +45,8 @@ int main()
 		vek[i] = i;
 	
 	int i = 0;
-	list<int> lst(10);
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	std::list<int> lst(10);
+	for (std::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 	{
 		*it = i;
 		i++;

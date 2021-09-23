@@ -5,7 +5,7 @@
 # include "Node.hpp"
 # include "../pair.hpp"
 
-template<class Key, class Value, class Compare>
+template<class Key, class Value, class Compare, class Alloc>
 class AVL
 {
 	public:
@@ -18,10 +18,10 @@ class AVL
 	{
 		root = NULL;
 		size = 0;
-		ft::pair<Key, Value> pr('>', 0);
+		ft::pair<Key, Value> pr = ft::make_pair('>', 0);
 		rend= new Node<ft::pair<Key, Value> >(pr);
 		root = rend;
-		ft::pair<Key, Value> pr2('<', 0);
+		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
 		end = new Node<ft::pair<Key, Value> >(pr2);
 		rend->right = end;
 		end->parent = rend;
@@ -42,7 +42,7 @@ class AVL
 
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) //add normal
 	{
-		ft::pair<Key, Value> pr(sec, obj);
+		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(root, node);
 		return node;
@@ -50,7 +50,7 @@ class AVL
 
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) //add with hint
 	{
-		ft::pair<Key, Value> pr(sec, obj);
+		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
 		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(nd, node);
 		return node;
