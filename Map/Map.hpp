@@ -34,9 +34,9 @@ namespace ft
 				typedef const value_type*						const_pointer;
 				typedef MapIterator<Key, T>						iterator;
 				typedef typename Alloc::size_type				size_type;
-				typedef const MapIterator<Key, T>				const_iterator;
+				typedef const iterator							const_iterator;
 				typedef MapReverseIterator<Key, T>				reverse_iterator;
-				typedef const MapReverseIterator<Key, T>		const_reverse_iterator;
+				typedef const reverse_iterator					const_reverse_iterator;
 				typedef std::ptrdiff_t							difference_type;
 				typedef Alloc									allocator_type;
 
@@ -73,7 +73,6 @@ namespace ft
 					}
 				}
 
-
 				//destructor 
 				~map() {
 					_tree_alloc.destroy(_storage);
@@ -101,7 +100,7 @@ namespace ft
 				}
 
 				const_iterator		begin() const {
-					return (iterator(_storage->get_begin()));
+					return (const_iterator(_storage->get_begin()));
 				}
 
 				//end
@@ -110,7 +109,7 @@ namespace ft
 				}
 
 				const_iterator		end() const {
-					return (iterator(_storage->get_end()));
+					return (const_iterator(_storage->get_end()));
 				}
 				//rbegin
 				reverse_iterator		rbegin() {
@@ -118,7 +117,7 @@ namespace ft
 				}
 
 				const_reverse_iterator	rbegin() const {
-					return (reverse_iterator(_storage->get_rbegin()));
+					return (const_reverse_iterator(_storage->get_rbegin()));
 				}
 				//rend
 				reverse_iterator		rend() {
@@ -126,7 +125,7 @@ namespace ft
 				}
 
 				const_reverse_iterator	rend() const {
-					return (reverse_iterator(_storage->get_rend()));
+					return (const_reverse_iterator(_storage->get_rend()));
 				}
 
 				//empty

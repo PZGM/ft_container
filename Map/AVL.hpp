@@ -9,6 +9,9 @@ template<class Key, class Value, class Compare, class Alloc>
 class AVL
 {
 	public:
+		typedef typename Alloc::template rebind<Node<ft::pair<Key, Value> > >::other Node_allocator_type;
+
+		Node_allocator_type	_node_alloc;
 		Node<ft::pair<Key, Value> > *root;
 		Node<ft::pair<Key, Value> > *end;
 		Node<ft::pair<Key, Value> > *rend;
@@ -16,13 +19,18 @@ class AVL
 
 	AVL() //contructeur avl class AVLTREE
 	{
+		_node_alloc = Node_allocator_type();
 		root = NULL;
 		size = 0;
 		ft::pair<Key, Value> pr = ft::make_pair('>', 0);
-		rend= new Node<ft::pair<Key, Value> >(pr);
+		rend = _node_alloc.allocate(1);
+		_node_alloc.construct(rend, pr);
+		// rend = new Node<ft::pair<Key, Value> >(pr);
 		root = rend;
 		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
-		end = new Node<ft::pair<Key, Value> >(pr2);
+		end = _node_alloc.allocate(1);
+		_node_alloc.construct(end, pr);
+		// end = new Node<ft::pair<Key, Value> >(pr2);
 		rend->right = end;
 		end->parent = rend;
 	}
@@ -37,13 +45,17 @@ class AVL
 			destroy(node->right);
 		if (node->left)
 			destroy(node->left);
-		delete node;
+		_node_alloc.destroy(node);
+		_node_alloc.deallocate(node,1);
+		// delete node;
 	}
 
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) //add normal
 	{
 		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
-		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
+		Node<ft::pair<Key, Value> > * node = _node_alloc.allocate(1);
+		_node_alloc.construct(node, pr);
+		// Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(root, node);
 		return node;
 	}
@@ -51,7 +63,9 @@ class AVL
 	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) //add with hint
 	{
 		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
-		Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
+		Node<ft::pair<Key, Value> > * node = _node_alloc.allocate(1);
+		_node_alloc.construct(node, pr);
+		// Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(nd, node);
 		return node;
 	}
@@ -108,7 +122,9 @@ class AVL
 				parent->right = NULL;
 			else
 				parent->left = NULL;
-			delete node;
+			_node_alloc.destroy(node);
+			_node_alloc.deallocate(node,1);
+			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
@@ -123,7 +139,9 @@ class AVL
 				parent->left = node->left;
 				node->left->parent = parent;
 			}
-			delete node;
+			_node_alloc.destroy(node);
+			_node_alloc.deallocate(node,1);
+			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
@@ -138,7 +156,9 @@ class AVL
 				parent->left = node->right;
 				node->right->parent = parent;
 			}
-			delete node;
+			_node_alloc.destroy(node);
+			_node_alloc.deallocate(node,1);
+			// delete node;
 			parent->checkBalance(parent, &root);
 			size--;
 			return;
