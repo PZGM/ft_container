@@ -251,7 +251,6 @@ namespace ft
 				iterator lower_bound (const key_type& k) {
 					if (count(k))
 						return find(k);
-
 					map::iterator it = begin();
 					while (it != end() && !key_compare()(k, (*it).first))
 						it++;
@@ -265,64 +264,22 @@ namespace ft
 					return (it);
 				}
 
-
-				// // lower_bound
-				// iterator lower_bound (const key_type& k) {
-				// 	if (this->_storage == NULL)
-				// 		return end();
-				// 	map::iterator upper = this->begin();
-				// 	map::iterator end = this->end();
-				// 	while (upper != end && key_compare()(k, (*upper).first))
-				// 		upper++;
-				// 	if (upper != end)
-				// 		upper++;
-				// 	return (upper);
-
-				// }
-
-				// const_iterator lower_bound (const key_type& k) const {
-				// 	if (this->_storage == NULL)
-				// 		return end();
-				// 	const_iterator lower = this->begin();
-				// 	const_iterator end = this->end();
-				// 	while (lower != end && !key_compare()((*lower).first, k))
-				// 		lower++;
-				// 	// if (key_compare()((*lower).first, k))
-				// 	// 	lower++;
-				// 	if (lower +1!= end)
-				// 		lower--;
-				// 	return (lower);
-				// }
-
-
-				// //upper_bound
-				// iterator upper_bound(const key_type& k) {
-				// 	if (this->_storage == NULL)
-				// 		return end();
-				// 	iterator lower = this->begin();
-				// 	iterator end = this->end();
-				// 	while (lower != end && !key_compare()((*lower).first, k))
-				// 		lower++;
-				// 	// if (key_compare()((*lower).first, k))
-				// 	// 	lower--;
-				// 	if (lower != end)
-				// 		lower++;
-				// 	return (lower);
-
-				// }
-
-
-				// const_iterator upper_bound (const key_type& k) const {
-				// 	if (this->_storage == NULL)
-				// 		return end();
-				// 	map::const_iterator upper = this->begin();
-				// 	map::const_iterator end = this->end();
-				// 	while (upper != end && key_compare()(k, (*upper).first))
-				// 		upper++;
-				// 	if (upper != end)
-				// 		upper++;
-				// 	return (upper);
-				// }
+				// lower_bound
+				const_iterator lower_bound (const key_type& k) const {
+					if (count(k))
+						return find(k);
+					map::const_iterator it = begin();
+					while (it != end() && !key_compare()(k, (*it).first))
+						it++;
+					return (it);
+				}
+				//upper_bound
+				const_iterator upper_bound(const key_type& k) const {
+					map::const_iterator it = begin();
+					while (it != end() && !key_compare()(k, (*it).first))
+						it++;
+					return (it);
+				}
 
 
 				// //equal range
