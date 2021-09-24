@@ -1,0 +1,12 @@
+===default constructor with default underlying container===
+size = 0 _ empty = 1
+size = 1 _ empty = 0 _ top = 42
+size = 2 _ empty = 0 _ top = 21
+size = 1 _ empty = 0 _ top = 42
+===copy constructor with list as underlying container===
+size = 10 _ empty = 0 _ top = 9
+size = 11 _ empty = 0 _ top = 42
+size = 12 _ empty = 0 _ top = 21
+size = 11 _ empty = 0 _ top = 42
+size = 10 _ empty = 0 _ top = 9
+size = 9 _ empty = 0 _ top = 8

@@ -1,79 +1,50 @@
 #include <map>
 #include "Map.hpp"
 #include <iostream>
+#define MAG "\033[1;35m"
+
+template<class T, class U>
+bool equal(std::map<T, U>& real, ft::map<T, U>& mine)
+{
+	typename ft::map<T, U>::iterator m_it = mine.begin();
+
+	if (real.size() != mine.size())
+	{
+		std::cout << "\nSize not equal" << std::endl;
+		return false;
+	}
+	for (typename std::map<T, U>::iterator r_it = real.begin(); r_it != real.end(); r_it++, m_it++)
+		if (m_it->first != r_it->first || m_it->second != r_it->second)
+			return false;
+	return true;
+}
+
 
 int main() {
-	ft::map<char,int> mymap;
-	ft::pair<ft::map<char,int>::iterator,ft::map<char,int>::iterator> ret = mymap.equal_range('b');
-	ft::map<char, int>::iterator	itow = mymap.lower_bound ('b');  // itlow points to b
-	ft::map<char, int>::iterator	itp = mymap.upper_bound ('d');   // itup points to e (not d!)
+		std::cout << MAG << "Constructors :" << std::endl;
+	int test = 1;
 
-	mymap['a']=20;
-	itow = mymap.lower_bound ('b');
-	itp = mymap.upper_bound ('d');   // itup points to e (not d!)
-	std::cout << (*itow).first << " => " << (*itow).second << '\n';
-	if (itp == mymap.end())
-		std::cout << "null" << std::endl;
-	// std::cout << (*itp).first << " => " << (*itp).second << '\n';
+	ft::map<int, double> m_def;
+	std::map<int, double> r_def;
+	check_ok(test, equal(r_def, m_def));
 
-	std::cout << "rt" << std::endl;
-	mymap.erase(itow,itp);        // erases [itlow,itup)
-	std::cout << "fg" << std::endl;
-	mymap['b']=40;
-	mymap['c']=60;
-	mymap['d']=80;
-	mymap['e']=100;
+	std::vector<std::pair<int, double> > v;
+	std::vector<ft::pair<int, double> > v2;
+	for (int i = 0; i < 100; i++)
+	{
+		int r = rand() % 800;
+		v.push_back(std::pair<int, double>(i, r));
+		v2.push_back(ft::pair<int, double>(i, r));
+	}
 
-	itow = mymap.lower_bound ('b');
-	itp = mymap.upper_bound ('d');   // itup points to e (not d!)
+	ft::map<int, double> m_range(v2.begin(), v2.end());
+	std::map<int, double> r_range(v.begin(), v.end());
+	check_ok(test, equal(r_range, m_range));
 
-	mymap.erase(itow,itp);        // erases [itlow,itup)
+	ft::map<int, double> m_cpy(m_range);
+	std::map<int, double> r_cpy(r_range);
+	check_ok(test, equal(r_cpy, m_cpy));
 
-	for (ft::map<char,int>::iterator it = mymap.begin(); it != mymap.end(); ++it)
-		std::cout << (*it).first << " =er> " << (*it).second << '\n';
+	std::cout << "\n" << std::endl;
 
-
-ret = mymap.equal_range('b');
-	std::cout << "lower bound points to: ";
-	std::cout << (*ret.first).first << " => " << (*ret.first).second << '\n';
-
-	std::cout << "upper bound points to: ";
-	std::cout << (*ret.second).first << " => " << (*ret.second).second << '\n';
-
-	std::map<char,int> mmap;
-	std::pair<std::map<char,int>::iterator,std::map<char,int>::iterator> rt = mmap.equal_range('b');
-	std::map<char, int>::iterator	itlow = mmap.lower_bound ('b');  // itlow points to b
-	std::map<char, int>::iterator	itlp = mmap.upper_bound ('d');   // itup points to e (not d!)
-
-	mmap['a']=20;
-	itlow = mmap.lower_bound ('b');
-	itlp = mmap.upper_bound ('d');   // itup points to e (not d!)
-	// std::cout << itlow->first << " => " << itlow->second << '\n';
-	if (itlp == mmap.end())
-		std::cout << "null" << std::endl;
-std::cout << "fuck" << std::endl;
-	mmap.erase(itlow,itlp);        // erases [itlow,itup)
-rt = mmap.equal_range('b');
-	mmap['b']=40;
-	mmap['c']=60;
-	mmap['d']=80;
-	mmap['e']=100;
-
-	itlow = mmap.lower_bound ('b');
-	itlp = mmap.upper_bound ('d');   // itup points to e (not d!)
-
-	mmap.erase(itlow,itlp);        // erases [itlow,itup)
-
-	for (std::map<char,int>::iterator it = mmap.begin(); it != mmap.end(); ++it)
-		std::cout << (*it).first << " =et> " << (*it).second << '\n';
-
-rt = mmap.equal_range('b');
-
-	std::cout << "lower bound points to: ";
-	std::cout << (*rt.first).first << " => " << (*rt.first).second << '\n';
-
-	std::cout << "upper bound points to: ";
-	std::cout << (*rt.second).first << " => " << (*rt.second).second << '\n';
-
-	return 0;
 }

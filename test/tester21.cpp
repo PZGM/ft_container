@@ -3,7 +3,6 @@
 #include <stack>
 #include <vector>
 #include "../Stack/Stack.hpp"
-#include "../LisT/List.hpp"
 
 #ifdef STD
 using namespace std;

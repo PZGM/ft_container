@@ -3,7 +3,6 @@
 #include <stack>
 #include <vector>
 #include "../Stack/Stack.hpp"
-#include "../LisT/List.hpp"
 
 #ifdef STD
 using namespace std;
@@ -13,9 +12,9 @@ using namespace ft;
 
 int main()
 {
-	list<int> lst(10);
+	std::list<int> lst(10);
 	int i = 0;
-	for (list<int>::iterator it = lst.begin(); it != lst.end(); it++)
+	for (std::list<int>::iterator it = lst.begin(); it != lst.end(); it++)
 	{
 		*it = i;
 		i++;
@@ -36,7 +35,7 @@ int main()
 
 
 	std::cout << "===copy constructor with list as underlying container===" << std::endl;
-	stack<int, list<int> > stk3(lst);
+	stack<int, std::list<int> > stk3(lst);
 
 	std::cout << "size = " << stk3.size() << " _ empty = " << stk3.empty() << " _ top = " << stk3.top() << std::endl;
 	
