@@ -72,7 +72,7 @@ class AVL
 
 	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) //add recurcif
 	{
-		if (parent == rend || (parent != end && Compare()(newNode->data.first,parent->data.first)))
+		if (parent == rend || (parent != end && Compare()(parent->data.first, newNode->data.first)))
 		{
 			if (parent->right == NULL)
 			{
@@ -103,7 +103,7 @@ class AVL
 			return NULL;
 		if (root != end && root != end && root->data.first == val)
 			return root;
-		if (root == end || Compare()(root->data.first, val)) {
+		if (root == end || Compare()(val, root->data.first)) {
 			if (root->left)
 				return find_r(root->left, val);
 			return NULL;
