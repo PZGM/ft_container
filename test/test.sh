@@ -2,7 +2,7 @@
 
 
 san=""
-if [ ${ @: -1} = "san" ]
+if [ ${@: -1} = "san" ]
 then
 	san="-fsanitize=address"
 fi
@@ -11,7 +11,9 @@ if [ $# = 0 ] || [ $1 = "1" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	echo -n "STD : "
 	time c++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -30,7 +32,9 @@ if [ $# =  0 ] || [ $1 = "2" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 
 then
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	echo -n "STD : "
 	time c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -51,7 +55,9 @@ if [ $# = 0 ] || [ $1 = "3" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester3.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	echo -n "STD : "
 	time c++ tester3.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -71,7 +77,10 @@ if [ $# = 0 ] || [ $1 = "4" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -91,7 +100,10 @@ if [ $# = 0 ] || [ $1 = "5" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -111,7 +123,10 @@ if [ $# = 0 ] || [ $1 = "11" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester11.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester11.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -131,7 +146,10 @@ if [ $# = 0 ] || [ $1 = "12" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester12.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester12.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -151,7 +169,10 @@ if [ $# = 0 ] || [ $1 = "13" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester13.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester13.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -171,7 +192,10 @@ if [ $# = 0 ] || [ $1 = "14" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -190,7 +214,10 @@ if [ $# = 0 ] || [ $1 = "15" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester15.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester15.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -210,7 +237,10 @@ if [ $# = 0 ] || [ $1 = "16" ] || [ $1 = "map" ] || [[ $# = 1  &&  $1 = "san" ]]
 then
 
 	rm -f a.out ft.bin std.bin
+	echo -n "FT : "
 	time c++ tester16.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
 	time c++ tester16.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
@@ -229,8 +259,11 @@ if [ $# = 0 ] || [ $1 = "21" ] || [ $1 = "stack" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	c++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	c++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	echo -n "FT : "
+	time c++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
+	time c++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -251,8 +284,11 @@ if [ $# = 0 ] || [ $1 = "22" ] || [ $1 = "stack" ] || [[ $# = 1  &&  $1 = "san" 
 then
 
 	rm -f a.out ft.bin std.bin
-	c++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
-	c++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	echo -n "FT : "
+	time c++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+
+	echo -n "STD : "
+	time c++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
