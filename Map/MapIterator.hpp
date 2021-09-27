@@ -21,7 +21,7 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 						p = p->left;
 				}
 				else { 
-					while (p->parent && p == p->parent->right) //when root parent null
+					while (p->parent && p == p->parent->right)
 						p = p->parent;
 					p = p->parent;
 				}
@@ -60,7 +60,7 @@ class MapIterator : public std::iterator<std::input_iterator_tag, Key, Value>
 						p = p->right;
 				}
 				else { 
-					while (p->parent && p == p->parent->left) //when root parent null
+					while (p->parent && p == p->parent->left)
 						p = p->parent;
 					p = p->parent;
 				}
@@ -121,7 +121,7 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Va
 						p = p->right;
 				}
 				else { 
-					while (p->parent && p == p->parent->left) //when root parent null
+					while (p->parent && p == p->parent->left)
 						p = p->parent;
 					p = p->parent;
 				}
@@ -161,7 +161,7 @@ class MapReverseIterator : public std::iterator<std::input_iterator_tag, Key, Va
 						p = p->left;
 				}
 				else { 
-					while (p->parent && p == p->parent->right) //when root parent null
+					while (p->parent && p == p->parent->right)
 						p = p->parent;
 					p = p->parent;
 				}

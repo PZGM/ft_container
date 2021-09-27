@@ -12,9 +12,9 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester1.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 	echo -n "STD : "
-	time c++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester1.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -33,9 +33,9 @@ if [ $# =  0 ] || [ $1 = "2" ] || [ $1 = "vector" ] || [[ $# = 1  &&  $1 = "san"
 then
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 	echo -n "STD : "
-	time c++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester2.cpp -D DEK -D INT $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 			cat ft
@@ -56,9 +56,9 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester3.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester3.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 	echo -n "STD : "
-	time c++ tester3.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester3.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -78,10 +78,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester4.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester4.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -101,10 +101,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester5.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester5.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -124,10 +124,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester11.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester11.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester11.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester11.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -147,10 +147,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester12.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester12.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester12.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester12.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -170,10 +170,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester13.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester13.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester13.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester13.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -193,10 +193,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester14.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester14.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -215,10 +215,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester15.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester15.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester15.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester15.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -238,10 +238,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester16.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester16.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester16.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester16.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -260,10 +260,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester21.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester21.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft
@@ -285,10 +285,10 @@ then
 
 	rm -f a.out ft.bin std.bin
 	echo -n "FT : "
-	time c++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
+	time clang++ tester22.cpp $san -g3 -O0 -D FT -o ft.bin ; ./ft.bin > ft
 
 	echo -n "STD : "
-	time c++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
+	time clang++ tester22.cpp $san -g3 -O0 -D STD -o std.bin; ./std.bin > std
 
 	if [[ $2 = "ft" || $2 = "all" ]];then
 		cat ft

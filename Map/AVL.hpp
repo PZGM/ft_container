@@ -17,20 +17,16 @@ class AVL
 		Node<ft::pair<Key, Value> > *rend;
 		int size;
 
-	AVL() //contructeur avl class AVLTREE
+	AVL()
 	{
 		_node_alloc = Node_allocator_type();
 		root = NULL;
 		size = 0;
-//		ft::pair<Key, Value> pr = ft::make_pair('>', 0);
 		rend = _node_alloc.allocate(1);
 		_node_alloc.construct(rend);
-		// rend = new Node<ft::pair<Key, Value> >(pr);
 		root = rend;
-//		ft::pair<Key, Value> pr2 = ft::make_pair('<', 0);
 		end = _node_alloc.allocate(1);
 		_node_alloc.construct(end);
-		// end = new Node<ft::pair<Key, Value> >(pr2);
 		rend->right = end;
 		end->parent = rend;
 	}
@@ -47,30 +43,27 @@ class AVL
 			destroy(node->left);
 		_node_alloc.destroy(node);
 		_node_alloc.deallocate(node,1);
-		// delete node;
 	}
 
-	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) //add normal
+	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj) 
 	{
 		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
 		Node<ft::pair<Key, Value> > * node = _node_alloc.allocate(1);
 		_node_alloc.construct(node, pr);
-		// Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(root, node);
 		return node;
 	}
 
-	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) //add with hint
+	Node<ft::pair<Key, Value> >	* add(Key sec, Value obj, Node<ft::pair<Key, Value> > * nd) 
 	{
 		ft::pair<Key, Value> pr = ft::make_pair(sec, obj);
 		Node<ft::pair<Key, Value> > * node = _node_alloc.allocate(1);
 		_node_alloc.construct(node, pr);
-		// Node<ft::pair<Key, Value> > * node = new Node<ft::pair<Key, Value> >(pr);
 		add(nd, node);
 		return node;
 	}
 
-	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) //add recurcif
+	void	add(Node<ft::pair<Key, Value> > * parent, Node<ft::pair<Key, Value> > * newNode) 
 	{
 		if (parent == rend || (parent != end && Compare()(parent->data.first, newNode->data.first)))
 		{

@@ -176,11 +176,6 @@ namespace ft
 						}
 					}
 
-				void					print() {
-					if (_storage)
-						_storage->print();
-				}
-
 				//erase
 				void					erase(iterator position) {
 					_storage->remove(get_node(position));
@@ -221,6 +216,30 @@ namespace ft
 						it++;
 						_storage->remove(node);
 					}
+				}
+
+				key_compare key_comp() const{
+					return Compare();
+				}
+
+				class value_compare
+				{   // in C++98, it is required to inherit binary_function<value_type,value_type,bool>
+					friend class map;
+					protected:
+						Compare comp;
+						value_compare (Compare c) : comp(c) {}  // constructed with map's comparison object
+					public:
+						typedef bool result_type;
+						typedef value_type first_argument_type;
+						typedef value_type second_argument_type;
+						bool operator() (const value_type& x, const value_type& y) const
+						{
+							return comp(x.first, y.first);
+						}
+				};
+
+				value_compare value_comp() const{
+					return (value_compare(Compare()));
 				}
 
 				//find
@@ -282,7 +301,7 @@ namespace ft
 				}
 
 
-				// //equal range
+				//equal range
 				
 				pair<const_iterator,const_iterator> equal_range (const key_type& k) const {
 					pair<const_iterator, const_iterator> pair(lower_bound(k), upper_bound(k));

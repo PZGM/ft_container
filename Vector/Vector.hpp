@@ -47,7 +47,8 @@ namespace ft
 					}
 
 				vector(const vector& src, const allocator_type& alloc = allocator_type()) : _size(src._size), _capacity(src._capacity), _storage(NULL), _alloc(alloc){
-					_storage = _alloc.allocate(src._capacity);
+					if (src._capacity)
+						_storage = _alloc.allocate(src._capacity);
 					for (size_type i = 0; i < _size; i++)
 						_alloc.construct(&_storage[i], src._storage[i]);
 				}
@@ -211,7 +212,7 @@ namespace ft
 				}
 
 				void				pop_back() {
-					_alloc.destroy(&_storage[_size - 1]);//on tente on verra
+					_alloc.destroy(&_storage[_size - 1]);
 					_size--;
 				}
 
